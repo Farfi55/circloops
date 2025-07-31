@@ -21,11 +21,13 @@ var can_spawn_next_ring: bool = true
 
 func _ready():
 	# Setup drag plane from debug mesh once
-	var normal: Vector3 = -debug_plane_mesh.global_transform.basis.z.normalized()
+	var normal: Vector3 = debug_plane_mesh.global_transform.basis.y.normalized()
 	var origin: Vector3 = debug_plane_mesh.global_transform.origin
 	drag_plane = Plane(normal, origin)
-	print("normal: ", normal)
-	print("origin: ", origin)
+
+	print("Plane normal (camera forward): ", normal)
+	print("Plane origin (from mesh): ", origin)
+
 
 	_spawn_new_ring()
 
