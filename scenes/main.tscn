@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b81y76g7kncpr"]
+
+[ext_resource type="Script" uid="uid://2bkghq8a8gfq" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://b4kb37dtyjyof" path="res://scenes/level_loader.tscn" id="2_jyhfs"]
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_sugp2")
+
+[node name="LevelLoader" parent="." instance=ExtResource("2_jyhfs")]
+
+[node name="Game" type="Node3D" parent="."]
