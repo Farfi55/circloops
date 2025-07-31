@@ -4,7 +4,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f7lrs"]
 radius = 0.0501351
-height = 0.233451
+height = 0.23575
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28al2"]
 resource_name = "Material.001"
@@ -92,35 +92,43 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.244,
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.822253, 0.569122, 2.48771e-08, 0, -4.37114e-08, 1, 0.569122, -0.822253, -3.59418e-08, -0.200891, 0, -0.138947)
+transform = Transform3D(0.866025, -0.5, -2.18557e-08, 0, -4.37114e-08, 1, -0.5, -0.866025, -3.78552e-08, -0.211578, 0, 0.122072)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.822253, 0.569122, 2.48771e-08, 0, -4.37114e-08, 1, 0.569122, -0.822253, -3.59418e-08, 0.200604, 0, 0.138947)
+transform = Transform3D(0.866025, -0.5, -2.18557e-08, 0, -4.37114e-08, 1, -0.5, -0.866025, -3.78552e-08, 0.211291, 0, -0.122072)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.324066, 0.946034, 4.13525e-08, 0, -4.37114e-08, 1, 0.946034, -0.324066, -1.41654e-08, -0.0792619, 0, -0.230968)
+transform = Transform3D(0.5, -0.866025, -3.78552e-08, 0, -4.37114e-08, 1, -0.866025, -0.5, -2.18557e-08, -0.122215, 0, 0.211434)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.324066, 0.946034, 4.13525e-08, 0, -4.37114e-08, 1, 0.946034, -0.324066, -1.41654e-08, 0.0789752, 0, 0.230968)
+transform = Transform3D(0.5, -0.866025, -3.78552e-08, 0, -4.37114e-08, 1, -0.866025, -0.5, -2.18557e-08, 0.121928, 0, -0.211434)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.263334, 0.964705, 4.21686e-08, 0, -4.37114e-08, 1, 0.964705, 0.263334, 1.15107e-08, 0.0641479, 0, -0.235526)
+transform = Transform3D(0, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 0, -3.55271e-15, -0.000143491, 0, 0.244143)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D8" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.263334, 0.964705, 4.21686e-08, 0, -4.37114e-08, 1, 0.964705, 0.263334, 1.15107e-08, -0.0644347, 0, 0.235526)
+transform = Transform3D(0, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 0, -3.55271e-15, -0.000143506, 0, -0.244143)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D9" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.803919, 0.594739, 2.15188e-06, 1.39164e-06, -1.73708e-06, 1, 0.594739, 0.803919, 5.68787e-07, 0.196128, -3.39761e-07, -0.145201)
+transform = Transform3D(-0.5, -0.866025, -3.78552e-08, 0, -4.37114e-08, 1, -0.866025, 0.5, 2.18557e-08, 0.121928, 0, 0.211434)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="CollisionShape3D10" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.803919, 0.594739, 2.15188e-06, 1.39164e-06, -1.73708e-06, 1, 0.594739, 0.803919, 5.68787e-07, -0.196415, 3.39761e-07, 0.145201)
+transform = Transform3D(-0.5, -0.866025, -3.78552e-08, 0, -4.37114e-08, 1, -0.866025, 0.5, 2.18557e-08, -0.122215, 0, -0.211434)
+shape = SubResource("CapsuleShape3D_f7lrs")
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.866025, -0.5, -2.18557e-08, 0, -4.37114e-08, 1, -0.5, 0.866025, 3.78552e-08, 0.211291, 0, 0.122072)
+shape = SubResource("CapsuleShape3D_f7lrs")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.866025, -0.5, -2.18557e-08, 0, -4.37114e-08, 1, -0.5, 0.866025, 3.78552e-08, -0.211578, 0, -0.122072)
 shape = SubResource("CapsuleShape3D_f7lrs")
 
 [node name="gfx" type="Node3D" parent="."]

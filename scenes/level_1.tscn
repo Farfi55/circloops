@@ -1,9 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0ietrpt03xli"]
+[gd_scene load_steps=8 format=3 uid="uid://d0ietrpt03xli"]
 
 [ext_resource type="PackedScene" uid="uid://cuoo13t71derk" path="res://scenes/stage/stage.tscn" id="1_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_014kd"]
 [ext_resource type="PackedScene" uid="uid://rbx3r5qf2a31" path="res://scenes/player.tscn" id="1_rus8k"]
 [ext_resource type="PackedScene" uid="uid://ccinb35lqme1n" path="res://scenes/ring.tscn" id="2_bswci"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5xbjy"]
+size = Vector3(20.168, 2.32703, 15.54)
+
+[sub_resource type="Curve" id="Curve_5xbjy"]
+_limits = [0.0, 1.0, 0.0, 4.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(2.03213, 1), 0.0, 0.0, 0, 0, Vector2(4, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_4nkto"]
+_limits = [-1.0, 1.0, 0.0, 4.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(2, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(4, -1), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Node3D" type="Node3D"]
 
@@ -12,8 +25,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00222635, 0, -0.00584459)
 
 [node name="Stage" parent="Level" instance=ExtResource("1_5xbjy")]
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Level"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.663513, -3.85596)
+shape = SubResource("BoxShape3D_5xbjy")
+
 [node name="stick" parent="." instance=ExtResource("1_014kd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0166056, 1.8363, -0.0355892)
+movement_curve_x = SubResource("Curve_5xbjy")
+movement_curve_z = SubResource("Curve_4nkto")
 
 [node name="Player" parent="." instance=ExtResource("1_rus8k")]
 unique_name_in_owner = true
@@ -25,6 +46,7 @@ ring_container_path = NodePath("../RingsContainer")
 fov = 42.4
 
 [node name="ThrowPlane" parent="Player" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.994423, -0.105466, 0, 0.105466, 0.994423, 0.0256348, -0.767342, -1.00069)
 visible = false
 
 [node name="RingsContainer" type="Node3D" parent="."]

@@ -160,25 +160,27 @@ points = PackedVector3Array(0, 0.005, 0.000511932, 0, 0.005, 0, -0.00097592, 0.0
 [node name="stick" type="Node3D"]
 script = ExtResource("1_ld7er")
 
-[node name="Node3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, -1.42109e-14, 0, 1.42109e-14, 1, 6.63761e-09, 0.2, -2.07983e-08)
+[node name="parts" type="Node3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D"]
+[node name="stick" type="StaticBody3D" parent="parts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.63761e-09, 0.2, -2.07983e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="parts/stick"]
 transform = Transform3D(1, -5.03749e-05, 7.89286e-06, 5.03749e-05, 1, -4.76859e-05, -7.89286e-06, 4.76859e-05, 1, 0, 0.558989, -7.10543e-15)
 shape = SubResource("CapsuleShape3D_mvdot")
 
-[node name="stick" type="MeshInstance3D" parent="Node3D"]
+[node name="stick" type="MeshInstance3D" parent="parts/stick"]
 transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_4xwxc")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="base" type="StaticBody3D" parent="parts"]
 
-[node name="base" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="base" type="MeshInstance3D" parent="parts/base"]
 transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_i85t5")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="parts/base"]
 transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_mvdot")

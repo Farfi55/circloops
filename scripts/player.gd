@@ -16,7 +16,7 @@ var current_ring: Ring
 var dragging: bool = false
 var drag_plane: Plane
 var recent_positions: Array[Dictionary] = []
-const MAX_HISTORY: int = 4
+const MAX_HISTORY: int = 7
 var can_spawn_next_ring: bool = true
 
 
