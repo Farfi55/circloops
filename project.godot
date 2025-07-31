@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GlobalSignals="*res://scripts/global_signals.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [filesystem]
 
 import/blender/enabled=false

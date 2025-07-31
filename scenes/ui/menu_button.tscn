@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb5spn5kjos4c"]
+
+[ext_resource type="Theme" uid="uid://b6rmsmwox4hx1" path="res://scenes/ui/theme.tres" id="1_65sc8"]
+
+[node name="New Game" type="Button"]
+custom_minimum_size = Vector2(174.775, 42.645)
+size_flags_horizontal = 0
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Settings")
+theme = ExtResource("1_65sc8")
+text = "NEW GAME"
+flat = true
+language = "en"

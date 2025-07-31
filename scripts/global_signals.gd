@@ -1,5 +1,10 @@
 extends Node
 
-signal successful_throw(ring: Ring)
+@warning_ignore_start("unused_signal")
 
+signal successful_throw(ring: Ring)
 signal new_ring(ring: Ring)
+
+# UI
+signal new_game
+signal end_game

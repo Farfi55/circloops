@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b81y76g7kncpr"]
+[gd_scene load_steps=4 format=3 uid="uid://b81y76g7kncpr"]
 
 [ext_resource type="Script" uid="uid://diepx3fjvreu2" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b4kb37dtyjyof" path="res://scenes/level_loader.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://db0yuxxpjun34" path="res://scenes/ui/ui.tscn" id="3_sugp2"]
 
-[node name="MainScene" type="Control"]
+[node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_sugp2")
@@ -11,3 +12,5 @@ script = ExtResource("1_sugp2")
 [node name="LevelLoader" parent="." instance=ExtResource("2_jyhfs")]
 
 [node name="Game" type="Node3D" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("3_sugp2")]
