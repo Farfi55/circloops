@@ -24,58 +24,61 @@ albedo_color = Color(0.243429, 0.218781, 0.375853, 1)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Level" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00222635, 0, -0.00584459)
 
-[node name="Floor" type="StaticBody3D" parent="Level"]
+[node name="Floor" type="StaticBody3D" parent="Node3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_bswci")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386119, 0.00566125, -0.00762367)
 mesh = SubResource("PlaneMesh_rus8k")
 surface_material_override/0 = SubResource("StandardMaterial3D_5xbjy")
 
-[node name="Wall1" type="StaticBody3D" parent="Level"]
+[node name="Wall1" type="StaticBody3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98752, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Wall1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Wall1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, 0)
 shape = SubResource("BoxShape3D_4nkto")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Wall1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Wall1"]
 transform = Transform3D(-0.00389872, 0.999983, -0.00438243, -0.999991, -0.00389242, 0.00144442, 0.00142733, 0.00438803, 0.999989, 0.00118494, 1.00971, -0.0105138)
 mesh = SubResource("PlaneMesh_fcfvj")
 surface_material_override/0 = SubResource("StandardMaterial3D_pa8r4")
 
-[node name="Wall2" type="StaticBody3D" parent="Level"]
+[node name="Wall2" type="StaticBody3D" parent="Node3D"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.99888, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Wall2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Wall2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, 0)
 shape = SubResource("BoxShape3D_4nkto")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Wall2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Wall2"]
 transform = Transform3D(-0.00389872, 0.999983, -0.00438243, -0.999991, -0.00389242, 0.00144442, 0.00142733, 0.00438803, 0.999989, 0.00118494, 1.00971, -0.0105138)
 mesh = SubResource("PlaneMesh_fcfvj")
 surface_material_override/0 = SubResource("StandardMaterial3D_pa8r4")
 
-[node name="Wall3" type="StaticBody3D" parent="Level"]
+[node name="Wall3" type="StaticBody3D" parent="Node3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00111842, 0, -2)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Wall3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Wall3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, 0)
 shape = SubResource("BoxShape3D_4nkto")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Wall3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/Wall3"]
 transform = Transform3D(-0.00389872, 0.999983, -0.00438243, -0.999991, -0.00389242, 0.00144442, 0.00142733, 0.00438803, 0.999989, 0.00118494, 1.00971, -0.0105138)
 mesh = SubResource("PlaneMesh_fcfvj")
 surface_material_override/0 = SubResource("StandardMaterial3D_pa8r4")
 
 [node name="stick" parent="." instance=ExtResource("1_014kd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0166056, -1.78814e-07, -0.0355892)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("2_bswci")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.89641, 0.055, 1.28712)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.51331, 0)
@@ -86,13 +89,6 @@ spot_attenuation = 0.43
 spot_angle = 31.1636
 
 [node name="Player" parent="." instance=ExtResource("1_rus8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.214867, 2.14698, 3.76274)
-ring_scene = ExtResource("2_bswci")
-spawn_point_path = NodePath("../RingSpawnPoint")
-ring_container_path = NodePath("../RingsContainer")
-
-[node name="RingSpawnPoint" type="Node3D" parent="."]
-
-[node name="RingsContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.214867, 2.00434, 3.64656)
 
 [editable path="stick"]
