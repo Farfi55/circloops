@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bxm08a4jle66e"
-path="res://.godot/imported/stick.fbx-2d3c104d08c8aef9e819c3149412cdea.scn"
+uid="uid://dt8x86rxfkpcv"
+path="res://.godot/imported/old stage.fbx-884a83d58a189658a8902ffd0f04f916.scn"
 
 [deps]
 
-source_file="res://assets/stick/stick.fbx"
-dest_files=["res://.godot/imported/stick.fbx-2d3c104d08c8aef9e819c3149412cdea.scn"]
+source_file="res://assets/environment/stall/source/old stage.fbx"
+dest_files=["res://.godot/imported/old stage.fbx-884a83d58a189658a8902ffd0f04f916.scn"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://wiwpkk7gbaha"
-path="res://.godot/imported/ring.fbx-88db5dbf701bdb0fd605f6a0b4dd9eba.scn"
+path="res://.godot/imported/ring.fbx-354c1d2966186c703ba25ca672454673.scn"
 
 [deps]
 
-source_file="res://gfx/ring.fbx"
-dest_files=["res://.godot/imported/ring.fbx-88db5dbf701bdb0fd605f6a0b4dd9eba.scn"]
+source_file="res://assets/ring/ring.fbx"
+dest_files=["res://.godot/imported/ring.fbx-354c1d2966186c703ba25ca672454673.scn"]
 
 [params]
 
