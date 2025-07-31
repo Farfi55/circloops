@@ -4,26 +4,25 @@ extends CanvasLayer
 @onready var loading_screen: Control = $LoadingScreen
 @onready var game_over: Control = $GameOver
 
-
-func show_menu() -> void:
-	main_menu.visible = true
-	loading_screen.visible = false
-	game_over.visible = false
-
-func show_gui() -> void:
+func hide_all() -> void:
 	main_menu.visible = false
 	loading_screen.visible = false
 	game_over.visible = false
+
+func show_menu() -> void:
+	hide_all()
+	main_menu.visible = true
+
+func show_gui() -> void:
+	hide_all()
 	# add gui when/if available
 
 func show_loading() -> void:
-	main_menu.visible = false
+	hide_all()
 	loading_screen.visible = true
-	game_over.visible = false
 
 func show_game_over() -> void:
-	main_menu.visible = false
-	loading_screen.visible = false
+	hide_all()
 	game_over.visible = true
 
 func _on_play_pressed() -> void:

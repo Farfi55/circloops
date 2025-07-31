@@ -32,7 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.663513, -3.85596)
 shape = SubResource("BoxShape3D_5xbjy")
 
 [node name="stick" parent="." instance=ExtResource("1_014kd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0166056, 1.8363, -0.0355892)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0288431, 1.8363, -0.033514)
 movement_curve_x = SubResource("Curve_5xbjy")
 movement_curve_z = SubResource("Curve_4nkto")
 
@@ -46,7 +46,7 @@ ring_container_path = NodePath("../RingsContainer")
 fov = 42.4
 
 [node name="ThrowPlane" parent="Player" index="1"]
-transform = Transform3D(1, 0, 0, 0, 0.994423, -0.105466, 0, 0.105466, 0.994423, 0.0256348, -0.767342, -1.00069)
+transform = Transform3D(1, 0, 0, 0, 0.994423, -0.105466, 0, 0.105466, 0.994423, 0.0256348, -1.07984, -1.70162)
 visible = false
 
 [node name="RingsContainer" type="Node3D" parent="."]

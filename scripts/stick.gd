@@ -38,7 +38,7 @@ func _physics_process(_delta: float) -> void:
 	var base_position: Vector3 = $parts.global_position
 	# Compute ring alignment
 	var ring_up: Vector3 = tracked_ring.global_transform.basis.y.normalized()
-	var angle_deg: float = rad_to_deg(ring_up.angle_to(Vector3.UP))
+	var angle_deg: float = rad_to_deg(min(ring_up.angle_to(Vector3.UP), ring_up.angle_to(Vector3.DOWN)))
 
 	# Compute horizontal (XZ) distance from ring to stick base
 	var ring_pos := tracked_ring.global_transform.origin

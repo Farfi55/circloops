@@ -81,6 +81,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bjcuv")
 
 [node name="Ring" type="RigidBody3D"]
+angular_damp = 1.0
 script = ExtResource("1_03kdj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
