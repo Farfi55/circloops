@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://ca3c1jregsj11"]
-
-[node name="Player" type="Camera3D"]
-transform = Transform3D(0.999998, -0.00104557, 0.00157612, 0.000337303, 0.918538, 0.395333, -0.00186107, -0.395332, 0.918537, 0, 0, 0)
-fov = 39.0264

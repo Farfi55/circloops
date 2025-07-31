@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cuoo13t71derk" path="res://scenes/stage/stage.tscn" id="1_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_014kd"]
-[ext_resource type="PackedScene" uid="uid://c47plggws8kfd" path="res://scenes/player.tscn" id="1_rus8k"]
+[ext_resource type="PackedScene" uid="uid://rbx3r5qf2a31" path="res://scenes/player.tscn" id="1_rus8k"]
 [ext_resource type="PackedScene" uid="uid://ccinb35lqme1n" path="res://scenes/ring.tscn" id="2_bswci"]
 
 [node name="Node3D" type="Node3D"]
@@ -16,16 +16,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00222635, 0, -0.00584459)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0166056, 1.8363, -0.0355892)
 
 [node name="Player" parent="." instance=ExtResource("1_rus8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.214867, 8.32742, 9.82438)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324043, 5.44383, 4.91996)
 ring_scene = ExtResource("2_bswci")
-spawn_point_path = NodePath("../RingSpawnPoint")
 ring_container_path = NodePath("../RingsContainer")
 
 [node name="Camera3D" parent="Player" index="0"]
 fov = 42.4
 
-[node name="RingSpawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.58577, 6.06164)
+[node name="ThrowPlane" parent="Player" index="1"]
+visible = false
 
 [node name="RingsContainer" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.58577, 6.06164)

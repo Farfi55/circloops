@@ -16,8 +16,9 @@ var current_ring: Ring
 var dragging: bool = false
 var drag_plane: Plane
 var recent_positions: Array[Dictionary] = []
-const MAX_HISTORY: int = 5
+const MAX_HISTORY: int = 4
 var can_spawn_next_ring: bool = true
+
 
 func _ready():
 	# Setup drag plane from debug mesh once
@@ -94,8 +95,8 @@ func _spawn_new_ring():
 		return
 
 	var new_ring = ring_scene.instantiate() as Ring
-	new_ring.global_position = spawn_point.global_position
 	ring_container.add_child(new_ring)
 	current_ring = new_ring
-
+	GlobalSignals.new_ring.emit(new_ring)
+	
 	_start_drag()

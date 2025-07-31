@@ -2,7 +2,7 @@ class_name Ring
 extends RigidBody3D
 
 func begin_drag():
-	freeze = true # Stop simulation
+	freeze = true
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 
