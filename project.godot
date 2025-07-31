@@ -15,6 +15,10 @@ run/main_scene="uid://d0ietrpt03xli"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

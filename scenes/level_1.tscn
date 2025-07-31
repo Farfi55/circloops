@@ -1,98 +1,34 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0ietrpt03xli"]
+[gd_scene load_steps=5 format=3 uid="uid://d0ietrpt03xli"]
 
+[ext_resource type="PackedScene" uid="uid://cuoo13t71derk" path="res://scenes/stage/stage.tscn" id="1_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_014kd"]
-[ext_resource type="PackedScene" uid="uid://c47plggws8kfd" path="res://scenes/Player.tscn" id="1_rus8k"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="1_rus8k"]
 [ext_resource type="PackedScene" uid="uid://ccinb35lqme1n" path="res://scenes/ring.tscn" id="2_bswci"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bswci"]
-size = Vector3(4, 0.5, 4)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_rus8k"]
-size = Vector2(4, 4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5xbjy"]
-albedo_color = Color(0.2133, 0.269539, 0.0879027, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4nkto"]
-size = Vector3(0.5, 4, 4)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_fcfvj"]
-size = Vector2(4.01, 4.01)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pa8r4"]
-albedo_color = Color(0.243429, 0.218781, 0.375853, 1)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Level" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00222635, 0, -0.00584459)
 
-[node name="Floor" type="StaticBody3D" parent="Level"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shape = SubResource("BoxShape3D_bswci")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00386119, 0.00566125, -0.00762367)
-mesh = SubResource("PlaneMesh_rus8k")
-surface_material_override/0 = SubResource("StandardMaterial3D_5xbjy")
-
-[node name="Wall1" type="StaticBody3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98752, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Wall1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, 0)
-shape = SubResource("BoxShape3D_4nkto")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Wall1"]
-transform = Transform3D(-0.00389872, 0.999983, -0.00438243, -0.999991, -0.00389242, 0.00144442, 0.00142733, 0.00438803, 0.999989, 0.00118494, 1.00971, -0.0105138)
-mesh = SubResource("PlaneMesh_fcfvj")
-surface_material_override/0 = SubResource("StandardMaterial3D_pa8r4")
-
-[node name="Wall2" type="StaticBody3D" parent="Level"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.99888, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Wall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, 0)
-shape = SubResource("BoxShape3D_4nkto")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Wall2"]
-transform = Transform3D(-0.00389872, 0.999983, -0.00438243, -0.999991, -0.00389242, 0.00144442, 0.00142733, 0.00438803, 0.999989, 0.00118494, 1.00971, -0.0105138)
-mesh = SubResource("PlaneMesh_fcfvj")
-surface_material_override/0 = SubResource("StandardMaterial3D_pa8r4")
-
-[node name="Wall3" type="StaticBody3D" parent="Level"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.00111842, 0, -2)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Wall3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, 0)
-shape = SubResource("BoxShape3D_4nkto")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Wall3"]
-transform = Transform3D(-0.00389872, 0.999983, -0.00438243, -0.999991, -0.00389242, 0.00144442, 0.00142733, 0.00438803, 0.999989, 0.00118494, 1.00971, -0.0105138)
-mesh = SubResource("PlaneMesh_fcfvj")
-surface_material_override/0 = SubResource("StandardMaterial3D_pa8r4")
+[node name="Stage" parent="Level" instance=ExtResource("1_5xbjy")]
 
 [node name="stick" parent="." instance=ExtResource("1_014kd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0166056, -1.78814e-07, -0.0355892)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.51331, 0)
-light_color = Color(1, 1, 0.913725, 1)
-light_energy = 2.067
-spot_range = 8.02142
-spot_attenuation = 0.43
-spot_angle = 31.1636
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0166056, 1.8363, -0.0355892)
 
 [node name="Player" parent="." instance=ExtResource("1_rus8k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.214867, 2.14698, 3.76274)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.214867, 8.32742, 9.82438)
 ring_scene = ExtResource("2_bswci")
 spawn_point_path = NodePath("../RingSpawnPoint")
 ring_container_path = NodePath("../RingsContainer")
 
+[node name="Camera3D" parent="Player" index="0"]
+fov = 42.4
+
 [node name="RingSpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.58577, 6.06164)
 
 [node name="RingsContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.58577, 6.06164)
 
 [editable path="stick"]
+[editable path="Player"]
