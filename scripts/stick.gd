@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	$parts/stick.global_rotate(Vector3.UP, deg_to_rad(rotation_speed * _delta))
-	
+
 	if movement_curve_x:
 		_progress_curve_x += _delta
 		if _progress_curve_x >= movement_curve_x.max_domain:
@@ -29,12 +29,12 @@ func _physics_process(_delta: float) -> void:
 		if _progress_curve_z >= movement_curve_z.max_domain:
 			_progress_curve_z = _progress_curve_z - movement_curve_z.max_domain
 		$parts.position.z = movement_curve_z.sample(_progress_curve_z)
-	
-	
+
+
 	if tracked_ring == null or successful_throw:
 		return
-	
-	
+
+
 	var base_position: Vector3 = $parts.global_position
 	# Compute ring alignment
 	var ring_up: Vector3 = tracked_ring.global_transform.basis.y.normalized()
@@ -43,13 +43,14 @@ func _physics_process(_delta: float) -> void:
 	# Compute horizontal (XZ) distance from ring to stick base
 	var ring_pos := tracked_ring.global_transform.origin
 	var dist_xz := Vector2(ring_pos.x, ring_pos.z).distance_to(Vector2(base_position.x, base_position.z))
-	
+
 	var diff_y = abs(ring_pos.y - base_position.y)
 
 	# Check if it meets criteria
 	if angle_deg <= MAX_ANGLE_DIFF and dist_xz <= MAX_DISTANCE and diff_y <= MAX_HEIGHT_DIFF:
 		successful_throw = true
 		print("🎯 Ring landed successfully on the stick!")
+		tracked_ring.play_random_scored_sound()
 		GlobalSignals.successful_throw.emit(tracked_ring)
 
 func _exit_tree() -> void:
