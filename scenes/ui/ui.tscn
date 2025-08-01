@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
 [ext_resource type="Texture2D" uid="uid://padqwkvre52o" path="res://assets/environment/circus.jpg" id="2_0dwhk"]
 [ext_resource type="Shader" uid="uid://crcu38sdbpfox" path="res://scenes/ui/loading.gdshader" id="3_aac20"]
-[ext_resource type="Shader" uid="uid://xv2o7fn7gsd6" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
+[ext_resource type="Shader" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
 shader = ExtResource("6_pfayw")
@@ -109,7 +109,6 @@ text = "QUIT"
 alignment = 0
 
 [node name="Settings" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,6 +121,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -325.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3

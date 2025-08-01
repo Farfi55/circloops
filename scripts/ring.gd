@@ -21,6 +21,8 @@ var scored_sounds: Array[AudioStream] = [
 
 var last_hit_time := 0.0
 var hit_cooldown := 0.2  # Minimum time in seconds between sounds
+var flown_at_time = 0.0;
+
 
 var is_flying = false
 var target_stick: Stick = null;
@@ -38,6 +40,7 @@ func end_drag(throw_velocity: Vector3, spin_velocity: Vector3 = Vector3.ZERO):
 	freeze = false
 	linear_velocity = throw_velocity
 	angular_velocity = spin_velocity
+	flown_at_time = Time.get_ticks_msec() / 1000.0
 	$destructionTimer.start()
 	is_flying = true
 	target_stick = _find_closest_stick()
@@ -98,7 +101,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	is_flying = false
 	var current_time = Time.get_ticks_msec() / 1000.0
-	if current_time - last_hit_time < hit_cooldown:
+	if current_time - last_hit_time < hit_cooldown or current_time - flown_at_time > 6.0:
 		return
 
 	last_hit_time = current_time
@@ -125,16 +128,15 @@ func _on_body_entered(body: Node) -> void:
 
 	# Combine speed and angle factor
 	var impact_strength = speed * angle_factor
-	
+	print(impact_strength)
 	# Map to decibel range
-	var audio_volume = remap_range(impact_strength, 0.0, 4.0, -30.0, 5.0)
+	var audio_volume = remap_range(impact_strength, 0.0, 5.0, -40.0, 5.0)
 	hit_sfx.volume_db = clamp(audio_volume, -50.0, 5.0)
 
 	play_random_hit_sound()
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	print("body entered: " + body.name)
 	if body.name == "stick":
 		in_stick = true
 		print("in_stick " + str(in_stick))
