@@ -22,11 +22,17 @@ GlobalVariables="*res://scripts/global_variables.gd"
 
 [display]
 
+window/size/viewport_width=1825
+window/size/viewport_height=875
 window/stretch/mode="viewport"
 
 [filesystem]
 
 import/blender/enabled=false
+
+[global_group]
+
+sticks=""
 
 [input]
 

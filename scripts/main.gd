@@ -11,6 +11,8 @@ var isInGame: bool = false
 var isPaused: bool = false
 var current_level: Node3D
 
+@export var level_to_load = 1 
+
 func _ready() -> void:
 	GlobalSignals.new_game.connect(_on_new_game)
 	GlobalSignals.pause.connect(_on_pause)
@@ -28,7 +30,7 @@ func _on_new_game() -> void:
 	
 	ui.show_gui()
 	
-	current_level = level_loader.get_level(1)
+	current_level = level_loader.get_level(level_to_load)
 	level_container.add_child(current_level)
 	isInGame = true
 	isPaused = false

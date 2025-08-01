@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch732cqed5n2o"]
+
+[ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_o8c3j"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="stick" parent="." instance=ExtResource("1_o8c3j")]
+rotation_speed = 0.0
+
+[node name="stick" parent="stick/parts" index="0"]
+transform = Transform3D(0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 1, 6.63761e-09, 0.2, -2.07983e-08)
+
+[node name="stick" parent="stick/parts/stick" index="1"]
+transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+
+[editable path="stick"]

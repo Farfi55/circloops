@@ -1,3 +1,4 @@
+class_name Stick
 extends Node3D
 
 const MAX_ANGLE_DIFF := 70.0 # degrees
@@ -16,6 +17,7 @@ var _progress_curve_z := 0.0;
 func _ready() -> void:
 	GlobalSignals.new_ring.connect(_on_new_ring)
 	print(name + " 	loaded")
+	add_to_group("sticks")
 
 func _on_new_ring(ring: Ring):
 	tracked_ring = ring

@@ -22,6 +22,9 @@ var scored_sounds: Array[AudioStream] = [
 var last_hit_time := 0.0
 var hit_cooldown := 0.2  # Minimum time in seconds between sounds
 
+var is_flying = false
+var target_stick: Stick = null;
+
 func begin_drag():
 	freeze = true
 	linear_velocity = Vector3.ZERO
@@ -33,6 +36,8 @@ func end_drag(throw_velocity: Vector3, spin_velocity: Vector3 = Vector3.ZERO):
 	linear_velocity = throw_velocity
 	angular_velocity = spin_velocity
 	$destructionTimer.start()
+	is_flying = true
+	target_stick = _find_closest_stick()
 
 
 func _on_destruction_timer_timeout() -> void:
@@ -54,7 +59,30 @@ func play_random_scored_sound():
 func remap_range(value, InputA, InputB, OutputA, OutputB):
 	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
 
+func _find_closest_stick() -> Stick:
+	var closest: Stick = null
+	var closest_dist := INF
+	for stick in get_tree().get_nodes_in_group("sticks"):
+		if stick is Stick:
+			var dist := global_position.distance_to(stick.get_child(0).global_position)
+			if dist < closest_dist:
+				closest = stick
+				closest_dist = dist
+	return closest
+	
+	
+func _physics_process(delta: float) -> void:
+	if is_flying and target_stick:
+		var x_diff = target_stick.get_child(0).global_position.x - global_position.x
+		var x_diff_abs = abs(x_diff)
+		var direction = sign(x_diff)
+		var force_strength = clamp((x_diff * x_diff) * 20.0, 0.0, 200.0) * delta
+		apply_central_force(Vector3.RIGHT * direction * force_strength)
+
+
+
 func _on_body_entered(body: Node) -> void:
+	is_flying = false
 	var current_time = Time.get_ticks_msec() / 1000.0
 	if current_time - last_hit_time < hit_cooldown:
 		return
