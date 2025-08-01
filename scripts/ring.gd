@@ -38,6 +38,7 @@ func end_drag(throw_velocity: Vector3, spin_velocity: Vector3 = Vector3.ZERO):
 	$destructionTimer.start()
 	is_flying = true
 	target_stick = _find_closest_stick()
+	GlobalSignals.ring_thrown.emit(self)
 
 
 func _on_destruction_timer_timeout() -> void:
@@ -76,7 +77,7 @@ func _physics_process(delta: float) -> void:
 		var x_diff = target_stick.get_child(0).global_position.x - global_position.x
 		var x_diff_abs = abs(x_diff)
 		var direction = sign(x_diff)
-		var force_strength = clamp((x_diff * x_diff) * 20.0, 0.0, 200.0) * delta
+		var force_strength = clamp(x_diff_abs * 40.0, 0.0, 200.0) * delta
 		apply_central_force(Vector3.RIGHT * direction * force_strength)
 
 

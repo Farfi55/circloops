@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b8rf3or72kyd4"]
+
+[ext_resource type="Texture2D" uid="uid://dj2ee5bpmc2cf" path="res://assets/stand/assets/materials/istockphoto-182061790-612x612.jpg" id="1_cakn8"]
+
+[resource]
+albedo_color = Color(0.3391, 0.206437, 0.0825407, 1)
+albedo_texture = ExtResource("1_cakn8")

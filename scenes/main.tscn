@@ -27,7 +27,7 @@ transform = Transform3D(1, 0, 0, 0, 0.957229, 0.289333, 0, -0.289333, 0.957229, 
 fov = 28.7389
 
 [node name="ThrowPlane" parent="Game/Player" index="1"]
-transform = Transform3D(1, 0, 0, 0, 0.882439, -0.470427, 0, 0.470427, 0.882439, 0, -0.747644, -2.45822)
+transform = Transform3D(1, 0, 0, 0, 0.882439, -0.470427, 0, 0.470427, 0.882439, 0, -1.28238, -2.45822)
 visible = false
 
 [node name="RingContainer" type="Node3D" parent="Game"]

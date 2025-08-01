@@ -12,15 +12,23 @@ var isInGame: bool = false
 var isPaused: bool = false
 var current_level: Node3D
 
+var rings_thrown_level := 0
+var rings_thrown_total := 0
+var level_loaded_at_time := 0.0
+
 func _ready() -> void:
 	GlobalSignals.pause.connect(_on_pause)
 	GlobalSignals.level_closed.connect(_on_level_closed)
 	GlobalSignals.quit.connect(_on_quit)
 	GlobalSignals.level_won.connect(_on_level_won)
+
 	GlobalSignals.level_opened.connect(_on_level_opened)
 	
-	GlobalVariables.current_level = level_loader.get_level(1)
+	GlobalSignals.ring_thrown.connect(_on_ring_thrown)
+
 	
+	GlobalVariables.current_level = level_loader.get_level(1)
+
 	ui.show_menu()
 
 func _on_level_opened() -> void:
@@ -63,3 +71,7 @@ func quit() -> void:
 func _on_quit() -> void:
 	# Save level state
 	quit()
+	
+func _on_ring_thrown(ring: Ring):
+	rings_thrown_level += 1
+	rings_thrown_total += 1
