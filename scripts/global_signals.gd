@@ -10,3 +10,4 @@ signal new_game
 signal pause(state: bool)
 signal level_closed
 signal game_over
+signal quit

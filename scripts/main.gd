@@ -15,6 +15,7 @@ func _ready() -> void:
 	GlobalSignals.new_game.connect(_on_new_game)
 	GlobalSignals.pause.connect(_on_pause)
 	GlobalSignals.level_closed.connect(_on_level_closed)
+	GlobalSignals.quit.connect(_on_quit)
 	
 	ui.show_menu()
 	
@@ -45,10 +46,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_pause(state:bool) -> void:
 	if state == true:
-		print("GAME PAUSED")
 		Engine.time_scale = TIME_SCALE_ZERO
 	else:
-		print("GAME RESUMED")
 		Engine.time_scale = TIME_SCALE
 
 func _on_level_closed():
@@ -57,3 +56,7 @@ func _on_level_closed():
 
 func quit() -> void:
 	get_tree().quit()
+
+func _on_quit() -> void:
+	# Save level state
+	quit()

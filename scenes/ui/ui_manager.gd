@@ -42,3 +42,6 @@ func _on_main_menu_pressed() -> void:
 	hide_all()
 	GlobalSignals.level_closed.emit()
 	main_menu.visible = true
+
+func _on_quit_pressed() -> void:
+	GlobalSignals.quit.emit()
