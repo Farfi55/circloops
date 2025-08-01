@@ -56,6 +56,7 @@ func _physics_process(_delta: float) -> void:
 		print("🎯 Ring landed successfully on the stick!")
 		tracked_ring.play_random_scored_sound()
 		GlobalSignals.successful_throw.emit(tracked_ring)
+		GlobalSignals.level_won.emit()
 
 func _exit_tree() -> void:
 	GlobalSignals.new_ring.disconnect(_on_new_ring)

@@ -6,6 +6,8 @@ extends CanvasLayer
 @onready var gui: Control = $GUI
 @onready var settings: Control = $Settings
 @onready var bg: TextureRect = $Circus
+@onready var winning: Control = $Winning
+
 @onready var music_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider
 @onready var sfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider
 
@@ -14,6 +16,8 @@ var inGame: bool = false
 func _ready() -> void:
 	music_slider.value = GlobalVariables.INITIAL_VOLUME
 	sfx_slider.value = GlobalVariables.INITIAL_VOLUME
+	
+	GlobalSignals.level_won.connect(_on_level_won)
 
 func hide_all() -> void:
 	main_menu.visible = false
@@ -21,7 +25,9 @@ func hide_all() -> void:
 	pause.visible = false
 	gui.visible = false
 	settings.visible = false
+	winning.visible = false
 	bg.visible = false
+	
 	GlobalSignals.pause.emit(pause.visible)
 
 func show_menu() -> void:
@@ -45,6 +51,10 @@ func show_loading() -> void:
 func show_game_over() -> void:
 	hide_all()
 	#game_over.visible = true
+
+func show_winning() -> void:
+	hide_all()
+	winning.visible = true
 
 func show_settings() -> void:
 	hide_all()
@@ -74,6 +84,9 @@ func _on_back_pressed() -> void:
 		show_pause()
 	else:
 		show_menu()
+		
+func _on_level_won() -> void:
+	show_winning()
 
 func _on_music_slider_value_changed(value: float) -> void:
 	GlobalSignals.music_volume_changed.emit(get_clamped_volume_db(value))
@@ -84,3 +97,6 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 func get_clamped_volume_db(volume_percent: float) -> float:
 	var norm = clamp(volume_percent / 100.0, 0.0, 1.0)
 	return linear_to_db(norm)
+
+func _on_next_level_pressed() -> void:
+	pass # Replace with function body.

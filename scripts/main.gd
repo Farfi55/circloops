@@ -16,6 +16,7 @@ func _ready() -> void:
 	GlobalSignals.pause.connect(_on_pause)
 	GlobalSignals.level_closed.connect(_on_level_closed)
 	GlobalSignals.quit.connect(_on_quit)
+	GlobalSignals.level_won.connect(_on_level_won)
 	
 	ui.show_menu()
 	
@@ -50,6 +51,10 @@ func _on_pause(state:bool) -> void:
 		Engine.time_scale = TIME_SCALE_ZERO
 	else:
 		Engine.time_scale = TIME_SCALE
+
+func _on_level_won() -> void:
+	#Engine.time_scale = TIME_SCALE_ZERO
+	pass
 
 func _on_level_closed():
 	level_container.remove_child(current_level)

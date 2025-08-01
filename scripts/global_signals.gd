@@ -9,6 +9,7 @@ signal new_ring(ring: Ring)
 signal new_game
 signal pause(state: bool)
 signal level_closed
+signal level_won
 signal game_over
 signal quit
 

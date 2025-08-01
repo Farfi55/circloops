@@ -33,6 +33,7 @@ shader_parameter/circle_color = Color(1, 1, 1, 1)
 script = ExtResource("1_f5cxw")
 
 [node name="Circus" type="TextureRect" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -85,7 +86,7 @@ theme_override_constants/separation = 115
 [node name="Title" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
-text = "RAGELOOPS"
+text = "CIRCOOPS"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_direction = 1
@@ -110,6 +111,7 @@ text = "QUIT"
 alignment = 0
 
 [node name="Settings" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -326,6 +328,57 @@ text = "MAIN MENU
 "
 alignment = 0
 
+[node name="Winning" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Winning"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.631373)
+
+[node name="MarginContainer" type="MarginContainer" parent="Winning"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Winning/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Winning/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 141
+text = "You Won!"
+horizontal_alignment = 1
+
+[node name="NextLevel" parent="Winning/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "NEXT LEVEL"
+
+[node name="MainMenu" parent="Winning/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MAIN MENU
+"
+
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
@@ -335,3 +388,5 @@ alignment = 0
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Winning/MarginContainer/VBoxContainer/NextLevel" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="Winning/MarginContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
