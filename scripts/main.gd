@@ -1,7 +1,7 @@
 extends Control
 
 @onready var level_loader: Node = $LevelLoader
-@onready var game: Node3D = $Game
+@onready var level_container: Node3D = $Game/LevelContainer
 @onready var ui: CanvasLayer = $UI
 
 const TIME_SCALE: float = 1.0
@@ -21,13 +21,14 @@ func _ready() -> void:
 	
 	#var level: Node3D = level_loader.get_level(1)
 	#print("Level loaded: " +  level.name)
-	#game.add_child(level)
+	#level_container.add_child(level)
 
 func _on_new_game() -> void:
+	
 	ui.show_gui()
 	
 	current_level = level_loader.get_level(1)
-	game.add_child(current_level)
+	level_container.add_child(current_level)
 	isInGame = true
 	isPaused = false
 	
@@ -51,7 +52,7 @@ func _on_pause(state:bool) -> void:
 		Engine.time_scale = TIME_SCALE
 
 func _on_level_closed():
-	game.remove_child(current_level)
+	level_container.remove_child(current_level)
 	current_level = null
 
 func quit() -> void:

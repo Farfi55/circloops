@@ -1,16 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://rbx3r5qf2a31"]
+[gd_scene load_steps=8 format=3 uid="uid://rbx3r5qf2a31"]
 
 [ext_resource type="Script" uid="uid://1lbvl2mc6nxc" path="res://scripts/player.gd" id="1_p0vlq"]
+[ext_resource type="Texture2D" uid="uid://ceepfbx54k5pw" path="res://assets/stand/assets/materials/cgaxis_hdri_skies_03_15-1.jpg" id="2_g2els"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qhqgy"]
+panorama = ExtResource("2_g2els")
+
+[sub_resource type="Sky" id="Sky_dqkch"]
+sky_material = SubResource("PanoramaSkyMaterial_qhqgy")
 
 [sub_resource type="Environment" id="Environment_bswci"]
-ambient_light_color = Color(0.244776, 0.244776, 0.244776, 1)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_p0vlq"]
+background_mode = 2
+sky = SubResource("Sky_dqkch")
+ambient_light_source = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6fml"]
 transparency = 1
-albedo_color = Color(0.298039, 1, 1, 0.392157)
-albedo_texture = SubResource("PlaceholderTexture2D_p0vlq")
+albedo_color = Color(1, 1, 1, 0.376471)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_p0vlq"]
 material = SubResource("StandardMaterial3D_v6fml")

@@ -20,6 +20,8 @@ var scored_sounds: Array[AudioStream] = [
 var last_hit_time := 0.0
 var hit_cooldown := 0.2  # Minimum time in seconds between sounds
 
+
+
 func begin_drag():
 	freeze = true
 	linear_velocity = Vector3.ZERO

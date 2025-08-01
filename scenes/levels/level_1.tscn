@@ -7,7 +7,7 @@
 [node name="stick" parent="." instance=ExtResource("2_6761a")]
 rotation_speed = 0.0
 
-[node name="RingsContainer" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.58577, 6.06164)
+[node name="stick" parent="stick/parts/stick" index="1"]
+transform = Transform3D(100, 0, 0, 0, 25.8819, 96.5926, 0, -96.5926, 25.8819, 0, 0, 0)
 
 [editable path="stick"]
