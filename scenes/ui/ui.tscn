@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://db0yuxxpjun34"]
+[gd_scene load_steps=8 format=3 uid="uid://db0yuxxpjun34"]
 
 [ext_resource type="Script" uid="uid://btatrl7qc3msq" path="res://scenes/ui/ui_manager.gd" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
+[ext_resource type="Texture2D" uid="uid://padqwkvre52o" path="res://assets/environment/circus.jpg" id="2_0dwhk"]
 [ext_resource type="Shader" uid="uid://crcu38sdbpfox" path="res://scenes/ui/loading.gdshader" id="3_aac20"]
-[ext_resource type="Shader" uid="uid://dmxufnelctc6s" path="res://scenes/ui/blur.gdshader" id="3_g5kmx"]
+[ext_resource type="Shader" uid="uid://xv2o7fn7gsd6" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5kmx"]
 shader = ExtResource("3_aac20")
@@ -14,26 +15,51 @@ shader_parameter/count = 9
 shader_parameter/fade_power = 2.87
 shader_parameter/circle_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0dwhk"]
-shader = ExtResource("3_g5kmx")
-shader_parameter/blur_size = Vector2(2, 2)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
+shader = ExtResource("6_pfayw")
+shader_parameter/shake = 0.015
+shader_parameter/noiseQuality = 250.0
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.0045
+shader_parameter/colorOffsetIntensity = 0.2
+shader_parameter/pixelSize = 1024.0
+shader_parameter/grainIntensity = 0.055
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = true
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.01
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_f5cxw")
 
 [node name="MainMenu" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Circus" type="TextureRect" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -10.0
+offset_right = 16.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_0dwhk")
+expand_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 935.0
-offset_bottom = 591.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -139,13 +165,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Pause"]
-material = SubResource("ShaderMaterial_0dwhk")
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 0.631373)
 
 [node name="MarginContainer" type="MarginContainer" parent="Pause"]
 layout_mode = 1
@@ -192,6 +219,15 @@ focus_neighbor_bottom = NodePath(".")
 text = "MAIN MENU
 "
 alignment = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_pfayw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
