@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b81y76g7kncpr"]
+[gd_scene load_steps=7 format=3 uid="uid://b81y76g7kncpr"]
 
 [ext_resource type="Script" uid="uid://diepx3fjvreu2" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b4kb37dtyjyof" path="res://scenes/level_loader.tscn" id="2_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://db0yuxxpjun34" path="res://scenes/ui/ui.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://dep1yimw0cu5r" path="res://assets/stand/stand.fbx" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://rbx3r5qf2a31" path="res://scenes/player.tscn" id="5_tefeu"]
+[ext_resource type="PackedScene" uid="uid://wiwpkk7gbaha" path="res://assets/ring/ring.fbx" id="6_tefeu"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -13,4 +16,45 @@ script = ExtResource("1_sugp2")
 
 [node name="Game" type="Node3D" parent="."]
 
+[node name="stand" parent="Game" instance=ExtResource("3_tbgi4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.661, 0)
+
+[node name="Player" parent="Game" instance=ExtResource("5_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000976563, 6.19794, 7.7294)
+ring_scene = ExtResource("6_tefeu")
+ring_container_path = NodePath("../RingContainer")
+
+[node name="Camera3D" parent="Game/Player" index="0"]
+transform = Transform3D(0.999998, -0.00104557, 0.00157612, 0.000589738, 0.964133, 0.265418, -0.0017971, -0.265416, 0.964132, 0.0298462, -0.102089, -0.387473)
+
+[node name="ThrowPlane" parent="Game/Player" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.954906, -0.296908, 0, 0.296908, 0.954906, 0.0256349, -2.29031, -2.89425)
+
+[node name="RingContainer" type="Node3D" parent="Game"]
+transform = Transform3D(0.999997, 0.00176252, -0.00153199, -0.00176232, 0.999998, 0.000128713, 0.00153222, -0.000126006, 0.999999, -0.00134277, 0.0184174, -0.00183105)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Game"]
+transform = Transform3D(0.709789, -0.251355, 0.658043, 0.0384475, 0.946601, 0.320106, -0.703364, -0.201908, 0.681551, 22, 11.9087, 0)
+light_energy = 0.2
+light_indirect_energy = 5.0
+shadow_enabled = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Game"]
+transform = Transform3D(0.930213, -0.176385, -0.321856, 0.359527, 0.261633, 0.895706, -0.0737804, -0.948913, 0.30679, -4.93598, 7.66296, -0.8002)
+light_color = Color(0.951989, 0.766704, 0.400935, 1)
+light_energy = 6.907
+light_indirect_energy = 3.0
+spot_range = 22.6033
+spot_angle = 59.6464
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Game"]
+transform = Transform3D(0.812773, -0.16809, 0.557805, -0.406608, 0.522026, 0.749773, -0.417218, -0.836203, 0.355941, 3.977, 7.663, 0.149688)
+light_color = Color(0.488869, 0.532398, 0.936744, 1)
+light_energy = 6.907
+light_indirect_energy = 3.0
+spot_range = 19.9085
+spot_angle = 63.082
+
 [node name="UI" parent="." instance=ExtResource("3_sugp2")]
+
+[editable path="Game/Player"]

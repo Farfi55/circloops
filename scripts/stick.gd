@@ -14,7 +14,10 @@ var _progress_curve_x := 0.0;
 var _progress_curve_z := 0.0;
 
 func _ready() -> void:
-	GlobalSignals.new_ring.connect(func(ring): tracked_ring = ring)
+	GlobalSignals.new_ring.connect(_on_new_ring)
+
+func _on_new_ring(ring: Ring):
+	tracked_ring = ring
 
 func _physics_process(_delta: float) -> void:
 	$parts/stick.global_rotate(Vector3.UP, deg_to_rad(rotation_speed * _delta))
@@ -54,4 +57,4 @@ func _physics_process(_delta: float) -> void:
 		GlobalSignals.successful_throw.emit(tracked_ring)
 
 func _exit_tree() -> void:
-	GlobalSignals.new_ring.disconnect(func(ring): tracked_ring = ring)
+	GlobalSignals.new_ring.disconnect(_on_new_ring)
