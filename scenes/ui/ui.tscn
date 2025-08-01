@@ -328,6 +328,7 @@ alignment = 0
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/VFXSlider" to="." method="_on_vfx_slider_value_changed"]
 [connection signal="pressed" from="Settings/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
