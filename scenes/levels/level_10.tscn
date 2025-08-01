@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbf3nmsaoibh0"]
+
+[ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_2k7im"]
+
+[sub_resource type="Curve" id="Curve_2k7im"]
+_limits = [-1.0, 1.0, 0.0, 8.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(3.98131, -0.991095), 0.0, 0.0, 0, 0, Vector2(8, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7yg2"]
+transparency = 1
+albedo_color = Color(0.835294, 1, 1, 0.352941)
+
+[sub_resource type="QuadMesh" id="QuadMesh_xlc0a"]
+material = SubResource("StandardMaterial3D_t7yg2")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_62qgl"]
+size = Vector3(3.71777, 4.62073, 0.327393)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="stick" parent="." instance=ExtResource("1_2k7im")]
+transform = Transform3D(1, 0.000470853, -0.000381571, -0.000470796, 1, 0.000165865, 0.000381642, -0.000165703, 1, 0, 0, 0)
+rotation_speed = 0.0
+movement_curve_z = SubResource("Curve_2k7im")
+
+[node name="stick" parent="stick/parts" index="0"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 6.63761e-09, 0.2, -2.07983e-08)
+
+[node name="stick" parent="stick/parts/stick" index="1"]
+transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.51751, 1.88837, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(3.80917, 0, 0, 0, 4.99913, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("QuadMesh_xlc0a")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.211609, -0.11438)
+shape = SubResource("BoxShape3D_62qgl")
+
+[editable path="stick"]

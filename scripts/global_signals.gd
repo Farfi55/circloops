@@ -4,6 +4,7 @@ extends Node
 
 signal successful_throw(ring: Ring)
 signal new_ring(ring: Ring)
+signal ring_thrown(ring: Ring)
 
 # UI
 signal pause(state: bool)
