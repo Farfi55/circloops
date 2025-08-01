@@ -6,6 +6,20 @@
 [ext_resource type="Shader" uid="uid://crcu38sdbpfox" path="res://scenes/ui/loading.gdshader" id="3_aac20"]
 [ext_resource type="Shader" uid="uid://xv2o7fn7gsd6" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
+shader = ExtResource("6_pfayw")
+shader_parameter/shake = 0.015
+shader_parameter/noiseQuality = 175.7
+shader_parameter/noiseIntensity = 0.001
+shader_parameter/offsetIntensity = 0.0014
+shader_parameter/colorOffsetIntensity = 0.2
+shader_parameter/pixelSize = 500.0
+shader_parameter/grainIntensity = 0.07
+shader_parameter/use_overlay = true
+shader_parameter/use_lens_distortion = true
+shader_parameter/overlay_color = Color(1, 1, 1, 10)
+shader_parameter/lens_distortion_strength = 0.01
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5kmx"]
 shader = ExtResource("3_aac20")
 shader_parameter/radius = 0.043
@@ -15,33 +29,10 @@ shader_parameter/count = 9
 shader_parameter/fade_power = 2.87
 shader_parameter/circle_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
-shader = ExtResource("6_pfayw")
-shader_parameter/shake = 0.015
-shader_parameter/noiseQuality = 250.0
-shader_parameter/noiseIntensity = 0.001
-shader_parameter/offsetIntensity = 0.0045
-shader_parameter/colorOffsetIntensity = 0.2
-shader_parameter/pixelSize = 1024.0
-shader_parameter/grainIntensity = 0.055
-shader_parameter/use_overlay = true
-shader_parameter/use_lens_distortion = true
-shader_parameter/overlay_color = Color(1, 1, 1, 10)
-shader_parameter/lens_distortion_strength = 0.01
-
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_f5cxw")
 
-[node name="MainMenu" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Circus" type="TextureRect" parent="MainMenu"]
-layout_mode = 1
+[node name="Circus" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -54,6 +45,24 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_0dwhk")
 expand_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_pfayw")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MainMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 1
@@ -76,7 +85,7 @@ theme_override_constants/separation = 115
 [node name="Title" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
-text = "CIRCOOPS"
+text = "RAGELOOPS"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_direction = 1
@@ -91,7 +100,6 @@ alignment = 0
 [node name="Settings" parent="MainMenu/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
 focus_neighbor_bottom = NodePath(".")
-disabled = true
 text = "SETTINGS"
 alignment = 0
 
@@ -99,6 +107,97 @@ alignment = 0
 layout_mode = 2
 focus_neighbor_top = NodePath(".")
 text = "QUIT"
+alignment = 0
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/separation = 115
+alignment = 1
+
+[node name="Settings" type="Label" parent="Settings/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Settings/MarginContainer/VBoxContainer"]
+layout_direction = 1
+layout_mode = 2
+mouse_filter = 0
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="Music" type="Label" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_font_sizes/font_size = 30
+text = "Music"
+
+[node name="VFX" type="Label" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_font_sizes/font_size = 30
+text = "VFX"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+theme_override_constants/margin_left = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 0
+alignment = 2
+
+[node name="MusicSlider" type="HSlider" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 50.0
+rounded = true
+ticks_on_borders = true
+
+[node name="VFXSlider" type="HSlider" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+value = 50.0
+rounded = true
+
+[node name="Back" parent="Settings/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+layout_mode = 2
+text = "BACK
+"
 alignment = 0
 
 [node name="Loading" type="Control" parent="."]
@@ -220,16 +319,9 @@ text = "MAIN MENU
 "
 alignment = 0
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_pfayw")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Settings/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
