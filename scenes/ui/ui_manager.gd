@@ -61,3 +61,6 @@ func _on_settings_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	show_menu()
+
+func _on_music_slider_value_changed(value: float) -> void:
+	GlobalSignals.music_volume_changed.emit(value)

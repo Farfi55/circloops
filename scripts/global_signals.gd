@@ -11,3 +11,5 @@ signal pause(state: bool)
 signal level_closed
 signal game_over
 signal quit
+
+signal music_volume_changed(volume: float)
