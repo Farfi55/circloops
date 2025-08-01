@@ -7,6 +7,9 @@ extends CanvasLayer
 @onready var settings: Control = $Settings
 @onready var bg: TextureRect = $Circus
 @onready var winning: Control = $Winning
+@onready var level_selector: Control = $LevelSelector
+@onready var level_loader: Node = $"../LevelLoader"
+@onready var item_list: ItemList = $LevelSelector/MarginContainer/VBoxContainer/ItemList
 
 @onready var music_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider
 @onready var sfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider
@@ -26,6 +29,7 @@ func hide_all() -> void:
 	gui.visible = false
 	settings.visible = false
 	winning.visible = false
+	level_selector.visible = false
 	bg.visible = false
 	
 	GlobalSignals.pause.emit(pause.visible)
@@ -38,6 +42,7 @@ func show_menu() -> void:
 func show_gui() -> void:
 	hide_all()
 	gui.visible = true
+	inGame = true
 
 func show_pause() -> void:
 	hide_all()
@@ -47,6 +52,7 @@ func show_pause() -> void:
 func show_loading() -> void:
 	hide_all()
 	loading.visible = true
+	bg.visible = true
 
 func show_game_over() -> void:
 	hide_all()
@@ -61,9 +67,33 @@ func show_settings() -> void:
 	settings.visible = true
 	bg.visible = true
 
+func show_level_selector() -> void:
+	hide_all()
+	show_levels()
+	level_selector.visible = true
+	bg.visible = true
+
+func show_levels() -> void:
+	if item_list.item_count == 0:
+		var keys = level_loader.levels.keys()
+		
+		keys.sort()
+		
+		for key in keys:
+			var label: String = "Level " + str(key)
+			item_list.add_item(label)
+			
+		item_list.item_selected.connect(_on_level_label_pressed)
+	else:
+		item_list.deselect_all()
+
+func _on_level_label_pressed(level_key) -> void:
+	GlobalVariables.current_level = level_loader.get_level(level_key + 1)
+	GlobalSignals.level_opened.emit()
+
 func _on_play_pressed() -> void:
-	inGame = true
-	GlobalSignals.new_game.emit()
+	show_level_selector()
+	#GlobalSignals.new_game.emit()
 
 func _on_continue_pressed() -> void:
 	show_gui()

@@ -6,8 +6,8 @@ signal successful_throw(ring: Ring)
 signal new_ring(ring: Ring)
 
 # UI
-signal new_game
 signal pause(state: bool)
+signal level_opened
 signal level_closed
 signal level_won
 signal game_over

@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1now1ipqmky8"]
-
-[ext_resource type="PackedScene" uid="uid://33gi1gr0og4k" path="res://scenes/dummies/balloons.tscn" id="1_sxr8l"]
-
-[node name="Level0" type="Node3D"]
-
-[node name="Balloons" parent="." instance=ExtResource("1_sxr8l")]
-transform = Transform3D(0, -8.88178e-16, 1, 0, 1, 8.88178e-16, -1, 0, 0, -1.23439, 0, -2.7785)

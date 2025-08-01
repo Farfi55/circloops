@@ -28,7 +28,8 @@ func _ready():
 	print("Plane normal (camera forward): ", normal)
 	print("Plane origin (from mesh): ", origin)
 
-	GlobalSignals.new_game.connect(_spawn_new_ring)
+	GlobalSignals.level_opened.connect(_spawn_new_ring)
+	GlobalSignals.level_closed.connect(_on_level_closed)
 	
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -151,6 +152,9 @@ func _compute_gesture_spin_axis() -> Vector3:
 
 
 func _spawn_new_ring():
+	can_spawn_next_ring = true
+	await get_tree().create_timer(0.1).timeout
+	
 	if not can_spawn_next_ring or not ring_scene:
 		return
 
@@ -161,5 +165,8 @@ func _spawn_new_ring():
 	
 	_start_drag()
 
+func _on_level_closed() -> void:
+	can_spawn_next_ring = false
+
 func _exit_tree() -> void:
-	GlobalSignals.new_game.disconnect(_spawn_new_ring)
+	GlobalSignals.level_closed.disconnect(_spawn_new_ring)

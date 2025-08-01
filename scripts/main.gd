@@ -2,6 +2,7 @@ extends Control
 
 @onready var level_loader: Node = $LevelLoader
 @onready var level_container: Node3D = $Game/LevelContainer
+@onready var ring_container: Node3D = $Game/RingContainer
 @onready var ui: CanvasLayer = $UI
 
 const TIME_SCALE: float = 1.0
@@ -11,27 +12,21 @@ var isInGame: bool = false
 var isPaused: bool = false
 var current_level: Node3D
 
-@export var level_to_load = 1 
-
 func _ready() -> void:
-	GlobalSignals.new_game.connect(_on_new_game)
 	GlobalSignals.pause.connect(_on_pause)
 	GlobalSignals.level_closed.connect(_on_level_closed)
 	GlobalSignals.quit.connect(_on_quit)
 	GlobalSignals.level_won.connect(_on_level_won)
+	GlobalSignals.level_opened.connect(_on_level_opened)
+	
+	GlobalVariables.current_level = level_loader.get_level(1)
 	
 	ui.show_menu()
-	
-	#var level: Node3D = level_loader.get_level(1)
-	#print("Level loaded: " +  level.name)
-	#level_container.add_child(level)
 
-func _on_new_game() -> void:
-	
+func _on_level_opened() -> void:
+	level_container.add_child(GlobalVariables.current_level)
 	ui.show_gui()
 	
-	current_level = level_loader.get_level(level_to_load)
-	level_container.add_child(current_level)
 	isInGame = true
 	isPaused = false
 	
@@ -45,8 +40,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			ui.show_gui()
 		else:
 			quit()
-			
-
 
 func _on_pause(state:bool) -> void:
 	if state == true:
@@ -59,8 +52,13 @@ func _on_level_won() -> void:
 	pass
 
 func _on_level_closed():
-	level_container.remove_child(current_level)
-	current_level = null
+	for child in level_container.get_children(true):
+		child.queue_free()
+	
+	for child in ring_container.get_children(true):
+		child.queue_free()
+	
+	GlobalVariables.current_level.queue_free()
 
 func quit() -> void:
 	get_tree().quit()

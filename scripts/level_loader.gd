@@ -23,7 +23,6 @@ func preload_levels():
 		if not dir.current_is_dir() and file_name.ends_with(".tscn"):
 			var base_name = file_name.get_basename()  # e.g. "level_3"
 			var result = regex.search(base_name)
-			
 			if result:
 				
 				#Using the k of levels_k as key for the dictionary

@@ -12,7 +12,6 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_sugp2")
-level_to_load = 8
 
 [node name="LevelLoader" parent="." instance=ExtResource("2_jyhfs")]
 

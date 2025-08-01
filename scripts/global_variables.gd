@@ -5,6 +5,8 @@ const INITIAL_VOLUME: float = 50.0
 var music_volume: float
 var sfx_volume: float
 
+var current_level: Node3D
+
 func _ready() -> void:
 	GlobalSignals.music_volume_changed.connect(_on_music_volume_changed)
 	GlobalSignals.sfx_volume_changed.connect(_on_sfx_volume_changed)
