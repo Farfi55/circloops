@@ -36,8 +36,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if not event.pressed:
 			_release_drag()
 
-func _physics_process(_delta: float) -> void:
-	if dragging and current_ring:
+func _physics_process(delta: float) -> void:
+	if dragging and current_ring and Engine.time_scale > 0.0:
 		var mouse_pos = get_viewport().get_mouse_position()
 		var from = camera.project_ray_origin(mouse_pos)
 		var to = from + camera.project_ray_normal(mouse_pos) * 100.0
