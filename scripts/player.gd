@@ -61,13 +61,18 @@ func _physics_process(_delta: float) -> void:
 				var a: Vector3 = recent_positions[recent_positions.size() - 2]["pos"]
 				var b: Vector3  = recent_positions[recent_positions.size() - 1]["pos"]
 				delta_pos = b - a
-
+				
 				var wobble_axis: Vector3 = delta_pos.cross(Vector3.UP).normalized()
-				var wobble_strength: float = clamp(delta_pos.length() * 8.0, 0.0, 1.0)
-
-				# Wobble rotation
-				var wobble_rotation := Quaternion(wobble_axis, deg_to_rad(wobble_strength * 70.0))
-
+				var wobble_strength: float
+				var wobble_rotation: Quaternion
+				
+				if not wobble_axis.is_zero_approx():
+					wobble_axis = wobble_axis.normalized()
+					wobble_strength = clamp(delta_pos.length() * 8.0, 0.0, 1.0)
+					wobble_rotation = Quaternion(wobble_axis, deg_to_rad(wobble_strength * 70.0))
+				else:
+					wobble_rotation = Quaternion.IDENTITY
+				
 				# Resting upright rotation (align with floor)
 				var upright_rotation := Quaternion(Vector3.UP, 0.0) # identity rotation
 
