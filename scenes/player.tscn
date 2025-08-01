@@ -27,3 +27,5 @@ fov = 39.0264
 [node name="ThrowPlane" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.984862, -0.173339, 0, 0.173339, 0.984862, 0.0256348, -0.692574, -1.00069)
 mesh = SubResource("PlaneMesh_p0vlq")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
