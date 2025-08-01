@@ -31,7 +31,9 @@ func preload_levels():
 				
 		file_name = dir.get_next()
 	dir.list_dir_end()
-
+	
+	GlobalVariables.total_levels = levels.keys().size()
+	print("total levels: " + str(GlobalVariables.total_levels))
 	print("Preloaded levels: ", levels.keys())
 
 func get_level(level_number: int) -> Node3D:

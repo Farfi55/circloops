@@ -26,7 +26,7 @@ func _ready() -> void:
 func _on_level_opened() -> void:
 	level_container.add_child(GlobalVariables.current_level)
 	ui.show_gui()
-	
+	print("current level:" + str(GlobalVariables.current_level_num))
 	isInGame = true
 	isPaused = false
 	
@@ -48,7 +48,6 @@ func _on_pause(state:bool) -> void:
 		Engine.time_scale = TIME_SCALE
 
 func _on_level_won() -> void:
-	#Engine.time_scale = TIME_SCALE_ZERO
 	pass
 
 func _on_level_closed():
@@ -57,8 +56,6 @@ func _on_level_closed():
 	
 	for child in ring_container.get_children(true):
 		child.queue_free()
-	
-	GlobalVariables.current_level.queue_free()
 
 func quit() -> void:
 	get_tree().quit()

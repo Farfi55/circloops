@@ -10,6 +10,7 @@ extends CanvasLayer
 @onready var level_selector: Control = $LevelSelector
 @onready var level_loader: Node = $"../LevelLoader"
 @onready var item_list: ItemList = $LevelSelector/MarginContainer/VBoxContainer/ItemList
+@onready var next_level: Button = $Winning/MarginContainer/VBoxContainer/NextLevel
 
 @onready var music_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider
 @onready var sfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider
@@ -89,6 +90,8 @@ func show_levels() -> void:
 
 func _on_level_label_pressed(level_key) -> void:
 	GlobalVariables.current_level = level_loader.get_level(level_key + 1)
+	GlobalVariables.current_level_num = level_key + 1
+	print("Current level: " + str(level_key + 1))
 	GlobalSignals.level_opened.emit()
 
 func _on_play_pressed() -> void:
@@ -102,6 +105,7 @@ func _on_main_menu_pressed() -> void:
 	show_menu()
 	inGame = false
 	GlobalSignals.level_closed.emit()
+	GlobalVariables.current_level.queue_free()
 
 func _on_quit_pressed() -> void:
 	GlobalSignals.quit.emit()
@@ -129,4 +133,13 @@ func get_clamped_volume_db(volume_percent: float) -> float:
 	return linear_to_db(norm)
 
 func _on_next_level_pressed() -> void:
-	pass # Replace with function body.
+	if GlobalVariables.current_level_num < GlobalVariables.total_levels:
+		show_gui()
+		
+		GlobalVariables.current_level = level_loader.get_level(GlobalVariables.current_level_num + 1)
+		GlobalVariables.current_level_num = GlobalVariables.current_level_num + 1
+		
+		GlobalSignals.level_closed.emit()
+		GlobalSignals.level_opened.emit()
+	else:
+		next_level.visible = false
