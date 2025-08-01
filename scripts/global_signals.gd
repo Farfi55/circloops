@@ -13,4 +13,4 @@ signal game_over
 signal quit
 
 signal music_volume_changed(volume: float)
-signal vfx_volume_changed(volume: float)
+signal sfx_volume_changed(volume: float)

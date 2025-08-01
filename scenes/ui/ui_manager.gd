@@ -7,13 +7,13 @@ extends CanvasLayer
 @onready var settings: Control = $Settings
 @onready var bg: TextureRect = $Circus
 @onready var music_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider
-@onready var vfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/VFXSlider
+@onready var sfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider
 
-const INITIAL_VOLUME: float = 50.0
+var inGame: bool = false
 
 func _ready() -> void:
-	music_slider.value = INITIAL_VOLUME
-	music_slider.value = INITIAL_VOLUME
+	music_slider.value = GlobalVariables.INITIAL_VOLUME
+	sfx_slider.value = GlobalVariables.INITIAL_VOLUME
 
 func hide_all() -> void:
 	main_menu.visible = false
@@ -52,6 +52,7 @@ func show_settings() -> void:
 	bg.visible = true
 
 func _on_play_pressed() -> void:
+	inGame = true
 	GlobalSignals.new_game.emit()
 
 func _on_continue_pressed() -> void:
@@ -59,6 +60,7 @@ func _on_continue_pressed() -> void:
 
 func _on_main_menu_pressed() -> void:
 	show_menu()
+	inGame = false
 	GlobalSignals.level_closed.emit()
 
 func _on_quit_pressed() -> void:
@@ -68,14 +70,17 @@ func _on_settings_pressed() -> void:
 	show_settings()
 
 func _on_back_pressed() -> void:
-	show_menu()
+	if inGame:
+		show_pause()
+	else:
+		show_menu()
 
 func _on_music_slider_value_changed(value: float) -> void:
 	GlobalSignals.music_volume_changed.emit(get_clamped_volume_db(value))
 
-func _on_vfx_slider_value_changed(value: float) -> void:
-	GlobalSignals.vfx_volume_changed.emit(get_clamped_volume_db(value))
+func _on_sfx_slider_value_changed(value: float) -> void:
+	GlobalSignals.sfx_volume_changed.emit(get_clamped_volume_db(value))
 
-func get_clamped_volume_db(volume: float) -> float:
-	var linear = clamp(volume / 100.0, 0.0, 1.0)
-	return linear_to_db(linear)
+func get_clamped_volume_db(volume_percent: float) -> float:
+	var norm = clamp(volume_percent / 100.0, 0.0, 1.0)
+	return linear_to_db(norm)

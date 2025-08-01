@@ -2,6 +2,7 @@ class_name Ring
 extends RigidBody3D
 
 @onready var hit_sfx: AudioStreamPlayer3D = $HitSFX
+
 var hit_sounds: Array[AudioStream] = [
 	preload("res://assets/sfx/impactMetal_medium_000.ogg"),
 	preload("res://assets/sfx/impactMetal_medium_001.ogg"),
@@ -17,10 +18,9 @@ var scored_sounds: Array[AudioStream] = [
 	preload("res://assets/sfx/impactMetal_heavy_003.ogg"),
 	preload("res://assets/sfx/impactMetal_heavy_004.ogg"),
 ]
+
 var last_hit_time := 0.0
 var hit_cooldown := 0.2  # Minimum time in seconds between sounds
-
-
 
 func begin_drag():
 	freeze = true
@@ -41,11 +41,13 @@ func _on_destruction_timer_timeout() -> void:
 
 func play_random_hit_sound():
 	var sfx = hit_sounds.pick_random()
+	hit_sfx.volume_db = GlobalVariables.sfx_volume
 	hit_sfx.stream = sfx
 	hit_sfx.play()
 
 func play_random_scored_sound():
 	var sfx = scored_sounds.pick_random()
+	hit_sfx.volume_db = GlobalVariables.sfx_volume
 	hit_sfx.stream = sfx
 	hit_sfx.play()
 

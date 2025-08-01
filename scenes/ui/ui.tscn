@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://db0yuxxpjun34"]
+[gd_scene load_steps=8 format=3 uid="uid://db0yuxxpjun34"]
 
 [ext_resource type="Script" uid="uid://btatrl7qc3msq" path="res://scenes/ui/ui_manager.gd" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
 [ext_resource type="Texture2D" uid="uid://padqwkvre52o" path="res://assets/environment/circus.jpg" id="2_0dwhk"]
 [ext_resource type="Shader" uid="uid://crcu38sdbpfox" path="res://scenes/ui/loading.gdshader" id="3_aac20"]
-[ext_resource type="Shader" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
+[ext_resource type="Shader" uid="uid://xv2o7fn7gsd6" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
 shader = ExtResource("6_pfayw")
@@ -19,10 +19,6 @@ shader_parameter/use_overlay = true
 shader_parameter/use_lens_distortion = true
 shader_parameter/overlay_color = Color(1, 1, 1, 10)
 shader_parameter/lens_distortion_strength = 0.01
-
-[sub_resource type="GDScript" id="GDScript_0dwhk"]
-script/source = "extends HSlider
-"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5kmx"]
 shader = ExtResource("3_aac20")
@@ -191,13 +187,13 @@ size_flags_vertical = 3
 value = 50.0
 rounded = true
 ticks_on_borders = true
-script = SubResource("GDScript_0dwhk")
 
-[node name="VFXSlider" type="HSlider" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="SFXSlider" type="HSlider" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 value = 50.0
 rounded = true
+ticks_on_borders = true
 
 [node name="Back" parent="Settings/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
@@ -310,10 +306,16 @@ size_flags_horizontal = 0
 
 [node name="Continue" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
-focus_neighbor_top = NodePath("")
-focus_neighbor_bottom = NodePath("../MainMenu")
+focus_neighbor_top = NodePath("../MainMenu")
 text = "CONTINUE
 "
+alignment = 0
+
+[node name="Settings" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Continue")
+focus_neighbor_bottom = NodePath("../MainMenu")
+text = "SETTINGS"
 alignment = 0
 
 [node name="MainMenu" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
@@ -328,7 +330,8 @@ alignment = 0
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/VFXSlider" to="." method="_on_vfx_slider_value_changed"]
+[connection signal="value_changed" from="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="pressed" from="Settings/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

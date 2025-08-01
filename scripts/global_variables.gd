@@ -1,0 +1,16 @@
+extends Node
+
+const INITIAL_VOLUME: float = 50.0
+
+var music_volume: float
+var sfx_volume: float
+
+func _ready() -> void:
+	GlobalSignals.music_volume_changed.connect(_on_music_volume_changed)
+	GlobalSignals.sfx_volume_changed.connect(_on_sfx_volume_changed)
+
+func _on_music_volume_changed(volume: float) -> void:
+	music_volume = volume
+	
+func _on_sfx_volume_changed(volume: float) -> void:
+	sfx_volume = volume
