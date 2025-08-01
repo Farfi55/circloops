@@ -8,17 +8,17 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
 shader = ExtResource("6_pfayw")
-shader_parameter/shake = 0.015
-shader_parameter/noiseQuality = 175.7
+shader_parameter/shake = 0.0
+shader_parameter/noiseQuality = 209.1
 shader_parameter/noiseIntensity = 0.001
 shader_parameter/offsetIntensity = 0.0014
-shader_parameter/colorOffsetIntensity = 0.2
-shader_parameter/pixelSize = 750.0
+shader_parameter/colorOffsetIntensity = 0.17
+shader_parameter/pixelSize = 700.0
 shader_parameter/grainIntensity = 0.07
 shader_parameter/use_overlay = true
 shader_parameter/use_lens_distortion = true
 shader_parameter/overlay_color = Color(1, 1, 1, 10)
-shader_parameter/lens_distortion_strength = 0.01
+shader_parameter/lens_distortion_strength = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5kmx"]
 shader = ExtResource("3_aac20")
@@ -33,7 +33,6 @@ shader_parameter/circle_color = Color(1, 1, 1, 1)
 script = ExtResource("1_f5cxw")
 
 [node name="Circus" type="TextureRect" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -57,7 +56,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="MainMenu" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
