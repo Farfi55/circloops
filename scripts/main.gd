@@ -72,6 +72,6 @@ func _on_quit() -> void:
 	# Save level state
 	quit()
 	
-func _on_ring_thrown(ring: Ring):
+func _on_ring_thrown(_ring: Ring):
 	rings_thrown_level += 1
 	rings_thrown_total += 1

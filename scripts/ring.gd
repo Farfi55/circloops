@@ -25,6 +25,9 @@ var hit_cooldown := 0.2  # Minimum time in seconds between sounds
 var is_flying = false
 var target_stick: Stick = null;
 
+var in_stick = false;
+var successful_throw = false;
+
 func begin_drag():
 	freeze = true
 	linear_velocity = Vector3.ZERO
@@ -74,11 +77,21 @@ func _find_closest_stick() -> Stick:
 	
 func _physics_process(delta: float) -> void:
 	if is_flying and target_stick:
+		var velocity = linear_velocity
+		velocity.y = 0
+		velocity = clamp(velocity.length(), 0, 3)
 		var x_diff = target_stick.get_child(0).global_position.x - global_position.x
 		var x_diff_abs = abs(x_diff)
 		var direction = sign(x_diff)
-		var force_strength = clamp(x_diff_abs * 40.0, 0.0, 200.0) * delta
+		var force_strength = clamp(x_diff_abs * velocity * 10.0, 0.0, 200.0) * delta
 		apply_central_force(Vector3.RIGHT * direction * force_strength)
+		
+	if in_stick and global_position.y - target_stick.global_position.y < 0.5 and not successful_throw:
+		successful_throw = true
+		play_random_scored_sound()
+		print("🎯 Ring landed successfully on the stick!")
+		GlobalSignals.successful_throw.emit(self)
+		GlobalSignals.level_won.emit()
 
 
 
@@ -118,3 +131,16 @@ func _on_body_entered(body: Node) -> void:
 	hit_sfx.volume_db = clamp(audio_volume, -50.0, 5.0)
 
 	play_random_hit_sound()
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	print("body entered: " + body.name)
+	if body.name == "stick":
+		in_stick = true
+		print("in_stick " + str(in_stick))
+
+
+func _on_area_3d_body_exited(body: Node3D) -> void:
+	if body.name == "stick":
+		in_stick = false
+		print("in_stick " + str(in_stick))
