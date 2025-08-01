@@ -4,8 +4,18 @@ extends Control
 @onready var game: Node3D = $Game
 @onready var ui: CanvasLayer = $UI
 
+const TIME_SCALE: float = 1.0
+const TIME_SCALE_ZERO: float = 0.0
+
+var isInGame: bool = false
+var isPaused: bool = false
+var current_level: Node3D
+
 func _ready() -> void:
 	GlobalSignals.new_game.connect(_on_new_game)
+	GlobalSignals.pause.connect(_on_pause)
+	GlobalSignals.level_closed.connect(_on_level_closed)
+	
 	ui.show_menu()
 	
 	#var level: Node3D = level_loader.get_level(1)
@@ -14,4 +24,36 @@ func _ready() -> void:
 
 func _on_new_game() -> void:
 	ui.show_gui()
-	game.add_child(level_loader.get_level(1))
+	
+	current_level = level_loader.get_level(1)
+	game.add_child(current_level)
+	isInGame = true
+	isPaused = false
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_esc"):
+		if isInGame and isPaused == false:
+			isPaused = true
+			ui.show_pause()
+		elif isInGame and isPaused == true:
+			isPaused = false
+			ui.show_gui()
+		else:
+			quit()
+			
+
+
+func _on_pause(state:bool) -> void:
+	if state == true:
+		print("GAME PAUSED")
+		Engine.time_scale = TIME_SCALE_ZERO
+	else:
+		print("GAME RESUMED")
+		Engine.time_scale = TIME_SCALE
+
+func _on_level_closed():
+	game.remove_child(current_level)
+	current_level = null
+
+func quit() -> void:
+	get_tree().quit()

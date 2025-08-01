@@ -1,72 +1,39 @@
-[gd_scene load_steps=12 format=3 uid="uid://db0yuxxpjun34"]
+[gd_scene load_steps=7 format=3 uid="uid://db0yuxxpjun34"]
 
 [ext_resource type="Script" uid="uid://btatrl7qc3msq" path="res://scenes/ui/ui_manager.gd" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
+[ext_resource type="Shader" uid="uid://crcu38sdbpfox" path="res://scenes/ui/loading.gdshader" id="3_aac20"]
+[ext_resource type="Shader" uid="uid://dmxufnelctc6s" path="res://scenes/ui/blur.gdshader" id="3_g5kmx"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xsp0m"]
-region = Rect2(0, 0, 64, 64)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5kmx"]
+shader = ExtResource("3_aac20")
+shader_parameter/radius = 0.043
+shader_parameter/ring_radius = 0.2
+shader_parameter/speed = 1.0
+shader_parameter/count = 9
+shader_parameter/fade_power = 2.87
+shader_parameter/circle_color = Color(1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xk3ku"]
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_afk8e"]
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bdpdl"]
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bk2e4"]
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f3lo7"]
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5bd21"]
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o1q2e"]
-region = Rect2(448, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_7lfbc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xsp0m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xk3ku")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_afk8e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bdpdl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bk2e4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f3lo7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5bd21")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o1q2e")
-}],
-"loop": true,
-"name": &"default",
-"speed": 12.0
-}]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0dwhk"]
+shader = ExtResource("3_g5kmx")
+shader_parameter/blur_size = Vector2(2, 2)
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_f5cxw")
 
-[node name="MainMenu" type="MarginContainer" parent="."]
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 143.0
+offset_right = 935.0
+offset_bottom = 591.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -76,56 +43,53 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 400
 theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 115
 
-[node name="Title" type="Label" parent="MainMenu/VBoxContainer"]
+[node name="Title" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "CIRCOOPS"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Play" parent="MainMenu/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+[node name="Play" parent="MainMenu/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
 text = "PLAY"
 alignment = 0
 
-[node name="Settings" parent="MainMenu/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+[node name="Settings" parent="MainMenu/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
 focus_neighbor_bottom = NodePath(".")
 disabled = true
 text = "SETTINGS"
 alignment = 0
 
-[node name="Quit" parent="MainMenu/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+[node name="Quit" parent="MainMenu/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
 focus_neighbor_top = NodePath(".")
 text = "QUIT"
 alignment = 0
 
-[node name="LoadingScreen" type="Control" parent="."]
+[node name="Loading" type="Control" parent="."]
 visible = false
 layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Loading"]
+visible = false
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="LoadingScreen"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -199.5
-offset_bottom = 199.5
+offset_right = 923.0
+offset_bottom = 213.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 400
@@ -133,26 +97,39 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 400
 theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LoadingScreen/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 115
-
-[node name="MarginContainer" type="MarginContainer" parent="LoadingScreen/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Loading/MarginContainer"]
 layout_mode = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LoadingScreen/MarginContainer/VBoxContainer/MarginContainer"]
-position = Vector2(170, 70.5)
-sprite_frames = SubResource("SpriteFrames_7lfbc")
-autoplay = "default"
-
-[node name="Label3" type="Label" parent="LoadingScreen/MarginContainer/VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="Loading/MarginContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_g5kmx")
 layout_mode = 2
-theme_override_font_sizes/font_size = 46
+size_flags_vertical = 3
+
+[node name="Label3" type="Label" parent="Loading/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
 text = "Loading..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameOver" type="Control" parent="."]
+[node name="GUI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="GUI/MarginContainer"]
+layout_mode = 2
+text = "GUI
+"
+
+[node name="Pause" type="Control" parent="."]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -160,7 +137,63 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
-[connection signal="pressed" from="MainMenu/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MainMenu/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="ColorRect" type="ColorRect" parent="Pause"]
+material = SubResource("ShaderMaterial_0dwhk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 729.0
+offset_bottom = 530.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 115
+
+[node name="Title" type="Label" parent="Pause/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Pause"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/MarginContainer/VBoxContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Continue" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+layout_mode = 2
+focus_neighbor_top = NodePath("")
+focus_neighbor_bottom = NodePath("../MainMenu")
+text = "CONTINUE
+"
+alignment = 0
+
+[node name="MainMenu" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+layout_mode = 2
+focus_neighbor_top = NodePath("")
+focus_neighbor_bottom = NodePath(".")
+text = "MAIN MENU
+"
+alignment = 0
+
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

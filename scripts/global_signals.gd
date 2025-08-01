@@ -7,4 +7,6 @@ signal new_ring(ring: Ring)
 
 # UI
 signal new_game
-signal end_game
+signal pause(state: bool)
+signal level_closed
+signal game_over
