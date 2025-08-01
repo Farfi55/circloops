@@ -9,7 +9,6 @@ extends Node3D
 
 @onready var camera: Camera3D = $Camera3D
 @onready var debug_plane_mesh: MeshInstance3D = get_node(drag_plane_mesh_path)
-@onready var spawn_point: Node3D = get_node(spawn_point_path)
 @onready var ring_container: Node3D = get_node(ring_container_path)
 
 var current_ring: Ring
