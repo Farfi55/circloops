@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cw5nra3wsyxq1" path="res://assets/stand/assets/materials/circloop-05.png" id="2_nwlq1"]
 [ext_resource type="Texture2D" uid="uid://bc8yxubkig481" path="res://assets/stand/assets/materials/red.png" id="2_uqsir"]
 [ext_resource type="Material" uid="uid://b8rf3or72kyd4" path="res://assets/stand/assets/materials/wood_brown.tres" id="3_bkoem"]
-[ext_resource type="PackedScene" uid="uid://ooxcsdegxd1b" path="res://assets/stand/terrain.fbx" id="3_uqsir"]
 [ext_resource type="Material" uid="uid://pwfraa0dy7b0" path="res://assets/stand/assets/materials/wood_white.tres" id="4_28ava"]
+[ext_resource type="PackedScene" uid="uid://bb06tilv8yglu" path="res://scenes/terrain.tscn" id="8_bkoem"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hq3fm"]
 resource_name = "Material"
@@ -2369,6 +2369,5 @@ shape = SubResource("BoxShape3D_nwlq1")
 transform = Transform3D(0.968783, 0.247912, 1.36455e-09, -0.247912, 0.968783, 1.08366e-08, 1.36495e-09, -1.08366e-08, 1, 1.7984, 3.5774, 5.74818)
 shape = SubResource("BoxShape3D_nwlq1")
 
-[node name="terrain" parent="." instance=ExtResource("3_uqsir")]
-transform = Transform3D(-7.64132e-05, -0.00637396, -0.99998, -0.000279112, 0.99998, -0.00637394, 1, 0.00027862, -7.82013e-05, 0.868937, 1.40045, 20.9731)
-visible = false
+[node name="terrain" parent="." instance=ExtResource("8_bkoem")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.819, 0.431, 42.242)
