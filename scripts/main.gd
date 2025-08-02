@@ -5,9 +5,12 @@ extends Control
 @onready var level_container: Node3D = $Game/LevelContainer
 @onready var ring_container: Node3D = $Game/RingContainer
 @onready var ui: CanvasLayer = $UI
+@onready var seconds_label: Label = $UI/GUI/MarginContainer/Seconds
+@onready var level_timer: Timer = $Game/LevelTimer
 
 const TIME_SCALE: float = 1.0
 const TIME_SCALE_ZERO: float = 0.0
+const LEVEL_TIME_LEFT: int = 60
 
 var isInGame: bool = false
 var isPaused: bool = false
@@ -17,11 +20,8 @@ func _ready() -> void:
 	GlobalSignals.level_closed.connect(_on_level_closed)
 	GlobalSignals.quit.connect(_on_quit)
 	GlobalSignals.level_won.connect(_on_level_won)
-
 	GlobalSignals.level_opened.connect(_on_level_opened)
 
-
-	
 	GlobalVariables.current_level = level_loader.get_level(1)
 
 	ui.show_menu()
@@ -32,6 +32,9 @@ func _on_level_opened() -> void:
 	GlobalVariables.rings_thrown_level = 0
 	ui.show_gui()
 	print("current level:" + str(GlobalVariables.current_level_num))
+	
+	level_timer.start()
+	
 	isInGame = true
 	isPaused = false
 	

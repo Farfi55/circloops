@@ -11,6 +11,8 @@ extends CanvasLayer
 @onready var label_time: Label = $Winning/MarginContainer/VBoxContainer/LabelTime
 @onready var label_loops: Label = $Winning/MarginContainer/VBoxContainer/LabelLoops
 @onready var label_game_completed: Label = $Winning/MarginContainer/VBoxContainer/LabelGameCompleted
+@onready var label_current_level: Label = $GUI/MarginContainer/Level
+@onready var label_current_seconds: Label = $GUI/MarginContainer/Seconds
 
 @onready var level_selector: Control = $LevelSelector
 @onready var level_loader: Node = $"../LevelLoader"
@@ -21,12 +23,25 @@ extends CanvasLayer
 @onready var sfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider
 
 var inGame: bool = false
+var time_diff: int
 
 func _ready() -> void:
 	music_slider.value = GlobalVariables.INITIAL_VOLUME
 	sfx_slider.value = GlobalVariables.INITIAL_VOLUME
 	
 	GlobalSignals.level_won.connect(_on_level_won)
+
+func _process(delta: float) -> void:
+	if inGame:
+		time_diff = (Time.get_ticks_msec() / 1000) - GlobalVariables.level_loaded_at_time
+		label_current_seconds.text = "%02d:%02d" % get_time_m_s(time_diff)
+
+func get_time_m_s(time: float) -> Array[int]:
+	var t = int(time)
+	var mins: int = t / 60
+	var sec: int = t % 60
+
+	return [mins, sec]
 
 func hide_all() -> void:
 	main_menu.visible = false
@@ -68,9 +83,6 @@ func show_winning() -> void:
 	hide_all()
 	winning.visible = true
 
-
-
-
 func show_settings() -> void:
 	hide_all()
 	settings.visible = true
@@ -99,7 +111,8 @@ func show_levels() -> void:
 func _on_level_label_pressed(level_key) -> void:
 	GlobalVariables.current_level = level_loader.get_level(level_key + 1)
 	GlobalVariables.current_level_num = level_key + 1
-	print("Current level: " + str(level_key + 1))
+	
+	label_current_level.text = "Level: " + str(GlobalVariables.current_level_num)
 	GlobalSignals.level_opened.emit()
 
 func _on_play_pressed() -> void:
@@ -128,9 +141,9 @@ func _on_back_pressed() -> void:
 		show_menu()
 		
 func _on_level_won() -> void:
-	var time_diff = (Time.get_ticks_msec() / 1000) - GlobalVariables.level_loaded_at_time
+	time_diff = (Time.get_ticks_msec() / 1000) - GlobalVariables.level_loaded_at_time
 	label_level_won.text = "Level %d Completed!" % GlobalVariables.current_level_num
-	label_time.text = "You took: %d seconds" % int(time_diff)
+	label_time.text = "You took: %02d:%02d" % get_time_m_s(time_diff)
 	label_loops.text = "On this level you shoot: %d loops, %d in total" % [GlobalVariables.rings_thrown_level, GlobalVariables.rings_thrown_total]
 	
 	var completed_final_level = GlobalVariables.current_level_num == GlobalVariables.total_levels
@@ -138,11 +151,7 @@ func _on_level_won() -> void:
 	label_game_completed.visible = completed_final_level
 	next_level.visible = not completed_final_level
 	
-		
-	
-	
 	show_winning()
-	
 
 func _on_music_slider_value_changed(value: float) -> void:
 	GlobalSignals.music_volume_changed.emit(get_clamped_volume_db(value))
@@ -163,5 +172,7 @@ func _on_next_level_pressed() -> void:
 		
 		GlobalSignals.level_closed.emit()
 		GlobalSignals.level_opened.emit()
+		
+		label_current_level.text = "Level: " + str(GlobalVariables.current_level_num)
 	else:
 		next_level.visible = false

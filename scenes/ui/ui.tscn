@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://b6rmsmwox4hx1" path="res://scenes/ui/theme.tres" id="4_pfayw"]
 [ext_resource type="LabelSettings" uid="uid://biyiiib2jor5r" path="res://assets/fonts/title_label.tres" id="5_jcn1r"]
 [ext_resource type="FontFile" uid="uid://bpg3c7w0r7fjq" path="res://assets/fonts/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="6_7vp6q"]
-[ext_resource type="Shader" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
+[ext_resource type="Shader" uid="uid://xv2o7fn7gsd6" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
 shader = ExtResource("6_pfayw")
@@ -128,6 +128,7 @@ text = "QUIT"
 alignment = 0
 
 [node name="Settings" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -273,24 +274,49 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GUI" type="Control" parent="."]
-visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("4_pfayw")
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("4_pfayw")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 
-[node name="Button" type="Button" parent="GUI/MarginContainer"]
+[node name="Level" type="Label" parent="GUI/MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
 theme = ExtResource("4_pfayw")
-text = "GUI
-"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 71
+text = "Level: "
+
+[node name="Seconds" type="Label" parent="GUI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 1
+theme = ExtResource("4_pfayw")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 71
+text = "0:00"
+horizontal_alignment = 2
 
 [node name="Pause" type="Control" parent="."]
 visible = false
@@ -452,6 +478,7 @@ text = "MAIN MENU
 "
 
 [node name="LevelSelector" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
