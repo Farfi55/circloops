@@ -113,7 +113,7 @@ func show_levels() -> void:
 		if unlocked:
 			var t = get_time_m_s(saved[1])
 			var time_str = "%02d:%02d" % [t[0], t[1]]  # zero-padded minutes:seconds
-			label_text += " — Time: %s, Loops: %s" % [time_str, saved[2]]
+			label_text += " — Time: %s — Loops: %s" % [time_str, saved[2]]
 		else:
 			label_text += " — Locked"
 
