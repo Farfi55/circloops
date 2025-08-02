@@ -13,6 +13,8 @@ var rings_thrown_level := 0
 var rings_thrown_total := 0
 var level_loaded_at_time := 0.0
 
+var savedata: Dictionary = {}
+
 func _ready() -> void:
 	GlobalSignals.music_volume_changed.connect(_on_music_volume_changed)
 	GlobalSignals.sfx_volume_changed.connect(_on_sfx_volume_changed)

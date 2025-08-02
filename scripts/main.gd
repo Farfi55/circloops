@@ -21,10 +21,20 @@ func _ready() -> void:
 	GlobalSignals.quit.connect(_on_quit)
 	GlobalSignals.level_won.connect(_on_level_won)
 	GlobalSignals.level_opened.connect(_on_level_opened)
-
+	
+	populate_savedata()
+	
+	# set first level unlocked
+	GlobalVariables.savedata[1][0] = true
+	
 	GlobalVariables.current_level = level_loader.get_level(1)
 
 	ui.show_menu()
+
+func populate_savedata() -> void:
+	for level in level_loader.levels.keys():
+		# unlocked, time_elapsed, n_loops
+		GlobalVariables.savedata[level] = [false, 0.0, 0]
 
 func _on_level_opened() -> void:
 	level_container.add_child(GlobalVariables.current_level)
@@ -34,6 +44,8 @@ func _on_level_opened() -> void:
 	print("current level:" + str(GlobalVariables.current_level_num))
 	
 	level_timer.start()
+	
+	print(GlobalVariables.savedata)
 	
 	isInGame = true
 	isPaused = false

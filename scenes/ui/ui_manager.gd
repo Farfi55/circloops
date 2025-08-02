@@ -22,6 +22,8 @@ extends CanvasLayer
 @onready var music_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider
 @onready var sfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider
 
+var lock_icon: Texture2D = preload("res://assets/icons/lock.tres")
+
 var inGame: bool = false
 var time_diff: int
 
@@ -95,24 +97,46 @@ func show_level_selector() -> void:
 	bg.visible = true
 
 func show_levels() -> void:
-	if item_list.item_count == 0:
-		var keys = level_loader.levels.keys()
-		
-		keys.sort()
-		
-		for key in keys:
-			var label: String = "Level " + str(key)
-			item_list.add_item(label)
-			
-		item_list.item_selected.connect(_on_level_label_pressed)
-	else:
-		item_list.deselect_all()
+	item_list.clear()
+	item_list.icon_mode = ItemList.ICON_MODE_LEFT
+	item_list.fixed_icon_size = Vector2i(24, 24)
+	item_list.icon_scale = 1.0
 
-func _on_level_label_pressed(level_key) -> void:
-	GlobalVariables.current_level = level_loader.get_level(level_key + 1)
-	GlobalVariables.current_level_num = level_key + 1
+	var keys = level_loader.levels.keys()
+	keys.sort()
+
+	for key in keys:
+		var saved = GlobalVariables.savedata.get(key, [])
+		var unlocked = saved[0] == true
+		var label_text := "Level %s" % key
+
+		if unlocked:
+			var t = get_time_m_s(saved[1])
+			var time_str = "%02d:%02d" % [t[0], t[1]]  # zero-padded minutes:seconds
+			label_text += " — Time: %s, Loops: %s" % [time_str, saved[2]]
+		else:
+			label_text += " — Locked"
+
+		var icon_used
+		
+		if unlocked:
+			icon_used = null
+		else:
+			icon_used = lock_icon
+		
+		var idx = item_list.add_item(label_text, icon_used)
+		item_list.set_item_disabled(idx, not unlocked)
+		item_list.set_item_metadata(idx, key)
 	
-	label_current_level.text = "Level: " + str(GlobalVariables.current_level_num)
+	if item_list.is_connected("item_selected", _on_level_selected):
+		item_list.item_selected.connect(_on_level_selected)
+
+func _on_level_selected(selected_idx: int) -> void:
+	var level_key = item_list.get_item_metadata(selected_idx)
+	GlobalVariables.current_level = level_loader.get_level(level_key)
+	GlobalVariables.current_level_num = level_key
+	
+	label_current_level.text = "Level: %s" % GlobalVariables.current_level_num
 	GlobalSignals.level_opened.emit()
 
 func _on_play_pressed() -> void:
@@ -142,6 +166,7 @@ func _on_back_pressed() -> void:
 		
 func _on_level_won() -> void:
 	time_diff = (Time.get_ticks_msec() / 1000) - GlobalVariables.level_loaded_at_time
+	
 	label_level_won.text = "Level %d Completed!" % GlobalVariables.current_level_num
 	label_time.text = "You took: %02d:%02d" % get_time_m_s(time_diff)
 	label_loops.text = "On this level you shoot: %d loops, %d in total" % [GlobalVariables.rings_thrown_level, GlobalVariables.rings_thrown_total]
@@ -150,6 +175,11 @@ func _on_level_won() -> void:
 	
 	label_game_completed.visible = completed_final_level
 	next_level.visible = not completed_final_level
+	
+	GlobalVariables.savedata[GlobalVariables.current_level_num] = [true, time_diff, GlobalVariables.rings_thrown_level]
+	
+	if not completed_final_level:
+		GlobalVariables.savedata[GlobalVariables.current_level_num + 1][0] = true
 	
 	show_winning()
 
