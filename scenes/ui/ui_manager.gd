@@ -115,9 +115,12 @@ func show_levels() -> void:
 		var label_text := "Level %s" % key
 
 		if unlocked:
-			var t = get_time_m_s(saved[1])
-			var time_str = "%02d:%02d" % [t[0], t[1]]
-			label_text += " — Time: %s — Loops: %s" % [time_str, saved[2]]
+			if saved[1] == INF:
+				label_text += " — Uncompleted"
+			else:
+				var t = get_time_m_s(saved[1])
+				var time_str = "%02d:%02d" % [t[0], t[1]]
+				label_text += " — Time: %s — Loops: %s" % [time_str, saved[2]]
 		else:
 			label_text += " — Locked"
 
@@ -188,8 +191,13 @@ func _on_level_won() -> void:
 	label_game_completed.visible = completed_final_level
 	next_level.visible = not completed_final_level
 	
-	GlobalVariables.savedata[GlobalVariables.current_level_num] = [true, time_diff, GlobalVariables.rings_thrown_level]
+	var current_stats = GlobalVariables.savedata[GlobalVariables.current_level_num]
+	var best_time = min(current_stats[1], time_diff)
+	var best_rings = min(current_stats[2], GlobalVariables.rings_thrown_level)
 	
+	GlobalVariables.savedata[GlobalVariables.current_level_num] = [true, best_time, best_rings]
+	
+	print(GlobalVariables.current_level_num, GlobalVariables.total_levels)
 	if not completed_final_level:
 		GlobalVariables.savedata[GlobalVariables.current_level_num + 1][0] = true
 	

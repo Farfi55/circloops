@@ -170,6 +170,7 @@ func _on_level_closed() -> void:
 
 func _on_new_level() -> void:
 	can_spawn_next_ring = true
+	await get_tree().create_timer(0.1).timeout
 	_spawn_new_ring()
 
 func _exit_tree() -> void:

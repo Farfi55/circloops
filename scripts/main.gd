@@ -19,6 +19,8 @@ var canPause: bool = false
 var _targets_in_level: int = 1
 var _remaining_targets: int = _targets_in_level
 
+@export var unlock_all_levels = false
+
 func _ready() -> void:
 	GlobalSignals.pause.connect(_on_pause)
 	GlobalSignals.level_closed.connect(_on_level_closed)
@@ -40,7 +42,7 @@ func _ready() -> void:
 func populate_savedata() -> void:
 	for level in level_loader.levels.keys():
 		# unlocked, time_elapsed, n_loops
-		GlobalVariables.savedata[level] = [false, 0.0, 0]
+		GlobalVariables.savedata[level] = [unlock_all_levels, INF, 99999999]
 
 func _on_level_opened() -> void:
 	level_container.add_child(GlobalVariables.current_level)
