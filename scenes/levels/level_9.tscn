@@ -1,8 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://ijdwhlam7yrq"]
+[gd_scene load_steps=9 format=3 uid="uid://ijdwhlam7yrq"]
 
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_t7yg2"]
+[ext_resource type="Shader" uid="uid://idbnn7s745h1" path="res://scenes/levels/glass_highlight.gdshader" id="2_csf6e"]
 [ext_resource type="PackedScene" uid="uid://bfyi6ovy2gmxs" path="res://scenes/props/cannon.tscn" id="2_xlc0a"]
 [ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_62qgl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sd2du"]
+render_priority = 0
+shader = ExtResource("2_csf6e")
+shader_parameter/shine_color = Color(1, 1, 1, 0.901961)
+shader_parameter/passes_per_second = 0.2
+shader_parameter/pass_duration = 1.0
+shader_parameter/edge_width = 0.1
+shader_parameter/cycle_interval = 0.1
+shader_parameter/shine_angle_x = 90.0
+shader_parameter/shine_angle_y = 0.0
+shader_parameter/shine_angle_z = 35.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7yg2"]
 transparency = 1
@@ -30,6 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68346, 1.88837, 2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(3.80917, 0, 0, 0, 4.99913, 0, 0, 0, 1, 0, 0, 0)
+material_overlay = SubResource("ShaderMaterial_sd2du")
 mesh = SubResource("QuadMesh_xlc0a")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]

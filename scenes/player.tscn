@@ -11,8 +11,8 @@ sky_material = SubResource("PanoramaSkyMaterial_qhqgy")
 
 [sub_resource type="Environment" id="Environment_bswci"]
 background_mode = 2
+background_energy_multiplier = 0.43
 sky = SubResource("Sky_dqkch")
-ambient_light_source = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6fml"]
 transparency = 1

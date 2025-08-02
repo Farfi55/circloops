@@ -2319,17 +2319,25 @@ mesh = SubResource("ArrayMesh_apwev")
 skeleton = NodePath("")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="stand"]
-transform = Transform3D(-0.174579, -0.924081, 0.339996, 0.359527, 0.261633, 0.895705, -0.916658, 0.278609, 0.286556, -0.466603, 5.19864, 4.36348)
-light_color = Color(0.951989, 0.766704, 0.400935, 1)
-light_energy = 6.907
+transform = Transform3D(-0.436448, -2.3102, 0.849989, 1.77159, 0.304561, 1.73744, -1.70908, 0.905654, 1.58393, -0.466603, 5.19864, 4.36348)
+light_color = Color(1, 0.672326, 0.337148, 1)
+light_energy = 4.582
 light_indirect_energy = 3.0
 spot_range = 22.6033
 spot_angle = 59.6464
 
+[node name="SpotLight3D3" type="SpotLight3D" parent="stand"]
+transform = Transform3D(-0.134594, -0.792423, 2.36727, 0.451122, 2.32395, 0.803573, -2.45527, 0.470432, 0.0178759, 19.272, 11.9275, -4.56604)
+light_color = Color(0.944774, 0.942858, 0, 1)
+light_energy = 0.664
+light_indirect_energy = 2.779
+spot_range = 22.6033
+spot_angle = 59.6464
+
 [node name="SpotLight3D2" type="SpotLight3D" parent="stand"]
-transform = Transform3D(-0.503196, -0.812942, 0.29312, -0.406608, 0.522026, 0.749773, -0.762538, 0.258097, -0.593229, -0.492377, 5.19868, -4.59993)
-light_color = Color(0.488869, 0.532398, 0.936744, 1)
-light_energy = 6.907
+transform = Transform3D(-1.25799, -2.03235, 0.732801, -1.60288, 1.44656, 1.26025, -1.44853, 0.164315, -2.03095, -0.492377, 5.19868, -4.59993)
+light_color = Color(1, 0.672326, 0.337148, 1)
+light_energy = 4.582
 light_indirect_energy = 3.0
 spot_range = 19.9085
 spot_angle = 63.082
