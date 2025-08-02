@@ -112,7 +112,7 @@ func show_levels() -> void:
 
 		if unlocked:
 			var t = get_time_m_s(saved[1])
-			var time_str = "%02d:%02d" % [t[0], t[1]]  # zero-padded minutes:seconds
+			var time_str = "%02d:%02d" % [t[0], t[1]]
 			label_text += " — Time: %s — Loops: %s" % [time_str, saved[2]]
 		else:
 			label_text += " — Locked"
@@ -128,7 +128,7 @@ func show_levels() -> void:
 		item_list.set_item_disabled(idx, not unlocked)
 		item_list.set_item_metadata(idx, key)
 	
-	if item_list.is_connected("item_selected", _on_level_selected):
+	if not item_list.is_connected("item_selected", _on_level_selected):
 		item_list.item_selected.connect(_on_level_selected)
 
 func _on_level_selected(selected_idx: int) -> void:
