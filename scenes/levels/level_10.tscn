@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cbf3nmsaoibh0"]
+[gd_scene load_steps=9 format=3 uid="uid://cbf3nmsaoibh0"]
 
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_2k7im"]
 [ext_resource type="Shader" uid="uid://idbnn7s745h1" path="res://scenes/levels/glass_highlight.gdshader" id="2_bpgow"]
@@ -32,11 +32,14 @@ material = SubResource("StandardMaterial3D_t7yg2")
 [sub_resource type="BoxShape3D" id="BoxShape3D_62qgl"]
 size = Vector3(3.71777, 4.62073, 0.327393)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ljrt2"]
+height = 0.0869141
+radius = 0.196289
+
 [node name="Node3D" type="Node3D"]
 
 [node name="stick" parent="." instance=ExtResource("1_2k7im")]
 transform = Transform3D(1, 0.000470853, -0.000381571, -0.000470796, 1, 0.000165865, 0.000381642, -0.000165703, 1, 0, 0, 0)
-rotation_speed = 0.0
 movement_curve_z = SubResource("Curve_2k7im")
 
 [node name="stick" parent="stick/parts" index="0"]
@@ -67,5 +70,17 @@ transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 
 
 [node name="Tent2" parent="." instance=ExtResource("3_ljrt2")]
 transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000256538, 0.000520155, -0.000406623)
+shape = SubResource("CylinderShape3D_ljrt2")
+
+[node name="Area3D" type="Area3D" parent="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000256538, 0.000520155, -0.000406623)
+shape = SubResource("CylinderShape3D_ljrt2")
 
 [editable path="stick"]

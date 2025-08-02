@@ -2,9 +2,6 @@ extends Node
 
 const INITIAL_VOLUME: float = 50.0
 
-var music_volume: float
-var sfx_volume: float
-
 var current_level: Node3D
 var total_levels: int
 var current_level_num: int 

@@ -1,0 +1,82 @@
+[gd_scene load_steps=14 format=3 uid="uid://bqbpv6f42cy7k"]
+
+[ext_resource type="Texture2D" uid="uid://clrk1l1dstr4k" path="res://assets/gay_color_ramp.tres" id="1_io8as"]
+[ext_resource type="Script" uid="uid://51rtopdsoltk" path="res://scripts/confetti_particles.gd" id="2_1lhrq"]
+[ext_resource type="AudioStream" uid="uid://k3g41e78cdv8" path="res://assets/sfx/explosion_very_small_pop.mp3" id="3_7se3t"]
+[ext_resource type="Script" uid="uid://derck361td36b" path="res://scripts/delayed_player.gd" id="4_xi4qy"]
+
+[sub_resource type="Curve" id="Curve_a8y0u"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jkv2x"]
+curve = SubResource("Curve_a8y0u")
+
+[sub_resource type="Curve" id="Curve_85g3d"]
+_data = [Vector2(0.541209, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.36842, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jbj1t"]
+curve = SubResource("Curve_85g3d")
+
+[sub_resource type="Curve" id="Curve_jbj1t"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(0.332418, 10), 0.0, 0.0, 0, 0, Vector2(0.725275, 2.45972), -5.91013, -5.91013, 0, 0, Vector2(1, 1.13319), -1.03729, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_muem4"]
+curve = SubResource("Curve_jbj1t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ya4ey"]
+lifetime_randomness = 0.2
+angle_min = -179.1
+angle_max = 161.2
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 7.5
+initial_velocity_max = 8.5
+angular_velocity_min = -332.19
+angular_velocity_max = 332.19
+angular_velocity_curve = SubResource("CurveTexture_jkv2x")
+orbit_velocity_min = 0.478
+orbit_velocity_max = 1.901
+velocity_limit_curve = SubResource("CurveTexture_muem4")
+linear_accel_min = -4.0
+linear_accel_max = -2.0
+scale_min = 0.04
+scale_max = 0.08
+scale_curve = SubResource("CurveTexture_jbj1t")
+color_initial_ramp = ExtResource("1_io8as")
+turbulence_influence_min = 0.009
+turbulence_influence_max = 0.009
+turbulence_initial_displacement_min = -1.8
+turbulence_initial_displacement_max = -1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dp3eg"]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_trceg"]
+material = SubResource("StandardMaterial3D_dp3eg")
+
+[node name="ConfettiParticles1" type="GPUParticles3D"]
+emitting = false
+amount = 100
+lifetime = 1.91
+one_shot = true
+explosiveness = 0.93
+randomness = 0.09
+process_material = SubResource("ParticleProcessMaterial_ya4ey")
+draw_pass_1 = SubResource("QuadMesh_trceg")
+script = ExtResource("2_1lhrq")
+delay = 0.3
+
+[node name="ConfettiSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_7se3t")
+script = ExtResource("4_xi4qy")

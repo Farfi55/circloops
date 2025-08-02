@@ -80,7 +80,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bjcuv")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_03kdj"]
-height = 0.0869141
+height = 0.0722656
 radius = 0.196289
 
 [node name="Ring" type="RigidBody3D"]
@@ -146,19 +146,30 @@ transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 
 mesh = SubResource("ArrayMesh_lk6a2")
 skeleton = NodePath("")
 
-[node name="destructionTimer" type="Timer" parent="."]
-wait_time = 15.0
-
-[node name="HitSFX" type="AudioStreamPlayer3D" parent="."]
-bus = &"SFX"
-
 [node name="Area3D" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 12
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000256538, 0.000520155, -0.000406623)
 shape = SubResource("CylinderShape3D_03kdj")
 
+[node name="HitSFX" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX"
+
+[node name="DestructionTimer" type="Timer" parent="."]
+wait_time = 15.0
+
+[node name="UpdateTargetTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="DisableTimer" type="Timer" parent="."]
+wait_time = 4.0
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="destructionTimer" to="." method="_on_destruction_timer_timeout"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="DestructionTimer" to="." method="_on_destruction_timer_timeout"]
+[connection signal="timeout" from="UpdateTargetTimer" to="." method="_on_update_target_timer_timeout"]
+[connection signal="timeout" from="DisableTimer" to="." method="_on_disable_timer_timeout"]

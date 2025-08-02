@@ -5,11 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://db0yuxxpjun34" path="res://scenes/ui/ui.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ccinb35lqme1n" path="res://scenes/ring.tscn" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://rbx3r5qf2a31" path="res://scenes/player.tscn" id="5_tefeu"]
-[ext_resource type="Texture2D" uid="uid://clrk1l1dstr4k" path="res://assets/gay_color_ramp.tres" id="6_choun"]
+[ext_resource type="PackedScene" uid="uid://bqbpv6f42cy7k" path="res://scenes/confetti_particles.tscn" id="6_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://qrsttc5wma5m" path="res://scenes/stand.tscn" id="6_tefeu"]
-[ext_resource type="Script" uid="uid://buy1ictyutirk" path="res://scripts/audio_stream_player.gd" id="7_o6xl0"]
-[ext_resource type="Script" path="res://scripts/confetti_particles.gd" id="7_ya4ey"]
-[ext_resource type="AudioStream" uid="uid://k3g41e78cdv8" path="res://assets/sfx/explosion_very_small_pop.mp3" id="8_eb6dy"]
 [ext_resource type="AudioStream" uid="uid://bxxuy8s6qsgwp" path="res://assets/sfx/audio_hero_AmusementPark_DIGIG04-15.mp3" id="8_tipki"]
 [ext_resource type="AudioStream" uid="uid://d2vvm4l5tncxq" path="res://assets/sfx/smartsound_HUMAN_CROWD_Applause_Small_Audience_Club_Front_01.mp3" id="9_85g3d"]
 [ext_resource type="AudioStream" uid="uid://bt7xlyej2ojgj" path="res://assets/music/circus-music-loop-362929.mp3" id="10_a8y0u"]
@@ -75,6 +72,7 @@ particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_trceg"]
 material = SubResource("StandardMaterial3D_eb6dy")
+[ext_resource type="Script" uid="uid://cb7st1bm10ckl" path="res://scenes/play_on_level_complete.gd" id="13_trceg"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -116,36 +114,12 @@ light_indirect_energy = 0.788
 shadow_enabled = true
 sky_mode = 1
 
-[node name="ConfettiParticles1" type="GPUParticles3D" parent="Game"]
-transform = Transform3D(0.928733, 0.369515, -0.0302451, -0.353688, 0.858574, -0.371155, -0.11118, 0.355401, 0.928078, -2.91591, 0.941069, -5.69418)
-emitting = false
-amount = 100
-lifetime = 1.91
-one_shot = true
-explosiveness = 0.93
-randomness = 0.09
-process_material = SubResource("ParticleProcessMaterial_ya4ey")
-draw_pass_1 = SubResource("QuadMesh_trceg")
-script = ExtResource("7_ya4ey")
+[node name="ConfettiParticles1" parent="Game" instance=ExtResource("6_a8y0u")]
+transform = Transform3D(0.928733, 0.369515, -0.0302448, -0.353688, 0.858574, -0.371155, -0.11118, 0.355401, 0.928078, -2.91591, 0.941069, -5.69418)
+delay = 0.2
 
-[node name="ConfettiSFX" type="AudioStreamPlayer3D" parent="Game/ConfettiParticles1"]
-stream = ExtResource("8_eb6dy")
-
-[node name="ConfettiParticles2" type="GPUParticles3D" parent="Game"]
+[node name="ConfettiParticles2" parent="Game" instance=ExtResource("6_a8y0u")]
 transform = Transform3D(-0.148863, -0.443414, -0.883869, -0.353688, 0.858574, -0.371155, 0.923442, 0.257363, -0.28464, 3.26052, 0.941069, -5.42751)
-emitting = false
-amount = 100
-lifetime = 1.91
-one_shot = true
-explosiveness = 0.93
-randomness = 0.09
-process_material = SubResource("ParticleProcessMaterial_ya4ey")
-draw_pass_1 = SubResource("QuadMesh_trceg")
-script = ExtResource("7_ya4ey")
-delay = 0.25
-
-[node name="ConfettiSFX" type="AudioStreamPlayer3D" parent="Game/ConfettiParticles2"]
-stream = ExtResource("8_eb6dy")
 
 [node name="LevelTimer" type="Timer" parent="Game"]
 
@@ -155,19 +129,21 @@ stream = ExtResource("8_eb6dy")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("10_a8y0u")
-script = ExtResource("7_o6xl0")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+parameters/looping = true
 
 [node name="Ambience" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("8_tipki")
-volume_db = 2.773
 autoplay = true
+bus = &"Music"
 parameters/looping = true
 script = ExtResource("13_jkv2x")
 
 [node name="LevelCompleteSFX_1" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_85g3d")
+bus = &"SFX"
 script = ExtResource("13_trceg")
-
-[connection signal="finished" from="Audio/AudioStreamPlayer" to="Audio/AudioStreamPlayer" method="_on_finished"]
 
 [editable path="Game/Player"]

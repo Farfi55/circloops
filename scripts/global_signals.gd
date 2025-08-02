@@ -13,6 +13,3 @@ signal level_closed
 signal level_won
 signal game_over
 signal quit
-
-signal music_volume_changed(volume: float)
-signal sfx_volume_changed(volume: float)

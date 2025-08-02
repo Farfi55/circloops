@@ -29,9 +29,12 @@ var lock_icon: Texture2D = preload("res://assets/icons/lock.tres")
 var inGame: bool = false
 var time_diff: int
 
+var music_bus := AudioServer.get_bus_index("Music")
+var sfx_bus := AudioServer.get_bus_index("SFX")
+
 func _ready() -> void:
-	music_slider.value = GlobalVariables.INITIAL_VOLUME
-	sfx_slider.value = GlobalVariables.INITIAL_VOLUME
+	music_slider.value = AudioServer.get_bus_volume_linear(music_bus)
+	sfx_slider.value = AudioServer.get_bus_volume_linear(sfx_bus)
 	
 	GlobalSignals.sfx_volume_changed.connect(_on_sfx_volume_changed)
 	audio_stream_player_2d.volume_db = GlobalVariables.sfx_volume + 50
@@ -165,7 +168,8 @@ func _on_main_menu_pressed() -> void:
 	show_menu()
 	inGame = false
 	GlobalSignals.level_closed.emit()
-	GlobalVariables.current_level.queue_free()
+	if GlobalVariables.current_level != null:
+		GlobalVariables.current_level.queue_free()
 
 func _on_quit_pressed() -> void:
 	GlobalSignals.quit.emit()
@@ -184,7 +188,7 @@ func _on_level_won() -> void:
 	
 	label_level_won.text = "Level %d Completed!" % GlobalVariables.current_level_num
 	label_time.text = "You took: %02d:%02d" % get_time_m_s(time_diff)
-	label_loops.text = "On this level you shoot: %d loops, %d in total" % [GlobalVariables.rings_thrown_level, GlobalVariables.rings_thrown_total]
+	label_loops.text = "On this level you shot: %d loops, %d in total" % [GlobalVariables.rings_thrown_level, GlobalVariables.rings_thrown_total]
 	
 	var completed_final_level = GlobalVariables.current_level_num == GlobalVariables.total_levels
 	
@@ -199,14 +203,11 @@ func _on_level_won() -> void:
 	show_winning()
 
 func _on_music_slider_value_changed(value: float) -> void:
-	GlobalSignals.music_volume_changed.emit(get_clamped_volume_db(value))
+	AudioServer.set_bus_volume_linear(music_bus, value)
 
 func _on_sfx_slider_value_changed(value: float) -> void:
-	GlobalSignals.sfx_volume_changed.emit(get_clamped_volume_db(value))
+	AudioServer.set_bus_volume_linear(sfx_bus, value)
 
-func get_clamped_volume_db(volume_percent: float) -> float:
-	var norm = clamp(volume_percent / 100.0, 0.0, 1.0)
-	return linear_to_db(norm)
 
 func _on_next_level_pressed() -> void:
 	if GlobalVariables.current_level_num < GlobalVariables.total_levels:
@@ -219,5 +220,3 @@ func _on_next_level_pressed() -> void:
 		GlobalSignals.level_opened.emit()
 		
 		label_current_level.text = "Level: " + str(GlobalVariables.current_level_num)
-	else:
-		next_level.visible = false

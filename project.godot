@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="GTK2015_loops"
+config/name="Circloop"
+config/version="1.0"
 run/main_scene="uid://b81y76g7kncpr"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://qqiw7rrpsw1w"
 
 [autoload]
 
@@ -41,6 +42,12 @@ ui_esc={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[physics]
+
+common/physics_ticks_per_second=100
+3d/physics_engine="Jolt Physics"
+jolt_physics_3d/simulation/areas_detect_static_bodies=true
 
 [rendering]
 

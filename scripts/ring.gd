@@ -39,9 +39,13 @@ func end_drag(throw_velocity: Vector3, spin_velocity: Vector3 = Vector3.ZERO):
 	linear_velocity = throw_velocity
 	angular_velocity = spin_velocity
 	flown_at_time = Time.get_ticks_msec() / 1000.0
-	$destructionTimer.start()
 	is_flying = true
 	target_stick = _find_closest_stick()
+	
+	$DisableTimer.start()
+	$DestructionTimer.start()
+	$UpdateTargetTimer.start()
+	
 	GlobalVariables.rings_thrown_level += 1
 	GlobalVariables.rings_thrown_total += 1
 	GlobalSignals.ring_thrown.emit(self)
@@ -53,13 +57,11 @@ func _on_destruction_timer_timeout() -> void:
 
 func play_random_hit_sound():
 	var sfx = hit_sounds.pick_random()
-	hit_sfx.volume_db = GlobalVariables.sfx_volume
 	hit_sfx.stream = sfx
 	hit_sfx.play()
 
 func play_random_scored_sound():
 	var sfx = scored_sounds.pick_random()
-	hit_sfx.volume_db = GlobalVariables.sfx_volume
 	hit_sfx.stream = sfx
 	hit_sfx.play()
 
@@ -71,15 +73,21 @@ func _find_closest_stick() -> Stick:
 	var closest_dist := INF
 	for stick in get_tree().get_nodes_in_group("sticks"):
 		if stick is Stick:
+			if stick.completed:
+				continue
 			var dist := global_position.distance_to(stick.get_child(0).global_position)
 			if dist < closest_dist:
 				closest = stick
 				closest_dist = dist
 	return closest
-	
-	
+
+
+
 func _physics_process(delta: float) -> void:
-	if is_flying and target_stick:
+	if not target_stick:
+		return
+	
+	if not is_flying:
 		var velocity = linear_velocity
 		velocity.y = 0
 		velocity = clamp(velocity.length(), 0, 3)
@@ -88,13 +96,15 @@ func _physics_process(delta: float) -> void:
 		var direction = sign(x_diff)
 		var force_strength = clamp(x_diff_abs * velocity * 10.0, 0.0, 200.0) * delta
 		apply_central_force(Vector3.RIGHT * direction * force_strength)
-		
-	if in_stick and global_position.y - target_stick.global_position.y < 0.5 and not successful_throw:
+
+	
+	if in_stick and abs(global_position.y - target_stick.global_position.y) < 0.5 and not target_stick.completed:
 		successful_throw = true
 		play_random_scored_sound()
+		print("target_stick.completed: " + str(target_stick.completed))
 		print("🎯 Ring landed successfully on the stick!")
+		target_stick.complete(self)
 		GlobalSignals.successful_throw.emit(self)
-		GlobalSignals.level_won.emit()
 
 
 
@@ -128,8 +138,7 @@ func _on_body_entered(body: Node) -> void:
 
 	# Combine speed and angle factor
 	var impact_strength = speed * angle_factor
-	print(impact_strength)
-	if impact_strength < 1.0:
+	if impact_strength < 0.4:
 		return
 	# Map to decibel range
 	var audio_volume = remap_range(impact_strength, 0.0, 5.0, -40.0, 5.0)
@@ -139,12 +148,37 @@ func _on_body_entered(body: Node) -> void:
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
+	print("body entered " + body.name)
 	if body.name == "stick":
 		in_stick = true
-		print("in_stick " + str(in_stick))
 
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
+	print("body exited " + body.name)
 	if body.name == "stick":
 		in_stick = false
-		print("in_stick " + str(in_stick))
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	print("area entered " + area.name)
+	if area.name == "hanging_ring_target_area":
+		var hanging_ring: Stick = area.get_parent().get_parent()
+		if hanging_ring.completed:
+			return
+			
+		hanging_ring.complete(self)
+		successful_throw = true
+		play_random_scored_sound()
+		GlobalSignals.successful_throw.emit(self)
+		print("🎯 Ring successfully passed in the hanging ring!")
+
+
+func _on_update_target_timer_timeout() -> void:
+	target_stick = _find_closest_stick()
+
+
+func _on_disable_timer_timeout() -> void:
+	$UpdateTargetTimer.stop()
+	disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
+
+	
