@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cavbml0xckj3n"]
+[gd_scene load_steps=6 format=3 uid="uid://cavbml0xckj3n"]
 
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_ntash"]
+[ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_07ctq"]
+[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_bl61q"]
 
 [sub_resource type="Curve" id="Curve_ntash"]
 _limits = [-1.5, 1.5, 0.0, 6.0]
@@ -24,5 +26,11 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.49012e-08, 0, 0, 1, 6.63761e-09, 0.2, 
 
 [node name="stick" parent="stick/parts/stick" index="1"]
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+
+[node name="See-Saw" parent="." instance=ExtResource("2_07ctq")]
+transform = Transform3D(0.371141, 0, -0.928577, 0, 1, 0, 0.928577, 0, 0.371141, 5.07056, 0.144048, -4.52282)
+
+[node name="Tent2" parent="." instance=ExtResource("3_bl61q")]
+transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
 
 [editable path="stick"]

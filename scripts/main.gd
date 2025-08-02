@@ -1,3 +1,4 @@
+class_name Main
 extends Control
 
 @onready var level_loader: Node = $LevelLoader
@@ -10,11 +11,6 @@ const TIME_SCALE_ZERO: float = 0.0
 
 var isInGame: bool = false
 var isPaused: bool = false
-var current_level: Node3D
-
-var rings_thrown_level := 0
-var rings_thrown_total := 0
-var level_loaded_at_time := 0.0
 
 func _ready() -> void:
 	GlobalSignals.pause.connect(_on_pause)
@@ -23,8 +19,7 @@ func _ready() -> void:
 	GlobalSignals.level_won.connect(_on_level_won)
 
 	GlobalSignals.level_opened.connect(_on_level_opened)
-	
-	GlobalSignals.ring_thrown.connect(_on_ring_thrown)
+
 
 	
 	GlobalVariables.current_level = level_loader.get_level(1)
@@ -33,6 +28,8 @@ func _ready() -> void:
 
 func _on_level_opened() -> void:
 	level_container.add_child(GlobalVariables.current_level)
+	GlobalVariables.level_loaded_at_time = Time.get_ticks_msec() / 1000
+	GlobalVariables.rings_thrown_level = 0
 	ui.show_gui()
 	print("current level:" + str(GlobalVariables.current_level_num))
 	isInGame = true
@@ -71,7 +68,3 @@ func quit() -> void:
 func _on_quit() -> void:
 	# Save level state
 	quit()
-	
-func _on_ring_thrown(_ring: Ring):
-	rings_thrown_level += 1
-	rings_thrown_total += 1

@@ -4,19 +4,17 @@ extends RigidBody3D
 @onready var hit_sfx: AudioStreamPlayer3D = $HitSFX
 
 var hit_sounds: Array[AudioStream] = [
+	preload("res://assets/sfx/impactMetal_heavy_000.ogg"),
+	preload("res://assets/sfx/impactMetal_heavy_003.ogg"),
+	preload("res://assets/sfx/impactMetal_heavy_004.ogg"),
+]
+
+var scored_sounds: Array[AudioStream] = [
 	preload("res://assets/sfx/impactMetal_medium_000.ogg"),
 	preload("res://assets/sfx/impactMetal_medium_001.ogg"),
 	preload("res://assets/sfx/impactMetal_medium_002.ogg"),
 	preload("res://assets/sfx/impactMetal_medium_003.ogg"),
 	preload("res://assets/sfx/impactMetal_medium_004.ogg"),
-]
-
-var scored_sounds: Array[AudioStream] = [
-	preload("res://assets/sfx/impactMetal_heavy_000.ogg"),
-	preload("res://assets/sfx/impactMetal_heavy_001.ogg"),
-	preload("res://assets/sfx/impactMetal_heavy_002.ogg"),
-	preload("res://assets/sfx/impactMetal_heavy_003.ogg"),
-	preload("res://assets/sfx/impactMetal_heavy_004.ogg"),
 ]
 
 var last_hit_time := 0.0
@@ -44,6 +42,8 @@ func end_drag(throw_velocity: Vector3, spin_velocity: Vector3 = Vector3.ZERO):
 	$destructionTimer.start()
 	is_flying = true
 	target_stick = _find_closest_stick()
+	GlobalVariables.rings_thrown_level += 1
+	GlobalVariables.rings_thrown_total += 1
 	GlobalSignals.ring_thrown.emit(self)
 
 
@@ -129,6 +129,8 @@ func _on_body_entered(body: Node) -> void:
 	# Combine speed and angle factor
 	var impact_strength = speed * angle_factor
 	print(impact_strength)
+	if impact_strength < 1.0:
+		return
 	# Map to decibel range
 	var audio_volume = remap_range(impact_strength, 0.0, 5.0, -40.0, 5.0)
 	hit_sfx.volume_db = clamp(audio_volume, -50.0, 5.0)

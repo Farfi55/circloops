@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ijdwhlam7yrq"]
+[gd_scene load_steps=7 format=3 uid="uid://ijdwhlam7yrq"]
 
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_t7yg2"]
+[ext_resource type="PackedScene" uid="uid://bfyi6ovy2gmxs" path="res://scenes/props/cannon.tscn" id="2_xlc0a"]
+[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_62qgl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7yg2"]
 transparency = 1
@@ -35,5 +37,14 @@ mesh = SubResource("QuadMesh_xlc0a")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.211609, -0.11438)
 shape = SubResource("BoxShape3D_62qgl")
+
+[node name="Cannon" parent="." instance=ExtResource("2_xlc0a")]
+transform = Transform3D(-0.347279, 0, -0.937762, 0, 1, 0, 0.937762, 0, -0.347279, -3.47066, 0.0925989, -2.79057)
+
+[node name="Tent" parent="." instance=ExtResource("3_62qgl")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 4.40535, 1.24775, -5.92266)
+
+[node name="Tent2" parent="." instance=ExtResource("3_62qgl")]
+transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
 
 [editable path="stick"]

@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbf3nmsaoibh0"]
+[gd_scene load_steps=8 format=3 uid="uid://cbf3nmsaoibh0"]
 
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_2k7im"]
+[ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_sqmjf"]
+[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_ljrt2"]
 
 [sub_resource type="Curve" id="Curve_2k7im"]
 _limits = [-1.0, 1.0, 0.0, 8.0]
@@ -42,5 +44,14 @@ mesh = SubResource("QuadMesh_xlc0a")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.211609, -0.11438)
 shape = SubResource("BoxShape3D_62qgl")
+
+[node name="See-Saw" parent="." instance=ExtResource("2_sqmjf")]
+transform = Transform3D(0.340248, 0, -0.940336, 0, 1, 0, 0.940336, 0, 0.340248, -4.00606, 0.0926243, -3.75293)
+
+[node name="Tent" parent="." instance=ExtResource("3_ljrt2")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 4.40535, 1.24775, -5.92266)
+
+[node name="Tent2" parent="." instance=ExtResource("3_ljrt2")]
+transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
 
 [editable path="stick"]

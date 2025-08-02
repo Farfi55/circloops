@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6eu1jdyga0j3"]
+[gd_scene load_steps=3 format=3 uid="uid://c6eu1jdyga0j3"]
 
+[ext_resource type="PackedScene" uid="uid://bfyi6ovy2gmxs" path="res://scenes/props/cannon.tscn" id="2_6iamk"]
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="2_6761a"]
 
 [node name="Node3D" type="Node3D"]
@@ -12,5 +13,8 @@ transform = Transform3D(0.999999, 0.00032935, 0.00164277, 0.000460355, 0.888743,
 
 [node name="stick" parent="stick/parts/stick" index="1"]
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+
+[node name="Cannon" parent="stick" instance=ExtResource("2_6iamk")]
+transform = Transform3D(-0.347279, 0, -0.937762, 0, 1, 0, 0.937762, 0, -0.347279, -3.47066, 0.0925989, -2.79057)
 
 [editable path="stick"]

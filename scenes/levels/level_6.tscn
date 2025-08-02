@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjygft3u4rvv"]
+[gd_scene load_steps=5 format=3 uid="uid://bjygft3u4rvv"]
 
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_gfuhv"]
+[ext_resource type="PackedScene" uid="uid://bfyi6ovy2gmxs" path="res://scenes/props/cannon.tscn" id="2_y2agi"]
+[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_g44gb"]
 
 [sub_resource type="Curve" id="Curve_gfuhv"]
 _limits = [-1.5, 1.5, 0.0, 6.0]
@@ -18,5 +20,11 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.49012e-08, 0, 0, 1, 6.63761e-09, 0.2, 
 
 [node name="stick" parent="stick/parts/stick" index="1"]
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
+
+[node name="Cannon" parent="." instance=ExtResource("2_y2agi")]
+transform = Transform3D(-0.347279, 0, -0.937762, 0, 1, 0, 0.937762, 0, -0.347279, -3.47066, 0.0925989, -2.79057)
+
+[node name="Tent" parent="." instance=ExtResource("3_g44gb")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 4.40535, 1.24775, -5.92266)
 
 [editable path="stick"]

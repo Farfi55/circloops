@@ -1,12 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://db0yuxxpjun34"]
+[gd_scene load_steps=8 format=3 uid="uid://db0yuxxpjun34"]
 
 [ext_resource type="Script" uid="uid://btatrl7qc3msq" path="res://scenes/ui/ui_manager.gd" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
 [ext_resource type="Texture2D" uid="uid://padqwkvre52o" path="res://assets/environment/circus.jpg" id="2_0dwhk"]
 [ext_resource type="Shader" uid="uid://crcu38sdbpfox" path="res://scenes/ui/loading.gdshader" id="3_aac20"]
-[ext_resource type="Theme" uid="uid://b6rmsmwox4hx1" path="res://scenes/ui/theme.tres" id="4_pfayw"]
-[ext_resource type="LabelSettings" uid="uid://biyiiib2jor5r" path="res://assets/fonts/title_label.tres" id="5_jcn1r"]
-[ext_resource type="FontFile" uid="uid://bpg3c7w0r7fjq" path="res://assets/fonts/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="6_7vp6q"]
 [ext_resource type="Shader" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
@@ -31,15 +28,6 @@ shader_parameter/speed = 1.0
 shader_parameter/count = 9
 shader_parameter/fade_power = 2.87
 shader_parameter/circle_color = Color(1, 1, 1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_uegxj"]
-font = ExtResource("6_7vp6q")
-font_size = 100
-font_color = Color(0.546409, 3.85046e-07, 2.40654e-07, 1)
-outline_size = 4
-shadow_size = 4
-shadow_color = Color(1, 1, 1, 1)
-shadow_offset = Vector2(-1, 4)
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_f5cxw")
@@ -68,14 +56,12 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="MainMenu" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 1
@@ -86,7 +72,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("4_pfayw")
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 400
@@ -94,21 +79,17 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_constants/separation = 115
 
 [node name="Title" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_font_sizes/font_size = 100
 text = "CIRCOOPS"
-label_settings = ExtResource("5_jcn1r")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("4_pfayw")
 
 [node name="Play" parent="MainMenu/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
@@ -134,7 +115,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Settings"]
 layout_mode = 1
@@ -146,7 +126,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("4_pfayw")
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 400
@@ -155,8 +134,7 @@ theme_override_constants/margin_bottom = 100
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
-theme = ExtResource("4_pfayw")
-theme_override_constants/separation = 100
+theme_override_constants/separation = 115
 alignment = 1
 
 [node name="Settings" type="Label" parent="Settings/MarginContainer/VBoxContainer"]
@@ -164,13 +142,11 @@ layout_mode = 2
 mouse_filter = 0
 theme_override_font_sizes/font_size = 50
 text = "Settings"
-label_settings = ExtResource("5_jcn1r")
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Settings/MarginContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 mouse_filter = 0
-theme_override_constants/separation = 10
 alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer"]
@@ -180,7 +156,6 @@ mouse_filter = 0
 [node name="VBoxContainer2" type="VBoxContainer" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 0
-theme_override_constants/separation = 30
 
 [node name="Music" type="Label" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
@@ -203,26 +178,21 @@ theme_override_constants/margin_left = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 mouse_filter = 0
-theme_override_constants/separation = 30
 alignment = 2
 
 [node name="MusicSlider" type="HSlider" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("4_pfayw")
 value = 50.0
 rounded = true
-tick_count = 10
 ticks_on_borders = true
 
 [node name="SFXSlider" type="HSlider" parent="Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource("4_pfayw")
 value = 50.0
 rounded = true
-tick_count = 10
 ticks_on_borders = true
 
 [node name="Back" parent="Settings/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
@@ -237,9 +207,9 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme = ExtResource("4_pfayw")
 
 [node name="MarginContainer" type="MarginContainer" parent="Loading"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -248,7 +218,6 @@ offset_right = 923.0
 offset_bottom = 213.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 theme_override_constants/margin_left = 400
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 400
@@ -256,17 +225,14 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Loading/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 
 [node name="ColorRect" type="ColorRect" parent="Loading/MarginContainer/VBoxContainer"]
 material = SubResource("ShaderMaterial_g5kmx")
 layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource("4_pfayw")
 
 [node name="Label3" type="Label" parent="Loading/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_font_sizes/font_size = 35
 text = "Loading..."
 horizontal_alignment = 1
@@ -278,17 +244,14 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme = ExtResource("4_pfayw")
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme = ExtResource("4_pfayw")
 
 [node name="Button" type="Button" parent="GUI/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 text = "GUI
 "
 
@@ -300,7 +263,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 
 [node name="ColorRect" type="ColorRect" parent="Pause"]
 show_behind_parent = true
@@ -310,7 +272,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 color = Color(0, 0, 0, 0.631373)
 
 [node name="MarginContainer" type="MarginContainer" parent="Pause"]
@@ -324,7 +285,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("4_pfayw")
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 400
@@ -332,21 +292,17 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Pause/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_constants/separation = 115
 
 [node name="Title" type="Label" parent="Pause/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_font_sizes/font_size = 100
 text = "Pause"
-label_settings = ExtResource("5_jcn1r")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Pause/MarginContainer/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("4_pfayw")
 
 [node name="Continue" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
@@ -371,14 +327,12 @@ text = "MAIN MENU
 alignment = 0
 
 [node name="Winning" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 
 [node name="ColorRect" type="ColorRect" parent="Winning"]
 show_behind_parent = true
@@ -388,7 +342,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 color = Color(0, 0, 0, 0.631373)
 
 [node name="MarginContainer" type="MarginContainer" parent="Winning"]
@@ -398,7 +351,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
@@ -406,27 +358,22 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Winning/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 
 [node name="LabelLevelWon" type="Label" parent="Winning/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_font_sizes/font_size = 141
-text = "Level Completed"
-label_settings = ExtResource("5_jcn1r")
+text = "Level Compled"
 horizontal_alignment = 1
 
 [node name="LabelGameCompleted" type="Label" parent="Winning/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_font_sizes/font_size = 80
 text = "Thanks for playing"
-label_settings = SubResource("LabelSettings_uegxj")
 horizontal_alignment = 1
 
 [node name="LabelTime" type="Label" parent="Winning/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_colors/font_color = Color(0.733005, 0.733005, 0.733005, 1)
 theme_override_font_sizes/font_size = 46
 text = "In: 0.0"
@@ -434,7 +381,6 @@ horizontal_alignment = 1
 
 [node name="LabelLoops" type="Label" parent="Winning/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 theme_override_colors/font_color = Color(0.733005, 0.733005, 0.733005, 1)
 theme_override_font_sizes/font_size = 46
 text = "Loops shot: "
@@ -452,13 +398,13 @@ text = "MAIN MENU
 "
 
 [node name="LevelSelector" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 
 [node name="MarginContainer" type="MarginContainer" parent="LevelSelector"]
 layout_mode = 1
@@ -467,7 +413,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_pfayw")
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
@@ -475,15 +420,12 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelSelector/MarginContainer"]
 layout_mode = 2
-theme = ExtResource("4_pfayw")
 
 [node name="ItemList" type="ItemList" parent="LevelSelector/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("4_pfayw")
 theme_override_colors/guide_color = Color(0, 0, 0, 0.294118)
-theme_override_constants/v_separation = 10
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 allow_search = false
 auto_width = true
 auto_height = true

@@ -7,6 +7,11 @@ extends CanvasLayer
 @onready var settings: Control = $Settings
 @onready var bg: TextureRect = $Circus
 @onready var winning: Control = $Winning
+@onready var label_level_won: Label = $Winning/MarginContainer/VBoxContainer/LabelLevelWon
+@onready var label_time: Label = $Winning/MarginContainer/VBoxContainer/LabelTime
+@onready var label_loops: Label = $Winning/MarginContainer/VBoxContainer/LabelLoops
+@onready var label_game_completed: Label = $Winning/MarginContainer/VBoxContainer/LabelGameCompleted
+
 @onready var level_selector: Control = $LevelSelector
 @onready var level_loader: Node = $"../LevelLoader"
 @onready var item_list: ItemList = $LevelSelector/MarginContainer/VBoxContainer/ItemList
@@ -62,6 +67,9 @@ func show_game_over() -> void:
 func show_winning() -> void:
 	hide_all()
 	winning.visible = true
+
+
+
 
 func show_settings() -> void:
 	hide_all()
@@ -120,7 +128,21 @@ func _on_back_pressed() -> void:
 		show_menu()
 		
 func _on_level_won() -> void:
+	var time_diff = (Time.get_ticks_msec() / 1000) - GlobalVariables.level_loaded_at_time
+	label_level_won.text = "Level %d Completed!" % GlobalVariables.current_level_num
+	label_time.text = "You took: %d seconds" % int(time_diff)
+	label_loops.text = "On this level you shoot: %d loops, %d in total" % [GlobalVariables.rings_thrown_level, GlobalVariables.rings_thrown_total]
+	
+	var completed_final_level = GlobalVariables.current_level_num == GlobalVariables.total_levels
+	
+	label_game_completed.visible = completed_final_level
+	next_level.visible = not completed_final_level
+	
+		
+	
+	
 	show_winning()
+	
 
 func _on_music_slider_value_changed(value: float) -> void:
 	GlobalSignals.music_volume_changed.emit(get_clamped_volume_db(value))

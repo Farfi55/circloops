@@ -11,7 +11,7 @@ radius = 0.0501351
 height = 0.23575
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03kdj"]
-albedo_color = Color(0.896968, 0.772713, 0.41439, 1)
+albedo_color = Color(0.96265, 0.664989, 0.651615, 1)
 metallic = 0.69
 metallic_specular = 0.36
 roughness = 0.9
@@ -19,7 +19,7 @@ rim = 0.44
 rim_tint = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f7lrs"]
-albedo_color = Color(0.165731, 0.0924325, 0.0186631, 1)
+albedo_color = Color(0.709686, 0.243862, 0.197022, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_bjcuv"]
 _surfaces = [{
@@ -147,7 +147,7 @@ mesh = SubResource("ArrayMesh_lk6a2")
 skeleton = NodePath("")
 
 [node name="destructionTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 15.0
 
 [node name="HitSFX" type="AudioStreamPlayer3D" parent="."]
 bus = &"SFX"

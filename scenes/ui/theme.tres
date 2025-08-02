@@ -1,13 +1,15 @@
-[gd_resource type="Theme" format=3 uid="uid://b6rmsmwox4hx1"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b6rmsmwox4hx1"]
+
+[ext_resource type="FontFile" uid="uid://bpg3c7w0r7fjq" path="res://assets/fonts/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="1_cqcnm"]
 
 [resource]
-Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_disabled_color = Color(0.5, 0.5, 0.5, 1)
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/font_outline_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_color = Color(0.99, 0.9108, 0.9108, 1)
+Button/colors/font_disabled_color = Color(0.461322, 0.427624, 0.413035, 1)
+Button/colors/font_focus_color = Color(0.906588, 0.726817, 0.723135, 1)
+Button/colors/font_hover_color = Color(0.906588, 0.726817, 0.723135, 1)
+Button/colors/font_hover_pressed_color = Color(0.906588, 0.726817, 0.723135, 1)
+Button/colors/font_outline_color = Color(0.554363, 0.293286, 0.30837, 1)
+Button/colors/font_pressed_color = Color(0.554363, 0.293286, 0.30837, 1)
 Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
 Button/colors/icon_focus_color = Color(0, 0, 0, 1)
 Button/colors/icon_hover_color = Color(0, 0, 0, 1)
@@ -19,9 +21,11 @@ Button/constants/h_separation = 0
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 35
-Button/fonts/font = null
+Button/fonts/font = ExtResource("1_cqcnm")
 Button/styles/disabled = null
 Button/styles/focus = null
 Button/styles/hover = null
 Button/styles/normal = null
 Button/styles/pressed = null
+ItemList/fonts/font = ExtResource("1_cqcnm")
+Label/fonts/font = ExtResource("1_cqcnm")
