@@ -35,10 +35,6 @@ var sfx_bus := AudioServer.get_bus_index("SFX")
 func _ready() -> void:
 	music_slider.value = AudioServer.get_bus_volume_linear(music_bus)
 	sfx_slider.value = AudioServer.get_bus_volume_linear(sfx_bus)
-	
-	GlobalSignals.sfx_volume_changed.connect(_on_sfx_volume_changed)
-	audio_stream_player_2d.volume_db = GlobalVariables.sfx_volume + 50
-
 	GlobalSignals.level_won.connect(_on_level_won)
 
 func _process(delta: float) -> void:
@@ -145,9 +141,6 @@ func show_levels() -> void:
 func _on_item_list_mouse_entered() -> void:
 	print("en")
 	audio_stream_player_2d.play()
-
-func _on_sfx_volume_changed(volume: float) -> void:
-	audio_stream_player_2d.volume_db = volume + 50
 	
 func _on_level_selected(selected_idx: int) -> void:
 	var level_key = item_list.get_item_metadata(selected_idx)

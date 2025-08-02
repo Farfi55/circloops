@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbf3nmsaoibh0"]
+[gd_scene load_steps=11 format=3 uid="uid://cbf3nmsaoibh0"]
 
 [ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_2k7im"]
-[ext_resource type="Shader" uid="uid://idbnn7s745h1" path="res://scenes/levels/glass_highlight.gdshader" id="2_bpgow"]
+[ext_resource type="Shader" path="res://scenes/levels/glass_highlight.gdshader" id="2_bpgow"]
 [ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_sqmjf"]
 [ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_ljrt2"]
 

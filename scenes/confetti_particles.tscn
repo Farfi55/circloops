@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://clrk1l1dstr4k" path="res://assets/gay_color_ramp.tres" id="1_io8as"]
 [ext_resource type="Script" uid="uid://51rtopdsoltk" path="res://scripts/confetti_particles.gd" id="2_1lhrq"]
 [ext_resource type="AudioStream" uid="uid://k3g41e78cdv8" path="res://assets/sfx/explosion_very_small_pop.mp3" id="3_7se3t"]
-[ext_resource type="Script" uid="uid://derck361td36b" path="res://scripts/delayed_player.gd" id="4_xi4qy"]
+[ext_resource type="Script" path="res://scripts/delayed_player.gd" id="4_xi4qy"]
 
 [sub_resource type="Curve" id="Curve_a8y0u"]
 _limits = [-360.0, 360.0, 0.0, 1.0]
