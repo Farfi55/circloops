@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb5spn5kjos4c"]
+[gd_scene load_steps=4 format=3 uid="uid://cb5spn5kjos4c"]
 
 [ext_resource type="Theme" uid="uid://b6rmsmwox4hx1" path="res://scenes/ui/theme.tres" id="1_65sc8"]
+[ext_resource type="Script" uid="uid://duudl7aq8701w" path="res://scenes/ui/menu_button.gd" id="2_14o44"]
+[ext_resource type="AudioStream" uid="uid://b4b4dkpjqfdu5" path="res://assets/sfx/click1.ogg" id="3_4wm8l"]
 
 [node name="New Game" type="Button"]
 custom_minimum_size = Vector2(174.775, 42.645)
@@ -11,3 +13,11 @@ theme = ExtResource("1_65sc8")
 text = "NEW GAME"
 flat = true
 language = "en"
+script = ExtResource("2_14o44")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_4wm8l")
+volume_db = 8.226
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

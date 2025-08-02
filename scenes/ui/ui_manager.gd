@@ -17,6 +17,8 @@ extends CanvasLayer
 @onready var level_selector: Control = $LevelSelector
 @onready var level_loader: Node = $"../LevelLoader"
 @onready var item_list: ItemList = $LevelSelector/MarginContainer/VBoxContainer/ItemList
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $LevelSelector/MarginContainer/VBoxContainer/ItemList/AudioStreamPlayer2D
+
 @onready var next_level: Button = $Winning/MarginContainer/VBoxContainer/NextLevel
 
 @onready var music_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider
@@ -31,6 +33,9 @@ func _ready() -> void:
 	music_slider.value = GlobalVariables.INITIAL_VOLUME
 	sfx_slider.value = GlobalVariables.INITIAL_VOLUME
 	
+	GlobalSignals.sfx_volume_changed.connect(_on_sfx_volume_changed)
+	audio_stream_player_2d.volume_db = GlobalVariables.sfx_volume + 50
+
 	GlobalSignals.level_won.connect(_on_level_won)
 
 func _process(delta: float) -> void:
@@ -128,9 +133,19 @@ func show_levels() -> void:
 		item_list.set_item_disabled(idx, not unlocked)
 		item_list.set_item_metadata(idx, key)
 	
+	#if not item_list.is_connected("item_selected", _on_item_list_mouse_entered):
+	#	item_list.item_clicked.connect(_on_item_list_mouse_entered)
+	
 	if not item_list.is_connected("item_selected", _on_level_selected):
 		item_list.item_selected.connect(_on_level_selected)
 
+func _on_item_list_mouse_entered() -> void:
+	print("en")
+	audio_stream_player_2d.play()
+
+func _on_sfx_volume_changed(volume: float) -> void:
+	audio_stream_player_2d.volume_db = volume + 50
+	
 func _on_level_selected(selected_idx: int) -> void:
 	var level_key = item_list.get_item_metadata(selected_idx)
 	GlobalVariables.current_level = level_loader.get_level(level_key)
