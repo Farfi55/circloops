@@ -17,6 +17,13 @@ var recent_positions: Array[Dictionary] = []
 const MAX_HISTORY: int = 6
 var can_spawn_next_ring: bool = true
 
+@export var throw_speed_multiplier: float = 0.5
+@export var speed_cap: float = 7.0
+
+@export_range(0.0, 1.0, 0.01)
+var vertical_lift_falloff: float = 0.5
+
+@export var wobble_sensitivity: float = 1.0
 
 
 func _ready():
@@ -46,11 +53,27 @@ func _physics_process(_delta: float) -> void:
 
 		var intersection = drag_plane.intersects_ray(from, to)
 		if intersection:
-			current_ring.global_position = intersection
+			var viewport_size = get_viewport().get_visible_rect().size
+			var screen_y = get_viewport().get_mouse_position().y
+			var vertical_ratio = clamp(screen_y / viewport_size.y, 0.0, 1.0)
 
+			# Invert it: 0 at bottom of screen, 1 at top
+			var top_factor = 1.0 - vertical_ratio
+
+			# Falloff amount: 1 = no compression, 0 = flat
+			var lift_factor = lerp(1.0, vertical_lift_falloff, top_factor)
+
+			# Apply falloff to Y
+			intersection.y = debug_plane_mesh.global_transform.origin.y + (intersection.y - debug_plane_mesh.global_transform.origin.y) * lift_factor
+
+			current_ring.global_position = intersection
+			var mouse_pos_normal = mouse_pos / viewport_size
+			
 			# Track movement history
 			recent_positions.append({
 				"pos": intersection,
+				"screen_pos": mouse_pos,
+				"screen_pos_normal": mouse_pos_normal,
 				"time": Time.get_ticks_msec() / 1000.0
 			})
 			if recent_positions.size() > MAX_HISTORY:
@@ -60,34 +83,38 @@ func _physics_process(_delta: float) -> void:
 			wobble()
 			
 func wobble():
-	var delta_pos := Vector3.ZERO
-	if recent_positions.size() >= 2:
-		var a: Vector3 = recent_positions[recent_positions.size() - 2]["pos"]
-		var b: Vector3  = recent_positions[recent_positions.size() - 1]["pos"]
-		delta_pos = b - a
-		
-		var wobble_axis: Vector3 = delta_pos.cross(Vector3.UP).normalized()
-		var wobble_strength: float
-		var wobble_rotation: Quaternion
-		
-		if not wobble_axis.is_zero_approx():
-			wobble_axis = wobble_axis.normalized()
-			wobble_strength = clamp(delta_pos.length() * 8.0, 0.0, 1.0)
-			wobble_rotation = Quaternion(wobble_axis, deg_to_rad(wobble_strength * 70.0))
-		else:
-			wobble_rotation = Quaternion.IDENTITY
-		
-		# Resting upright rotation (align with floor)
-		var upright_rotation := Quaternion(Vector3.UP, 0.0) # identity rotation
+	if recent_positions.size() < 2:
+		return
 
-		# Blend wobble with upright
-		var target_rotation := upright_rotation.slerp(wobble_rotation * upright_rotation, wobble_strength)
+	var a := recent_positions[recent_positions.size() - 2]
+	var b := recent_positions[recent_positions.size() - 1]
 
-		# Smooth transition
-		var current_rotation := current_ring.global_transform.basis.get_rotation_quaternion()
-		var smoothed := current_rotation.slerp(target_rotation, 0.17)
+	var screen_delta: Vector2 = b["screen_pos_normal"] - a["screen_pos_normal"]
 
-		current_ring.global_transform.basis = Basis(smoothed)
+	# Convert screen delta into a fake "3D plane" motion for cross product
+	# This keeps the axis resolution-independent and more intuitive
+	var drag_vec_3d = Vector3(screen_delta.x, 0.0, -screen_delta.y) # Y movement becomes Z motion
+
+	var wobble_axis: Vector3 = drag_vec_3d.cross(Vector3.UP).normalized()
+	var wobble_strength: float = clamp(screen_delta.length() * wobble_sensitivity, 0.0, 1.0)
+	var wobble_rotation: Quaternion
+
+	if not wobble_axis.is_zero_approx():
+		wobble_rotation = Quaternion(wobble_axis, deg_to_rad(wobble_strength * 70.0))
+	else:
+		wobble_rotation = Quaternion.IDENTITY
+
+	# Resting upright rotation (align with floor)
+	var upright_rotation := Quaternion(Vector3.UP, 0.0) # identity
+
+	# Blend wobble with upright
+	var target_rotation := upright_rotation.slerp(wobble_rotation * upright_rotation, wobble_strength)
+
+	# Smooth transition
+	var current_rotation := current_ring.global_transform.basis.get_rotation_quaternion()
+	var smoothed := current_rotation.slerp(target_rotation, 0.1)
+
+	current_ring.global_transform.basis = Basis(smoothed)
 
 func _start_drag() -> void:
 	if current_ring == null:
@@ -105,13 +132,12 @@ func _release_drag() -> void:
 	var avg_velocity := _compute_average_velocity()
 	var spin_axis := _compute_gesture_spin_axis()
 	var spin_strength := avg_velocity.length() * 1.0
-
-	var distance_factor = drag_plane.distance_to(camera.global_transform.origin)
-	var adjusted_velocity = avg_velocity / distance_factor
 	
-	
+	var raw_speed = avg_velocity.length()
+	var capped_speed = clamp(raw_speed, 0.0, speed_cap)
+	var adjusted_velocity = avg_velocity.normalized() * capped_speed * throw_speed_multiplier
 
-	current_ring.end_drag(avg_velocity, spin_axis * spin_strength)
+	current_ring.end_drag(adjusted_velocity, spin_axis * spin_strength)
 
 	recent_positions.clear()
 	await get_tree().create_timer(ring_respawn_delay).timeout

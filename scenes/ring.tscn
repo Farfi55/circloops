@@ -90,6 +90,7 @@ contact_monitor = true
 max_contacts_reported = 1
 angular_damp = 1.0
 script = ExtResource("1_03kdj")
+lateral_force = 30.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.244287, 0, 0)

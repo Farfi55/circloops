@@ -18,7 +18,7 @@ var scored_sounds: Array[AudioStream] = [
 ]
 
 var last_hit_time := 0.0
-var hit_cooldown := 0.2  # Minimum time in seconds between sounds
+var hit_cooldown := 0.2 # Minimum time in seconds between sounds
 var flown_at_time = 0.0;
 
 
@@ -26,6 +26,8 @@ var is_flying = false
 var target_stick: Stick = null;
 
 var in_stick = false;
+
+@export var lateral_force: float = 10.0
 
 func begin_drag():
 	freeze = true
@@ -65,7 +67,7 @@ func play_random_scored_sound():
 	hit_sfx.play()
 
 func remap_range(value, InputA, InputB, OutputA, OutputB):
-	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
+	return (value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
 
 func _find_closest_stick() -> Stick:
 	var closest: Stick = null
@@ -81,19 +83,18 @@ func _find_closest_stick() -> Stick:
 	return closest
 
 
-
 func _physics_process(delta: float) -> void:
 	if not target_stick:
 		return
 	
-	if not is_flying:
+	if is_flying:
 		var velocity = linear_velocity
 		velocity.y = 0
-		velocity = clamp(velocity.length(), 0, 3)
+		var cap = 3.0
+		var clamped_velocity = clamp(velocity.length(), 0, cap) / cap
 		var x_diff = target_stick.get_child(0).global_position.x - global_position.x
-		var x_diff_abs = abs(x_diff)
 		var direction = sign(x_diff)
-		var force_strength = clamp(x_diff_abs * velocity * 10.0, 0.0, 200.0) * delta
+		var force_strength = clamp(abs(x_diff) * clamped_velocity * lateral_force, 0.0, 200.0) * delta
 		apply_central_force(Vector3.RIGHT * direction * force_strength)
 	
 	
@@ -103,7 +104,6 @@ func _physics_process(delta: float) -> void:
 		print("🎯 Ring landed successfully on the stick!")
 		target_stick.complete(self)
 		GlobalSignals.successful_throw.emit(self)
-
 
 
 func _on_body_entered(body: Node) -> void:
@@ -132,7 +132,7 @@ func _on_body_entered(body: Node) -> void:
 	if result:
 		var hit_normal: Vector3 = result.normal.normalized()
 		angle_factor = relative_velocity.normalized().dot(-hit_normal)
-		angle_factor = clamp(angle_factor, 0.0, 1.0)  # Only forward hits matter
+		angle_factor = clamp(angle_factor, 0.0, 1.0) # Only forward hits matter
 
 	# Combine speed and angle factor
 	var impact_strength = speed * angle_factor
@@ -177,5 +177,3 @@ func _on_update_target_timer_timeout() -> void:
 func _on_disable_timer_timeout() -> void:
 	$UpdateTargetTimer.stop()
 	disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
-
-	

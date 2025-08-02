@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mvdot"]
 radius = 0.0292523
-height = 1.43838
+height = 1.24172
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rh78c"]
 resource_name = "Material.002"
@@ -172,7 +172,7 @@ collision_layer = 9
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="parts/stick"]
-transform = Transform3D(1, -5.03749e-05, 7.89286e-06, 5.03749e-05, 1, -4.76859e-05, -7.89286e-06, 4.76859e-05, 1, 0, 0.521653, -7.10543e-15)
+transform = Transform3D(1, -5.03749e-05, 7.89286e-06, 5.03749e-05, 1, -4.76859e-05, -7.89286e-06, 4.76859e-05, 1, 0, 0.620792, -7.10543e-15)
 shape = SubResource("CapsuleShape3D_mvdot")
 
 [node name="stick" type="MeshInstance3D" parent="parts/stick"]
