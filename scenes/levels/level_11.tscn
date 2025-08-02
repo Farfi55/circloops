@@ -16,7 +16,7 @@ transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 
 transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
 
 [node name="hanging_ring" parent="." instance=ExtResource("3_ajlgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.54415, 1.20834, 0.45764)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0505016, 1.38778, -0.5301)
 
 [node name="hanging_ring2" parent="." instance=ExtResource("3_ajlgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0446422, 1.21145, -0.32654)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0446422, 1.65704, 0.42729)

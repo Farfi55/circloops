@@ -26,7 +26,6 @@ var is_flying = false
 var target_stick: Stick = null;
 
 var in_stick = false;
-var successful_throw = false;
 
 func begin_drag():
 	freeze = true
@@ -96,10 +95,9 @@ func _physics_process(delta: float) -> void:
 		var direction = sign(x_diff)
 		var force_strength = clamp(x_diff_abs * velocity * 10.0, 0.0, 200.0) * delta
 		apply_central_force(Vector3.RIGHT * direction * force_strength)
-
+	
 	
 	if in_stick and abs(global_position.y - target_stick.global_position.y) < 0.5 and not target_stick.completed:
-		successful_throw = true
 		play_random_scored_sound()
 		print("target_stick.completed: " + str(target_stick.completed))
 		print("🎯 Ring landed successfully on the stick!")
@@ -167,7 +165,6 @@ func _on_area_3d_area_entered(area: Area3D) -> void:
 			return
 			
 		hanging_ring.complete(self)
-		successful_throw = true
 		play_random_scored_sound()
 		GlobalSignals.successful_throw.emit(self)
 		print("🎯 Ring successfully passed in the hanging ring!")

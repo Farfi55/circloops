@@ -12,7 +12,6 @@ point_count = 3
 [node name="Node3D" type="Node3D"]
 
 [node name="stick" parent="." instance=ExtResource("1_gfuhv")]
-rotation_speed = 0.0
 movement_curve_x = SubResource("Curve_gfuhv")
 
 [node name="stick" parent="stick/parts" index="0"]

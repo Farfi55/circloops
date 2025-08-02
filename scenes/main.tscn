@@ -16,6 +16,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_sugp2")
+unlock_all_levels = true
 
 [node name="LevelLoader" parent="." instance=ExtResource("2_jyhfs")]
 

@@ -17,7 +17,6 @@ point_count = 5
 [node name="Node3D" type="Node3D"]
 
 [node name="stick" parent="." instance=ExtResource("1_ntash")]
-rotation_speed = 0.0
 movement_curve_x = SubResource("Curve_ntash")
 movement_curve_z = SubResource("Curve_07ctq")
 

@@ -106,6 +106,11 @@ func _release_drag() -> void:
 	var spin_axis := _compute_gesture_spin_axis()
 	var spin_strength := avg_velocity.length() * 1.0
 
+	var distance_factor = drag_plane.distance_to(camera.global_transform.origin)
+	var adjusted_velocity = avg_velocity / distance_factor
+	
+	
+
 	current_ring.end_drag(avg_velocity, spin_axis * spin_strength)
 
 	recent_positions.clear()
@@ -115,6 +120,7 @@ func _release_drag() -> void:
 func _compute_average_velocity() -> Vector3:
 	var total_velocity: Vector3 = Vector3.ZERO
 	var count := 0
+	
 
 	for i in range(recent_positions.size() - 1):
 		var a = recent_positions[i]

@@ -12,11 +12,11 @@ point_count = 3
 [node name="Node3D" type="Node3D"]
 
 [node name="stick" parent="." instance=ExtResource("1_r1vs7")]
-rotation_speed = 0.0
+rotation_speed = 90.0
 movement_curve_x = SubResource("Curve_r1vs7")
 
 [node name="stick" parent="stick/parts" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, -1.49012e-08, 0, 0, 1, 6.63761e-09, 0.2, -2.07983e-08)
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 6.63761e-09, 0.2, -2.07983e-08)
 
 [node name="stick" parent="stick/parts/stick" index="1"]
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
