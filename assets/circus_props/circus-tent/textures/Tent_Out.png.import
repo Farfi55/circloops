@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dadu6alrg0xsg"
 path.s3tc="res://.godot/imported/Tent_Out.png-237f5d3467232ff955ce7e117cc60c64.s3tc.ctex"
+path.etc2="res://.godot/imported/Tent_Out.png-237f5d3467232ff955ce7e117cc60c64.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/circus_props/circus-tent/textures/Tent_Out.png"
-dest_files=["res://.godot/imported/Tent_Out.png-237f5d3467232ff955ce7e117cc60c64.s3tc.ctex"]
+dest_files=["res://.godot/imported/Tent_Out.png-237f5d3467232ff955ce7e117cc60c64.s3tc.ctex", "res://.godot/imported/Tent_Out.png-237f5d3467232ff955ce7e117cc60c64.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7t674uvqh3yk"
 path.s3tc="res://.godot/imported/Cannon_Wheels.png-88eea4bae0463b9daa1c0342c83b9137.s3tc.ctex"
+path.etc2="res://.godot/imported/Cannon_Wheels.png-88eea4bae0463b9daa1c0342c83b9137.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/circus_props/party-cannon/textures/Cannon_Wheels.png"
-dest_files=["res://.godot/imported/Cannon_Wheels.png-88eea4bae0463b9daa1c0342c83b9137.s3tc.ctex"]
+dest_files=["res://.godot/imported/Cannon_Wheels.png-88eea4bae0463b9daa1c0342c83b9137.s3tc.ctex", "res://.godot/imported/Cannon_Wheels.png-88eea4bae0463b9daa1c0342c83b9137.etc2.ctex"]
 
 [params]
 

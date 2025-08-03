@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dj2ee5bpmc2cf"
 path.s3tc="res://.godot/imported/istockphoto-182061790-612x612.jpg-a3c74dab431f7b7fd37234e2a64dbfd5.s3tc.ctex"
+path.etc2="res://.godot/imported/istockphoto-182061790-612x612.jpg-a3c74dab431f7b7fd37234e2a64dbfd5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/stand/assets/materials/istockphoto-182061790-612x612.jpg"
-dest_files=["res://.godot/imported/istockphoto-182061790-612x612.jpg-a3c74dab431f7b7fd37234e2a64dbfd5.s3tc.ctex"]
+dest_files=["res://.godot/imported/istockphoto-182061790-612x612.jpg-a3c74dab431f7b7fd37234e2a64dbfd5.s3tc.ctex", "res://.godot/imported/istockphoto-182061790-612x612.jpg-a3c74dab431f7b7fd37234e2a64dbfd5.etc2.ctex"]
 
 [params]
 

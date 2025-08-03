@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds2r8vgk6gf7j"
 path.s3tc="res://.godot/imported/red_white_stripes.png-6e4330a3c77c25eb7bde18a6aeb6b348.s3tc.ctex"
+path.etc2="res://.godot/imported/red_white_stripes.png-6e4330a3c77c25eb7bde18a6aeb6b348.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/big_ring/red_white_stripes.png"
-dest_files=["res://.godot/imported/red_white_stripes.png-6e4330a3c77c25eb7bde18a6aeb6b348.s3tc.ctex"]
+dest_files=["res://.godot/imported/red_white_stripes.png-6e4330a3c77c25eb7bde18a6aeb6b348.s3tc.ctex", "res://.godot/imported/red_white_stripes.png-6e4330a3c77c25eb7bde18a6aeb6b348.etc2.ctex"]
 
 [params]
 

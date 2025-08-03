@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://drt3on2piy2mt"
 path.s3tc="res://.godot/imported/SeeSaw.png-66249e0d1006fc5bd21388c4b292ec16.s3tc.ctex"
+path.etc2="res://.godot/imported/SeeSaw.png-66249e0d1006fc5bd21388c4b292ec16.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/circus_props/see-saw/textures/SeeSaw.png"
-dest_files=["res://.godot/imported/SeeSaw.png-66249e0d1006fc5bd21388c4b292ec16.s3tc.ctex"]
+dest_files=["res://.godot/imported/SeeSaw.png-66249e0d1006fc5bd21388c4b292ec16.s3tc.ctex", "res://.godot/imported/SeeSaw.png-66249e0d1006fc5bd21388c4b292ec16.etc2.ctex"]
 
 [params]
 
