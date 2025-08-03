@@ -1,18 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbf3nmsaoibh0"]
+[gd_scene load_steps=9 format=3 uid="uid://ijdwhlam7yrq"]
 
-[ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_2k7im"]
-[ext_resource type="Shader" path="res://scenes/levels/glass_highlight.gdshader" id="2_bpgow"]
-[ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_sqmjf"]
-[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_ljrt2"]
+[ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_t7yg2"]
+[ext_resource type="Shader" uid="uid://idbnn7s745h1" path="res://scenes/levels/glass_highlight.gdshader" id="2_csf6e"]
+[ext_resource type="PackedScene" uid="uid://bfyi6ovy2gmxs" path="res://scenes/props/cannon.tscn" id="2_xlc0a"]
+[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_62qgl"]
 
-[sub_resource type="Curve" id="Curve_2k7im"]
-_limits = [-1.0, 1.0, 0.0, 8.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(3.98131, -0.991095), 0.0, 0.0, 0, 0, Vector2(8, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gw5sx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sd2du"]
 render_priority = 0
-shader = ExtResource("2_bpgow")
+shader = ExtResource("2_csf6e")
 shader_parameter/shine_color = Color(1, 1, 1, 0.901961)
 shader_parameter/passes_per_second = 0.2
 shader_parameter/pass_duration = 1.0
@@ -32,15 +27,10 @@ material = SubResource("StandardMaterial3D_t7yg2")
 [sub_resource type="BoxShape3D" id="BoxShape3D_62qgl"]
 size = Vector3(3.71777, 4.62073, 0.327393)
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_ljrt2"]
-height = 0.0869141
-radius = 0.196289
-
 [node name="Node3D" type="Node3D"]
 
-[node name="stick" parent="." instance=ExtResource("1_2k7im")]
-transform = Transform3D(1, 0.000470853, -0.000381571, -0.000470796, 1, 0.000165865, 0.000381642, -0.000165703, 1, 0, 0, 0)
-movement_curve_z = SubResource("Curve_2k7im")
+[node name="stick" parent="." instance=ExtResource("1_t7yg2")]
+rotation_speed = 0.0
 
 [node name="stick" parent="stick/parts" index="0"]
 transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 6.63761e-09, 0.2, -2.07983e-08)
@@ -49,11 +39,11 @@ transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 
 transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.51751, 1.88837, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68346, 1.88837, 2)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(3.80917, 0, 0, 0, 4.99913, 0, 0, 0, 1, 0, 0, 0)
-material_overlay = SubResource("ShaderMaterial_gw5sx")
+material_overlay = SubResource("ShaderMaterial_sd2du")
 mesh = SubResource("QuadMesh_xlc0a")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
@@ -62,25 +52,13 @@ mesh = SubResource("QuadMesh_xlc0a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.211609, -0.11438)
 shape = SubResource("BoxShape3D_62qgl")
 
-[node name="See-Saw" parent="." instance=ExtResource("2_sqmjf")]
-transform = Transform3D(0.340248, 0, -0.940336, 0, 1, 0, 0.940336, 0, 0.340248, -4.00606, 0.0926243, -3.75293)
+[node name="Cannon" parent="." instance=ExtResource("2_xlc0a")]
+transform = Transform3D(-0.347279, 0, -0.937762, 0, 1, 0, 0.937762, 0, -0.347279, -3.47066, 0.0925989, -2.79057)
 
-[node name="Tent" parent="." instance=ExtResource("3_ljrt2")]
+[node name="Tent" parent="." instance=ExtResource("3_62qgl")]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 4.40535, 1.24775, -5.92266)
 
-[node name="Tent2" parent="." instance=ExtResource("3_ljrt2")]
+[node name="Tent2" parent="." instance=ExtResource("3_62qgl")]
 transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
-
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000256538, 0.000520155, -0.000406623)
-shape = SubResource("CylinderShape3D_ljrt2")
-
-[node name="Area3D" type="Area3D" parent="Area3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000256538, 0.000520155, -0.000406623)
-shape = SubResource("CylinderShape3D_ljrt2")
 
 [editable path="stick"]

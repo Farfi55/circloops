@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://tyy3k3b3flxq"]
+
+[ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_rsfbf"]
+[ext_resource type="PackedScene" uid="uid://dm3rl7ppcsd3w" path="res://scenes/hanging_ring.tscn" id="3_ajlgv"]
+[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_sewkk"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="See-Saw" parent="." instance=ExtResource("2_rsfbf")]
+transform = Transform3D(0.340248, 0, -0.940336, 0, 1, 0, 0.940336, 0, 0.340248, -4.00606, 0.0926243, -3.75293)
+
+[node name="Tent" parent="." instance=ExtResource("3_sewkk")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 4.40535, 1.24775, -5.92266)
+
+[node name="Tent2" parent="." instance=ExtResource("3_sewkk")]
+transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
+
+[node name="hanging_ring" parent="." instance=ExtResource("3_ajlgv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0505016, 1.38778, -0.5301)
+
+[node name="hanging_ring2" parent="." instance=ExtResource("3_ajlgv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0446422, 1.65704, 0.42729)

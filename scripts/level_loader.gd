@@ -14,6 +14,7 @@ const levels_path: Array[PackedScene] = [
 	preload("res://scenes/levels/level_9.tscn"),
 	preload("res://scenes/levels/level_10.tscn"),
 	preload("res://scenes/levels/level_11.tscn"),
+	preload("res://scenes/levels/level_12.tscn")
 ]
 
 var levels: Dictionary;
