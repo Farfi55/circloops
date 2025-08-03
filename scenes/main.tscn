@@ -16,7 +16,6 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_sugp2")
-unlock_all_levels = true
 
 [node name="LevelLoader" parent="." instance=ExtResource("2_jyhfs")]
 
@@ -26,8 +25,8 @@ unlock_all_levels = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.77653, 2.22035)
 ring_scene = ExtResource("5_o6xl0")
 ring_container_path = NodePath("../RingContainer")
-throw_speed_multiplier = 1.0
-speed_cap = 9.0
+throw_speed_multiplier = 0.8
+speed_cap = 8.0
 
 [node name="Camera3D" parent="Game/Player" index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.957229, 0.289333, 0, -0.289333, 0.957229, 0, 0.211, -0.058)

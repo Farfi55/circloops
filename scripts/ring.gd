@@ -28,6 +28,7 @@ var target_stick: Stick = null;
 var in_stick = false;
 
 @export var lateral_force: float = 10.0
+var speed_cap = 8.0
 
 func begin_drag():
 	freeze = true
@@ -87,16 +88,20 @@ func _physics_process(delta: float) -> void:
 	if not target_stick:
 		return
 	
-	if is_flying:
+	if global_position.y > 0.4:
 		var velocity = linear_velocity
 		velocity.y = 0
-		var cap = 3.0
-		var clamped_velocity = clamp(velocity.length(), 0, cap) / cap
+		var clamped_velocity = clamp(velocity.length(), 0, speed_cap - 2.0) / (speed_cap - 2.0)
 		var x_diff = target_stick.get_child(0).global_position.x - global_position.x
 		var direction = sign(x_diff)
+		print(lateral_force)
 		var force_strength = clamp(abs(x_diff) * clamped_velocity * lateral_force, 0.0, 200.0) * delta
 		apply_central_force(Vector3.RIGHT * direction * force_strength)
-	
+
+		# apply speed cap
+		if linear_velocity.length() > speed_cap:
+			linear_velocity = linear_velocity.normalized() * speed_cap
+			
 	
 	if in_stick and abs(global_position.y - target_stick.global_position.y) < 0.5 and not target_stick.completed:
 		play_random_scored_sound()
@@ -177,3 +182,6 @@ func _on_update_target_timer_timeout() -> void:
 func _on_disable_timer_timeout() -> void:
 	$UpdateTargetTimer.stop()
 	disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
+	$Area3D.monitoring = false
+	$Area3D.monitorable = false
+	in_stick = false

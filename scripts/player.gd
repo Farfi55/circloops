@@ -93,7 +93,7 @@ func wobble():
 
 	# Convert screen delta into a fake "3D plane" motion for cross product
 	# This keeps the axis resolution-independent and more intuitive
-	var drag_vec_3d = Vector3(screen_delta.x, 0.0, -screen_delta.y) # Y movement becomes Z motion
+	var drag_vec_3d = Vector3(screen_delta.x, 0.0, screen_delta.y) # Y movement becomes Z motion
 
 	var wobble_axis: Vector3 = drag_vec_3d.cross(Vector3.UP).normalized()
 	var wobble_strength: float = clamp(screen_delta.length() * wobble_sensitivity, 0.0, 1.0)
@@ -130,14 +130,18 @@ func _release_drag() -> void:
 
 	dragging = false
 	var avg_velocity := _compute_average_velocity()
-	var spin_axis := _compute_gesture_spin_axis()
-	var spin_strength := avg_velocity.length() * 1.0
 	
 	var raw_speed = avg_velocity.length()
-	var capped_speed = clamp(raw_speed, 0.0, speed_cap)
-	var adjusted_velocity = avg_velocity.normalized() * capped_speed * throw_speed_multiplier
+	var capped_speed = clamp(raw_speed * throw_speed_multiplier, 0.0, speed_cap)
+	var adjusted_velocity = avg_velocity.normalized() * capped_speed
 
-	current_ring.end_drag(adjusted_velocity, spin_axis * spin_strength)
+	var spin_axis := _compute_gesture_spin_axis()
+	var spin_strength = 10.0 + abs(adjusted_velocity.x) * 2.0
+	
+	var angular_velocity = spin_axis * spin_strength + current_ring.global_basis.x * 1.0
+	
+	current_ring.speed_cap = speed_cap
+	current_ring.end_drag(adjusted_velocity, angular_velocity)
 
 	recent_positions.clear()
 	await get_tree().create_timer(ring_respawn_delay).timeout
@@ -160,28 +164,22 @@ func _compute_average_velocity() -> Vector3:
 	return total_velocity / count if count > 0 else Vector3.ZERO
 
 func _compute_gesture_spin_axis() -> Vector3:
-	if recent_positions.size() < 3:
-		return Vector3.UP # default spin axis
-
-	var curve_sum := Vector3.ZERO
-
-	for i in range(recent_positions.size() - 2):
-		var a = recent_positions[i]["pos"]
-		var b = recent_positions[i + 1]["pos"]
-		var c = recent_positions[i + 2]["pos"]
-
-		var ab = (b - a).normalized()
-		var bc = (c - b).normalized()
-
-		# Cross product gives axis of curvature
-		var axis = ab.cross(bc)
-		if axis.length_squared() > 0.0001:
-			curve_sum += axis.normalized()
-
-	if curve_sum.length_squared() == 0.0:
+	if recent_positions.size() < 2:
 		return Vector3.UP
 
-	return curve_sum.normalized()
+	var a = recent_positions[recent_positions.size() - 2]["screen_pos_normal"]
+	var b = recent_positions[recent_positions.size() - 1]["screen_pos_normal"]
+
+	var screen_delta = b - a
+
+	# Direction of horizontal flick
+	var horizontal_sign = sign(-screen_delta.x)
+	if horizontal_sign == 0:
+		horizontal_sign = 1
+
+	# Return ring’s local Y axis (spin axis), flipped based on sign
+	return current_ring.global_transform.basis.y.normalized() * horizontal_sign
+
 
 
 func _spawn_new_ring():
