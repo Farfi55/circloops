@@ -11,8 +11,7 @@ radius = 0.0501351
 height = 0.23575
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03kdj"]
-albedo_color = Color(0.96265, 0.664989, 0.651615, 1)
-metallic = 0.69
+albedo_color = Color(0.981537, 0.833319, 0.824259, 1)
 metallic_specular = 0.36
 roughness = 0.9
 rim = 0.44

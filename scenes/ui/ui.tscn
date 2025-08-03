@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://b6rmsmwox4hx1" path="res://scenes/ui/theme.tres" id="4_pfayw"]
 [ext_resource type="LabelSettings" uid="uid://biyiiib2jor5r" path="res://assets/fonts/title_label.tres" id="5_jcn1r"]
 [ext_resource type="FontFile" uid="uid://bpg3c7w0r7fjq" path="res://assets/fonts/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="6_7vp6q"]
-[ext_resource type="Shader" uid="uid://xv2o7fn7gsd6" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
+[ext_resource type="Shader" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
 [ext_resource type="AudioStream" uid="uid://dgp785w7xe0sq" path="res://assets/sfx/mouseclick1.ogg" id="9_uegxj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]

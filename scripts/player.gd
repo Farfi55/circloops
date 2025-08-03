@@ -35,7 +35,7 @@ func _ready():
 	print("Plane normal (camera forward): ", normal)
 	print("Plane origin (from mesh): ", origin)
 
-	GlobalSignals.level_won.connect(func(): can_spawn_next_ring = false)
+	GlobalSignals.level_won.connect(_on_level_won)
 	GlobalSignals.level_opened.connect(_on_new_level)
 	GlobalSignals.level_closed.connect(_on_level_closed)
 	
@@ -180,7 +180,15 @@ func _compute_gesture_spin_axis() -> Vector3:
 	# Return ring’s local Y axis (spin axis), flipped based on sign
 	return current_ring.global_transform.basis.y.normalized() * horizontal_sign
 
-
+func _on_level_won():
+	can_spawn_next_ring = false
+	# remove current ring if it exists
+	if current_ring:
+		current_ring.visible = false
+		current_ring.freeze = true
+		current_ring.queue_free()
+		current_ring = null
+	
 
 func _spawn_new_ring():
 	await get_tree().create_timer(0.1).timeout

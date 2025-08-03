@@ -181,7 +181,6 @@ func _on_update_target_timer_timeout() -> void:
 
 func _on_disable_timer_timeout() -> void:
 	$UpdateTargetTimer.stop()
-	disable_mode = CollisionObject3D.DISABLE_MODE_MAKE_STATIC
 	$Area3D.monitoring = false
 	$Area3D.monitorable = false
 	in_stick = false

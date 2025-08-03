@@ -11,8 +11,9 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hq3fm"]
 resource_name = "Material"
+transparency = 1
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.906332, 0.906332, 0.906332, 1)
+albedo_color = Color(0.91, 0.91, 0.91, 0.658824)
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_437ur"]
@@ -1378,8 +1379,9 @@ shadow_mesh = SubResource("ArrayMesh_yline")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ml4ns"]
 resource_name = "Material.005"
+transparency = 1
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.470588, 0.141176, 0.113725, 1)
+albedo_color = Color(0.71, 0.234892, 0.1917, 0.713726)
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4mt25"]
@@ -2319,25 +2321,17 @@ mesh = SubResource("ArrayMesh_apwev")
 skeleton = NodePath("")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="stand"]
-transform = Transform3D(-0.436448, -2.3102, 0.849989, 1.77159, 0.304561, 1.73744, -1.70908, 0.905654, 1.58393, -0.466603, 5.19864, 4.36348)
+transform = Transform3D(-1.00717, -1.94461, 1.20586, 1.73095, 0.214137, 1.79107, -1.49646, 1.55648, 1.26014, 1.61688, 5.19864, 4.80972)
 light_color = Color(1, 0.672326, 0.337148, 1)
 light_energy = 4.582
 light_indirect_energy = 3.0
 spot_range = 22.6033
 spot_angle = 59.6464
 
-[node name="SpotLight3D3" type="SpotLight3D" parent="stand"]
-transform = Transform3D(-0.134594, -0.792423, 2.36727, 0.451122, 2.32395, 0.803573, -2.45527, 0.470432, 0.0178759, 19.272, 11.9275, -4.56604)
-light_color = Color(0.944774, 0.942858, 0, 1)
-light_energy = 0.664
-light_indirect_energy = 2.779
-spot_range = 22.6033
-spot_angle = 59.6464
-
 [node name="SpotLight3D2" type="SpotLight3D" parent="stand"]
-transform = Transform3D(-1.25799, -2.03235, 0.732801, -1.60288, 1.44656, 1.26025, -1.44853, 0.164315, -2.03095, -0.492377, 5.19868, -4.59993)
-light_color = Color(1, 0.672326, 0.337148, 1)
-light_energy = 4.582
+transform = Transform3D(0.933322, -1.67162, 1.60767, -1.26355, 1.0867, 1.86347, -1.94483, -1.50823, -0.43917, 1.92184, 5.19868, -4.45998)
+light_color = Color(0.66073, 0.752848, 0.959034, 1)
+light_energy = 3.0
 light_indirect_energy = 3.0
 spot_range = 19.9085
 spot_angle = 63.082

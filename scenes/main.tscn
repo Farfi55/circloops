@@ -10,7 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bxxuy8s6qsgwp" path="res://assets/sfx/audio_hero_AmusementPark_DIGIG04-15.mp3" id="8_tipki"]
 [ext_resource type="AudioStream" uid="uid://d2vvm4l5tncxq" path="res://assets/sfx/smartsound_HUMAN_CROWD_Applause_Small_Audience_Club_Front_01.mp3" id="9_85g3d"]
 [ext_resource type="AudioStream" uid="uid://bt7xlyej2ojgj" path="res://assets/music/circus-music-loop-362929.mp3" id="10_a8y0u"]
-[ext_resource type="Script" path="res://scripts/play_on_level_complete.gd" id="11_ya4ey"]
+[ext_resource type="Script" uid="uid://cb7st1bm10ckl" path="res://scripts/play_on_level_complete.gd" id="11_ya4ey"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -26,6 +26,7 @@ unlock_all_levels = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.77653, 2.22035)
 ring_scene = ExtResource("5_o6xl0")
 ring_container_path = NodePath("../RingContainer")
+ring_respawn_delay = 0.7
 throw_speed_multiplier = 0.8
 speed_cap = 8.0
 
