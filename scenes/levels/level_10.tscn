@@ -1,59 +1,35 @@
-[gd_scene load_steps=9 format=3 uid="uid://ijdwhlam7yrq"]
+[gd_scene load_steps=8 format=3 uid="uid://d3goto4itub5j"]
 
-[ext_resource type="PackedScene" uid="uid://dmhilif684j3i" path="res://scenes/stick.tscn" id="1_t7yg2"]
-[ext_resource type="Shader" uid="uid://idbnn7s745h1" path="res://scenes/levels/glass_highlight.gdshader" id="2_csf6e"]
-[ext_resource type="PackedScene" uid="uid://bfyi6ovy2gmxs" path="res://scenes/props/cannon.tscn" id="2_xlc0a"]
+[ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_sqmjf"]
 [ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_62qgl"]
+[ext_resource type="PackedScene" uid="uid://dm3rl7ppcsd3w" path="res://scenes/hanging_ring.tscn" id="3_ljrt2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sd2du"]
-render_priority = 0
-shader = ExtResource("2_csf6e")
-shader_parameter/shine_color = Color(1, 1, 1, 0.901961)
-shader_parameter/passes_per_second = 0.2
-shader_parameter/pass_duration = 1.0
-shader_parameter/edge_width = 0.1
-shader_parameter/cycle_interval = 0.1
-shader_parameter/shine_angle_x = 90.0
-shader_parameter/shine_angle_y = 0.0
-shader_parameter/shine_angle_z = 35.0
+[sub_resource type="Curve" id="Curve_gw5sx"]
+_limits = [-1.5, 1.5, 0.0, 6.0]
+_data = [Vector2(0, -0.6), 0.0, 0.0, 0, 0, Vector2(3, 0.6), 0.0, 0.0, 0, 0, Vector2(6, -0.6), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7yg2"]
-transparency = 1
-albedo_color = Color(0.835294, 1, 1, 0.352941)
+[sub_resource type="Curve" id="Curve_ljrt2"]
+_limits = [-1.5, 1.5, 0.0, 3.0]
+_data = [Vector2(0, 5.96046e-08), 0.0, 0.0, 0, 0, Vector2(1.5, 0.75), 0.0, 0.0, 0, 0, Vector2(3, 5.96046e-08), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
 
-[sub_resource type="QuadMesh" id="QuadMesh_xlc0a"]
-material = SubResource("StandardMaterial3D_t7yg2")
+[sub_resource type="Curve" id="Curve_gnb3t"]
+_limits = [-1.5, 1.5, 0.0, 6.0]
+_data = [Vector2(0, -0.6), 0.0, 0.0, 0, 0, Vector2(3, 0.6), 0.0, 0.0, 0, 0, Vector2(6, -0.6), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_62qgl"]
-size = Vector3(3.71777, 4.62073, 0.327393)
+[sub_resource type="Curve" id="Curve_bpgow"]
+_limits = [-1.5, 1.5, 0.0, 6.0]
+_data = [Vector2(0, 0.3), 0.0, 0.0, 0, 0, Vector2(3, -0.3), 0.0, 0.0, 0, 0, Vector2(6, 0.3), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Node3D" type="Node3D"]
 
-[node name="stick" parent="." instance=ExtResource("1_t7yg2")]
-rotation_speed = 0.0
-
-[node name="stick" parent="stick/parts" index="0"]
-transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 6.63761e-09, 0.2, -2.07983e-08)
-
-[node name="stick" parent="stick/parts/stick" index="1"]
-transform = Transform3D(100, 0, 0, 0, -4.37114e-06, 100, 0, -100, -4.37114e-06, 0, 0, 0)
-
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68346, 1.88837, 2)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(3.80917, 0, 0, 0, 4.99913, 0, 0, 0, 1, 0, 0, 0)
-material_overlay = SubResource("ShaderMaterial_sd2du")
-mesh = SubResource("QuadMesh_xlc0a")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.211609, -0.11438)
-shape = SubResource("BoxShape3D_62qgl")
-
-[node name="Cannon" parent="." instance=ExtResource("2_xlc0a")]
-transform = Transform3D(-0.347279, 0, -0.937762, 0, 1, 0, 0.937762, 0, -0.347279, -3.47066, 0.0925989, -2.79057)
+[node name="See-Saw" parent="." instance=ExtResource("2_sqmjf")]
+transform = Transform3D(0.340248, 0, -0.940336, 0, 1, 0, 0.940336, 0, 0.340248, -4.00606, 0.0926243, -3.75293)
 
 [node name="Tent" parent="." instance=ExtResource("3_62qgl")]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 4.40535, 1.24775, -5.92266)
@@ -61,4 +37,12 @@ transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 
 [node name="Tent2" parent="." instance=ExtResource("3_62qgl")]
 transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
 
-[editable path="stick"]
+[node name="hanging_ring" parent="." instance=ExtResource("3_ljrt2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0505016, 1.38778, -0.5301)
+movement_curve_x = SubResource("Curve_gw5sx")
+movement_curve_y = SubResource("Curve_ljrt2")
+
+[node name="hanging_ring2" parent="." instance=ExtResource("3_ljrt2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0446422, 1.65704, 0.42729)
+movement_curve_x = SubResource("Curve_gnb3t")
+movement_curve_y = SubResource("Curve_bpgow")

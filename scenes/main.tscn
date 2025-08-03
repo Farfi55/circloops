@@ -42,6 +42,7 @@ visible = false
 transform = Transform3D(0.999997, 0.00176252, -0.00153199, -0.00176232, 0.999998, 0.000128713, 0.00153222, -0.000126006, 0.999999, -0.00134277, 0.0184174, -0.00183105)
 
 [node name="LevelContainer" type="Node3D" parent="Game"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.330646, -4.33479)
 
 [node name="stand" parent="Game" instance=ExtResource("6_tefeu")]

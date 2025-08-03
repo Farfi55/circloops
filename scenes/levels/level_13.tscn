@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://ijdwhlam7yrq"]
+
+[ext_resource type="Shader" path="res://scenes/levels/glass_highlight.gdshader" id="2_y3x6f"]
+[ext_resource type="PackedScene" uid="uid://bfyi6ovy2gmxs" path="res://scenes/props/cannon.tscn" id="3_2j1nx"]
+[ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="4_wr6ej"]
+[ext_resource type="PackedScene" uid="uid://dm3rl7ppcsd3w" path="res://scenes/hanging_ring.tscn" id="4_xf43s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sd2du"]
+render_priority = 0
+shader = ExtResource("2_y3x6f")
+shader_parameter/shine_color = Color(1, 1, 1, 0.901961)
+shader_parameter/passes_per_second = 0.2
+shader_parameter/pass_duration = 1.0
+shader_parameter/edge_width = 0.1
+shader_parameter/cycle_interval = 0.1
+shader_parameter/shine_angle_x = 90.0
+shader_parameter/shine_angle_y = 0.0
+shader_parameter/shine_angle_z = 35.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xf43s"]
+transparency = 1
+albedo_color = Color(0.835294, 1, 1, 0.352941)
+
+[sub_resource type="QuadMesh" id="QuadMesh_xlc0a"]
+material = SubResource("StandardMaterial3D_xf43s")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_62qgl"]
+size = Vector3(3.71777, 4.62073, 0.327393)
+
+[sub_resource type="Curve" id="Curve_ljrt2"]
+_limits = [-1.5, 1.5, 0.0, 3.0]
+_data = [Vector2(0, 5.96046e-08), 0.0, 0.0, 0, 0, Vector2(1.5, 0.75), 0.0, 0.0, 0, 0, Vector2(3, 5.96046e-08), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.933, 1.888, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(3.80917, 0, 0, 0, 4.99913, 0, 0, 0, 1, 0, 0, 0)
+material_overlay = SubResource("ShaderMaterial_sd2du")
+mesh = SubResource("QuadMesh_xlc0a")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.211609, -0.11438)
+shape = SubResource("BoxShape3D_62qgl")
+
+[node name="Cannon" parent="." instance=ExtResource("3_2j1nx")]
+transform = Transform3D(-0.347279, 0, -0.937762, 0, 1, 0, 0.937762, 0, -0.347279, -3.47066, 0.0925989, -2.79057)
+
+[node name="Tent" parent="." instance=ExtResource("4_wr6ej")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 4.40535, 1.24775, -5.92266)
+
+[node name="Tent2" parent="." instance=ExtResource("4_wr6ej")]
+transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
+
+[node name="hanging_ring" parent="." instance=ExtResource("4_xf43s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.792156, 1.34205, -0.25)
+movement_curve_y = SubResource("Curve_ljrt2")
+
+[node name="ring" parent="hanging_ring/target" index="0"]
+transform = Transform3D(0.866025, 0.5, 5.96045e-08, 0, -1.19209e-07, 1, 0.5, -0.866025, -1.03238e-07, 0, 0, 0)
+
+[node name="cloth" parent="hanging_ring/target" index="1"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 1, 0)
+
+[node name="hanging_ring_target_area" parent="hanging_ring/target" index="2"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
+
+[editable path="hanging_ring"]

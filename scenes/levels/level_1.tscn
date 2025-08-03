@@ -6,7 +6,6 @@
 [node name="Node3D" type="Node3D"]
 
 [node name="stick" parent="." instance=ExtResource("2_6761a")]
-rotation_speed = 0.0
 
 [node name="stick" parent="stick/parts" index="0"]
 transform = Transform3D(0.999999, 0.00032935, 0.00164277, 0.000460355, 0.888743, -0.458406, -0.00161097, 0.458406, 0.888742, 6.63761e-09, 0.2, -2.07983e-08)

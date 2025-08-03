@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3goto4itub5j"]
+[gd_scene load_steps=6 format=3 uid="uid://c2nl6njdu3xrh"]
 
 [ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_rsfbf"]
 [ext_resource type="PackedScene" uid="uid://dm3rl7ppcsd3w" path="res://scenes/hanging_ring.tscn" id="3_ajlgv"]
 [ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_sewkk"]
+
+[sub_resource type="Curve" id="Curve_gfuhv"]
+_limits = [-1.5, 1.5, 0.0, 6.0]
+_data = [Vector2(0, -0.3), 0.0, 0.0, 0, 0, Vector2(3, 0.3), 0.0, 0.0, 0, 0, Vector2(6, -0.3), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_r3i3p"]
+_limits = [-1.5, 1.5, 0.0, 6.0]
+_data = [Vector2(0, 0.3), 0.0, 0.0, 0, 0, Vector2(3, -0.3), 0.0, 0.0, 0, 0, Vector2(6, 0.3), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Node3D" type="Node3D"]
 
@@ -16,7 +26,12 @@ transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 
 transform = Transform3D(-0.408331, 0, -0.745677, 0, 0.850157, 0, 0.745677, 0, -0.408331, -3.88093, 0.778553, -6.26251)
 
 [node name="hanging_ring" parent="." instance=ExtResource("3_ajlgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0505016, 1.38778, -0.5301)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30621, -0.569313)
+
+[node name="hanging_ring3" parent="." instance=ExtResource("3_ajlgv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.57089, -0.0729818)
+movement_curve_x = SubResource("Curve_gfuhv")
 
 [node name="hanging_ring2" parent="." instance=ExtResource("3_ajlgv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0446422, 1.65704, 0.42729)
+movement_curve_x = SubResource("Curve_r3i3p")

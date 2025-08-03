@@ -82,8 +82,7 @@ func _find_closest_stick() -> Stick:
 				closest = stick
 				closest_dist = dist
 	return closest
-
-
+	
 func _physics_process(delta: float) -> void:
 	if not target_stick:
 		return
@@ -92,9 +91,8 @@ func _physics_process(delta: float) -> void:
 		var velocity = linear_velocity
 		velocity.y = 0
 		var clamped_velocity = clamp(velocity.length(), 0, speed_cap - 2.0) / (speed_cap - 2.0)
-		var x_diff = target_stick.get_child(0).global_position.x - global_position.x
+		var x_diff = -global_position.x
 		var direction = sign(x_diff)
-		print(lateral_force)
 		var force_strength = clamp(abs(x_diff) * clamped_velocity * lateral_force, 0.0, 200.0) * delta
 		apply_central_force(Vector3.RIGHT * direction * force_strength)
 
@@ -102,8 +100,9 @@ func _physics_process(delta: float) -> void:
 		if linear_velocity.length() > speed_cap:
 			linear_velocity = linear_velocity.normalized() * speed_cap
 			
-	
-	if in_stick and abs(global_position.y - target_stick.global_position.y) < 0.5 and not target_stick.completed:
+	var y_diff = global_position.y - target_stick.global_position.y
+	var diff_total = global_position.distance_to(target_stick.global_position)
+	if in_stick and not target_stick.completed and y_diff < 0.5 and y_diff > 0.15 and diff_total < 0.6:
 		play_random_scored_sound()
 		print("target_stick.completed: " + str(target_stick.completed))
 		print("🎯 Ring landed successfully on the stick!")

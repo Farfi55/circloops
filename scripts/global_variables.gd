@@ -11,3 +11,5 @@ var rings_thrown_total := 0
 var level_loaded_at_time := 0.0
 
 var savedata: Dictionary = {}
+
+@onready var level_container: Node3D = $"../Main/Game/LevelContainer"

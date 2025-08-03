@@ -4,21 +4,21 @@
 [ext_resource type="PackedScene" uid="uid://qiwr1xcjowk7" path="res://scenes/props/see_saw.tscn" id="2_07ctq"]
 [ext_resource type="PackedScene" uid="uid://dldjgu313sffr" path="res://scenes/props/tent.tscn" id="3_bl61q"]
 
-[sub_resource type="Curve" id="Curve_ntash"]
+[sub_resource type="Curve" id="Curve_805pq"]
 _limits = [-1.5, 1.5, 0.0, 6.0]
-_data = [Vector2(0, -1.5), 0.0, 0.0, 0, 0, Vector2(3, 5.96046e-08), 0.0, 0.0, 0, 0, Vector2(6, -1.5), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, -1.5), 0.0, 0.0, 0, 0, Vector2(3, 1.5), 0.0, 0.0, 0, 0, Vector2(6, -1.5), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="Curve" id="Curve_07ctq"]
 _limits = [-1.5, 1.5, 0.0, 6.0]
-_data = [Vector2(0, 0.3), 0.0, 0.0, 0, 0, Vector2(1.5, -0.3), 0.0, 0.0, 0, 0, Vector2(3, 0.3), 0.0, 0.0, 0, 0, Vector2(4.5, -0.3), 0.0, 0.0, 0, 0, Vector2(6, 0.3), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.3), 0.0, 0.0, 0, 0, Vector2(1.5, -0.3), 0.450722, 0.450722, 0, 0, Vector2(3, 0.3), 0.0, 0.0, 0, 0, Vector2(4.5, -0.3), -0.525993, -0.525993, 0, 0, Vector2(6, 0.3), 0.0, 0.0, 0, 0]
 point_count = 5
 
 [node name="Node3D" type="Node3D"]
 
 [node name="stick" parent="." instance=ExtResource("1_ntash")]
-movement_curve_x = SubResource("Curve_ntash")
+movement_curve_x = SubResource("Curve_805pq")
 movement_curve_z = SubResource("Curve_07ctq")
 
 [node name="stick" parent="stick/parts" index="0"]

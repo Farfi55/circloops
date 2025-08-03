@@ -52,7 +52,7 @@ radius = 0.0540252
 height = 0.458872
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa3w2"]
-albedo_color = Color(0.743008, 0.862269, 0.989978, 1)
+albedo_color = Color(0.613969, 0.775151, 0.952251, 1)
 albedo_texture = ExtResource("3_m8wf6")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_a8kk0"]
