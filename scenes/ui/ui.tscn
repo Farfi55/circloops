@@ -565,7 +565,7 @@ layout_mode = 2
 theme = ExtResource("4_pfayw")
 theme_override_constants/separation = 20
 
-[node name="StatsLabel" type="Label" parent="LevelSelector/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="LevelSelector/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_pfayw")
 text = "Select level"

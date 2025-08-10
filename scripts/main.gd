@@ -32,7 +32,8 @@ func _ready() -> void:
 	GlobalSignals.level_won.connect(_on_level_won)
 	GlobalSignals.level_opened.connect(_on_level_opened)
 	
-	populate_savedata()
+	# Load savedata
+	load_game()
 	
 	_unlock_levels()
 	
@@ -88,6 +89,7 @@ func _on_pause(state: bool) -> void:
 
 func _on_level_won() -> void:
 	_unlock_levels()
+	save_game()
 	canPause = false
 
 
@@ -127,3 +129,28 @@ func quit() -> void:
 func _on_quit() -> void:
 	# Save level state
 	quit()
+
+
+func save_game() -> void:
+	var file = FileAccess.open("user://savegame.dat", FileAccess.WRITE)
+	if file:
+		file.store_var(GlobalVariables.savedata)
+		file.close()
+		print("Game saved!")
+	else:
+		push_error("Could not save game!")
+
+
+func load_game() -> void:
+	if not FileAccess.file_exists("user://savegame.dat"):
+		print("No save file found, starting fresh.")
+		populate_savedata()
+		return
+	
+	var file = FileAccess.open("user://savegame.dat", FileAccess.READ)
+	if file:
+		GlobalVariables.savedata = file.get_var()
+		file.close()
+		print("Game loaded:", GlobalVariables.savedata)
+	else:
+		push_error("Could not load game!")
