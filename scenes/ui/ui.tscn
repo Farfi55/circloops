@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://db0yuxxpjun34"]
+[gd_scene load_steps=16 format=3 uid="uid://db0yuxxpjun34"]
 
 [ext_resource type="Script" uid="uid://btatrl7qc3msq" path="res://scenes/ui/ui_manager.gd" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
@@ -41,6 +41,24 @@ outline_size = 4
 shadow_size = 4
 shadow_color = Color(1, 1, 1, 1)
 shadow_offset = Vector2(-1, 4)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uegxj"]
+content_margin_left = 0.0
+content_margin_top = 40.0
+content_margin_right = 0.0
+content_margin_bottom = 15.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_y220t"]
+font = ExtResource("6_7vp6q")
+font_size = 100
+font_color = Color(0.546409, 3.85046e-07, 2.40654e-07, 1)
+outline_size = 4
+shadow_size = 4
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(-1, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kltc"]
+font_size = 50
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_f5cxw")
@@ -489,7 +507,19 @@ horizontal_alignment = 1
 [node name="NextLevel" parent="Winning/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 55
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uegxj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_uegxj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_uegxj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_uegxj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_uegxj")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uegxj")
 text = "NEXT LEVEL"
+
+[node name="ReplayLevel" parent="Winning/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "REPLAY LEVEL"
 
 [node name="MainMenu" parent="Winning/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
@@ -498,7 +528,6 @@ text = "MAIN MENU
 "
 
 [node name="LevelSelector" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -506,6 +535,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_pfayw")
+
+[node name="ColorRect" type="ColorRect" parent="LevelSelector"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_pfayw")
+color = Color(0, 0, 0, 0.341176)
 
 [node name="MarginContainer" type="MarginContainer" parent="LevelSelector"]
 layout_mode = 1
@@ -516,25 +556,35 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_pfayw")
 theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 100
+theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
+theme_override_constants/margin_bottom = 50
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LevelSelector/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("4_pfayw")
+theme_override_constants/separation = 20
+
+[node name="StatsLabel" type="Label" parent="LevelSelector/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_pfayw")
+text = "Select level"
+label_settings = ExtResource("5_jcn1r")
 
 [node name="ItemList" type="ItemList" parent="LevelSelector/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("4_pfayw")
 theme_override_colors/guide_color = Color(0, 0, 0, 0.294118)
-theme_override_constants/v_separation = 10
+theme_override_constants/v_separation = 20
+theme_override_constants/h_separation = 40
 theme_override_font_sizes/font_size = 36
 allow_search = false
 auto_width = true
 auto_height = true
 wraparound_items = false
+max_columns = 2
+same_column_width = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="LevelSelector/MarginContainer/VBoxContainer/ItemList"]
 stream = ExtResource("9_uegxj")
@@ -544,6 +594,50 @@ layout_mode = 2
 text = "BACK
 "
 alignment = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="LevelSelector"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.675
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.125
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_pfayw")
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelector/MarginContainer2"]
+layout_mode = 2
+theme = ExtResource("4_pfayw")
+theme_override_constants/separation = 15
+
+[node name="StatsLabel" type="Label" parent="LevelSelector/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_pfayw")
+text = "Stats"
+label_settings = SubResource("LabelSettings_y220t")
+
+[node name="LevelsCompletedLabel" type="Label" parent="LevelSelector/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_pfayw")
+text = "Levels Completed: 0"
+label_settings = SubResource("LabelSettings_4kltc")
+
+[node name="LoopsThrownLabel" type="Label" parent="LevelSelector/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_pfayw")
+text = "Loops Thrown: 0"
+label_settings = SubResource("LabelSettings_4kltc")
+
+[node name="TimeTakenLabel" type="Label" parent="LevelSelector/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_pfayw")
+text = "Time Taken: 0:00"
+label_settings = SubResource("LabelSettings_4kltc")
 
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
@@ -555,5 +649,6 @@ alignment = 0
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="Winning/MarginContainer/VBoxContainer/NextLevel" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="Winning/MarginContainer/VBoxContainer/ReplayLevel" to="." method="_on_replay_level_pressed"]
 [connection signal="pressed" from="Winning/MarginContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="LevelSelector/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

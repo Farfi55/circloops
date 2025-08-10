@@ -21,6 +21,10 @@ var _remaining_targets: int = _targets_in_level
 
 @export var unlock_all_levels = false
 
+# This is the number of levels that will be unlocked at the start and after each level completion.
+# i.e. if set to 2, the first two levels will be unlocked at the start, and after completing level 1, level 3 will be unlocked.
+var n_levels_to_unlock: int = 2
+
 func _ready() -> void:
 	GlobalSignals.pause.connect(_on_pause)
 	GlobalSignals.level_closed.connect(_on_level_closed)
@@ -30,8 +34,7 @@ func _ready() -> void:
 	
 	populate_savedata()
 	
-	# set first level unlocked
-	GlobalVariables.savedata[1][0] = true
+	_unlock_levels()
 	
 	GlobalSignals.successful_throw.connect(_successful_throw)
 
@@ -77,14 +80,30 @@ func _unhandled_input(event: InputEvent) -> void:
 			ui.show_gui()
 			
 
-func _on_pause(state:bool) -> void:
+func _on_pause(state: bool) -> void:
 	if state == true:
 		Engine.time_scale = TIME_SCALE_ZERO
 	else:
 		Engine.time_scale = TIME_SCALE
 
 func _on_level_won() -> void:
+	_unlock_levels()
 	canPause = false
+
+
+func _unlock_levels() -> void:
+	var remaining_to_unlock = n_levels_to_unlock
+
+	for level in GlobalVariables.savedata.keys():
+		if GlobalVariables.savedata[level][0] and GlobalVariables.savedata[level][1] == INF:
+			# If the level is already unlocked and has no time recorded, we count it as a level to unlock
+			remaining_to_unlock -= 1
+		elif not GlobalVariables.savedata[level][0]:
+			GlobalVariables.savedata[level][0] = true
+			remaining_to_unlock -= 1
+		if remaining_to_unlock <= 0:
+			break
+			
 
 func _on_level_closed():
 	isInGame = false

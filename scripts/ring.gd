@@ -77,7 +77,7 @@ func _find_closest_stick() -> Stick:
 		if stick is Stick:
 			if stick.completed:
 				continue
-			var dist := global_position.distance_to(stick.get_child(0).global_position)
+			var dist := global_position.distance_to(stick.moving_target.global_position)
 			if dist < closest_dist:
 				closest = stick
 				closest_dist = dist
@@ -100,8 +100,8 @@ func _physics_process(delta: float) -> void:
 		if linear_velocity.length() > speed_cap:
 			linear_velocity = linear_velocity.normalized() * speed_cap
 			
-	var y_diff = global_position.y - target_stick.global_position.y
-	var diff_total = global_position.distance_to(target_stick.global_position)
+	var y_diff = global_position.y - target_stick.moving_target.global_position.y
+	var diff_total = global_position.distance_to(target_stick.moving_target.global_position)
 	if in_stick and not target_stick.completed and y_diff < 0.5 and y_diff > 0.15 and diff_total < 0.6:
 		play_random_scored_sound()
 		print("target_stick.completed: " + str(target_stick.completed))

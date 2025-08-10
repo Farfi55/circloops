@@ -183,7 +183,7 @@ func _compute_gesture_spin_axis() -> Vector3:
 func _on_level_won():
 	can_spawn_next_ring = false
 	# remove current ring if it exists
-	if current_ring:
+	if current_ring and current_ring.flown_at_time == 0.0:
 		current_ring.visible = false
 		current_ring.freeze = true
 		current_ring.queue_free()

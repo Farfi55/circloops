@@ -18,11 +18,15 @@ extends CanvasLayer
 @onready var level_loader: Node = $"../LevelLoader"
 @onready var item_list: ItemList = $LevelSelector/MarginContainer/VBoxContainer/ItemList
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $LevelSelector/MarginContainer/VBoxContainer/ItemList/AudioStreamPlayer2D
+@onready var levels_completed_label: Label = $LevelSelector/MarginContainer2/VBoxContainer/LevelsCompletedLabel
+@onready var loops_thrown_label: Label = $LevelSelector/MarginContainer2/VBoxContainer/LoopsThrownLabel
+@onready var time_taken_label: Label = $LevelSelector/MarginContainer2/VBoxContainer/TimeTakenLabel
 
 @onready var next_level: Button = $Winning/MarginContainer/VBoxContainer/NextLevel
 
 @onready var music_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/MusicSlider
 @onready var sfx_slider: HSlider = $Settings/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/VBoxContainer/SFXSlider
+
 
 var lock_icon: Texture2D = preload("res://assets/icons/lock.tres")
 
@@ -109,6 +113,10 @@ func show_levels() -> void:
 	var keys = level_loader.levels.keys()
 	keys.sort()
 
+	var levels_completed = 0
+	var total_loops = 0
+	var total_time = 0.0
+
 	for key in keys:
 		var saved = GlobalVariables.savedata.get(key, [])
 		var unlocked = saved[0] == true
@@ -118,6 +126,9 @@ func show_levels() -> void:
 			if saved[1] == INF:
 				label_text += " — Uncompleted"
 			else:
+				levels_completed += 1
+				total_loops += saved[2]
+				total_time += saved[1]
 				var t = get_time_m_s(saved[1])
 				var time_str = "%02d:%02d" % [t[0], t[1]]
 				label_text += " — Time: %s — Loops: %s" % [time_str, saved[2]]
@@ -140,6 +151,13 @@ func show_levels() -> void:
 	
 	if not item_list.is_connected("item_selected", _on_level_selected):
 		item_list.item_selected.connect(_on_level_selected)
+		
+	
+	levels_completed_label.text = "Levels Completed: %d/%d" % [levels_completed, GlobalVariables.total_levels]
+	loops_thrown_label.text = "Loops Thrown: %d" % total_loops
+	var time_str = "%02d:%02d" % get_time_m_s(total_time)
+	time_taken_label.text = "Time Taken: %s" % time_str
+	
 
 func _on_item_list_mouse_entered() -> void:
 	print("en")
@@ -194,12 +212,8 @@ func _on_level_won() -> void:
 	var current_stats = GlobalVariables.savedata[GlobalVariables.current_level_num]
 	var best_time = min(current_stats[1], time_diff)
 	var best_rings = min(current_stats[2], GlobalVariables.rings_thrown_level)
-	
+
 	GlobalVariables.savedata[GlobalVariables.current_level_num] = [true, best_time, best_rings]
-	
-	print(GlobalVariables.current_level_num, GlobalVariables.total_levels)
-	if not completed_final_level:
-		GlobalVariables.savedata[GlobalVariables.current_level_num + 1][0] = true
 	
 	show_winning()
 
@@ -221,3 +235,14 @@ func _on_next_level_pressed() -> void:
 		GlobalSignals.level_opened.emit()
 		
 		label_current_level.text = "Level: " + str(GlobalVariables.current_level_num)
+
+func _on_replay_level_pressed() -> void:
+	if GlobalVariables.current_level != null:
+		GlobalSignals.level_closed.emit()
+		GlobalVariables.current_level.queue_free()
+	
+	show_gui()
+	GlobalVariables.current_level = level_loader.get_level(GlobalVariables.current_level_num)
+	GlobalSignals.level_opened.emit()
+	
+	label_current_level.text = "Level: " + str(GlobalVariables.current_level_num)

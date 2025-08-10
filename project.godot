@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Circloop"
-config/version="1.0"
+config/version="1.1"
 run/main_scene="uid://b81y76g7kncpr"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="uid://qqiw7rrpsw1w"
@@ -45,7 +45,8 @@ ui_esc={
 
 [physics]
 
-common/physics_ticks_per_second=100
+common/physics_ticks_per_second=120
+common/max_physics_steps_per_frame=10
 3d/physics_engine="Jolt Physics"
 jolt_physics_3d/simulation/areas_detect_static_bodies=true
 
