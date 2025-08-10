@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://db0yuxxpjun34"]
+[gd_scene load_steps=20 format=3 uid="uid://db0yuxxpjun34"]
 
 [ext_resource type="Script" uid="uid://btatrl7qc3msq" path="res://scenes/ui/ui_manager.gd" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
@@ -8,6 +8,9 @@
 [ext_resource type="LabelSettings" uid="uid://biyiiib2jor5r" path="res://assets/fonts/title_label.tres" id="5_jcn1r"]
 [ext_resource type="FontFile" uid="uid://bpg3c7w0r7fjq" path="res://assets/fonts/Carnevalee Freakshow/Carnevalee Freakshow.ttf" id="6_7vp6q"]
 [ext_resource type="Shader" path="res://scenes/retro_pixel.gdshader" id="6_pfayw"]
+[ext_resource type="Texture2D" uid="uid://caqehsl6sgkbo" path="res://assets/github-mark-white.png" id="7_4kltc"]
+[ext_resource type="Script" uid="uid://ogy5f52rf0fh" path="res://scripts/open_link.gd" id="8_hl07w"]
+[ext_resource type="Texture2D" uid="uid://dhv0g4wlinonv" path="res://assets/itchio-textless-white.svg" id="9_hl07w"]
 [ext_resource type="AudioStream" uid="uid://dgp785w7xe0sq" path="res://assets/sfx/mouseclick1.ogg" id="9_uegxj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
@@ -23,6 +26,10 @@ shader_parameter/use_overlay = true
 shader_parameter/use_lens_distortion = true
 shader_parameter/overlay_color = Color(1, 1, 1, 10)
 shader_parameter/lens_distortion_strength = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_swkix"]
+font_size = 38
+font_color = Color(0.964742, 0.964742, 0.964742, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5kmx"]
 shader = ExtResource("3_aac20")
@@ -91,10 +98,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 225.0
-offset_top = -25.0
-offset_right = 225.0
-offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_pfayw")
@@ -104,10 +107,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -225.0
-offset_top = 112.0
-offset_right = -225.0
-offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -152,6 +151,44 @@ layout_mode = 2
 focus_neighbor_top = NodePath(".")
 text = "QUIT"
 alignment = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.471
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = -118.0
+offset_right = 80.425
+offset_bottom = -19.0
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="GithubButton" type="TextureButton" parent="MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+texture_normal = ExtResource("7_4kltc")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("8_hl07w")
+url = "https://github.com/Farfi55/circloops"
+
+[node name="ItchButton" type="TextureButton" parent="MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+texture_normal = ExtResource("9_hl07w")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("8_hl07w")
+url = "https://farfi55.itch.io/circloops"
+
+[node name="Title2" type="Label" parent="MainMenu/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_pfayw")
+text = "Made by Alessio Farfaglia and Pasquale tudda
+for the gmtk 2025 game jam"
+label_settings = SubResource("LabelSettings_swkix")
 
 [node name="Settings" type="Control" parent="."]
 visible = false
@@ -528,6 +565,7 @@ text = "MAIN MENU
 "
 
 [node name="LevelSelector" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
