@@ -5,7 +5,7 @@ extends Control
 @onready var level_container: Node3D = $Game/LevelContainer
 @onready var ring_container: Node3D = $Game/RingContainer
 @onready var ui: CanvasLayer = $UI
-@onready var seconds_label: Label = $UI/GUI/MarginContainer/Seconds
+@onready var seconds_label: Label = $GUI/MarginContainer/HBoxContainer/Seconds
 @onready var level_timer: Timer = $Game/LevelTimer
 
 const TIME_SCALE: float = 1.0
@@ -32,6 +32,13 @@ func _ready() -> void:
 	GlobalSignals.level_won.connect(_on_level_won)
 	GlobalSignals.level_opened.connect(_on_level_opened)
 	
+	# this is used to get the shaders compiling at the start of the game
+	# so that it doesn't stutter later
+	$Game/WarmUpConfettiParticles.emitting
+	
+	
+	
+	
 	# Load savedata
 	load_game()
 	
@@ -40,6 +47,7 @@ func _ready() -> void:
 	GlobalSignals.successful_throw.connect(_successful_throw)
 
 	GlobalVariables.current_level = level_loader.get_level(1)
+	GlobalSignals.pause_button_pressed.connect(handle_toggle_pause)
 
 	ui.show_menu()
 
@@ -70,16 +78,19 @@ func _on_level_opened() -> void:
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_esc"):
-		if not isInGame:
-			quit()
-		elif not isPaused:
-			if canPause:
-				isPaused = true
-				ui.show_pause()
-		else:
-			isPaused = false
-			ui.show_gui()
+		handle_toggle_pause()
 			
+
+func handle_toggle_pause() -> void:
+	if isPaused:
+		isPaused = false
+		ui.show_gui()
+	else:
+		if canPause:
+			isPaused = true
+			ui.show_pause()
+		else:
+			push_warning("Cannot pause right now!")
 
 func _on_pause(state: bool) -> void:
 	if state == true:

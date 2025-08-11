@@ -11,13 +11,14 @@ extends CanvasLayer
 @onready var label_time: Label = $Winning/MarginContainer/VBoxContainer/LabelTime
 @onready var label_loops: Label = $Winning/MarginContainer/VBoxContainer/LabelLoops
 @onready var label_game_completed: Label = $Winning/MarginContainer/VBoxContainer/LabelGameCompleted
-@onready var label_current_level: Label = $GUI/MarginContainer/Level
-@onready var label_current_seconds: Label = $GUI/MarginContainer/Seconds
+@onready var label_current_level: Label = $GUI/MarginContainer/HBoxContainer/Level
+@onready var label_current_seconds: Label = $GUI/MarginContainer/HBoxContainer/Seconds
+@onready var pause_button: TextureButton = $GUI/MarginContainer/HBoxContainer/PauseButton
+
 
 @onready var level_selector: Control = $LevelSelector
 @onready var level_loader: Node = $"../LevelLoader"
-@onready var item_list: ItemList = $LevelSelector/MarginContainer/VBoxContainer/ItemList
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $LevelSelector/MarginContainer/VBoxContainer/ItemList/AudioStreamPlayer2D
+@onready var grid_container: GridContainer = $LevelSelector/MarginContainer/VBoxContainer/GridContainer
 @onready var levels_completed_label: Label = $LevelSelector/MarginContainer2/VBoxContainer/LevelsCompletedLabel
 @onready var loops_thrown_label: Label = $LevelSelector/MarginContainer2/VBoxContainer/LoopsThrownLabel
 @onready var time_taken_label: Label = $LevelSelector/MarginContainer2/VBoxContainer/TimeTakenLabel
@@ -40,6 +41,7 @@ func _ready() -> void:
 	music_slider.value = AudioServer.get_bus_volume_linear(music_bus)
 	sfx_slider.value = AudioServer.get_bus_volume_linear(sfx_bus)
 	GlobalSignals.level_won.connect(_on_level_won)
+	
 
 func _process(delta: float) -> void:
 	if inGame:
@@ -104,22 +106,32 @@ func show_level_selector() -> void:
 	level_selector.visible = true
 	bg.visible = true
 
+
 func show_levels() -> void:
-	item_list.clear()
-	item_list.icon_mode = ItemList.ICON_MODE_LEFT
-	item_list.fixed_icon_size = Vector2i(24, 24)
-	item_list.icon_scale = 1.0
+	for child in grid_container.get_children():
+		child.queue_free()
 
 	var keys = level_loader.levels.keys()
 	keys.sort()
+
+	
+	grid_container.columns = 2
+	var rows := ceili(GlobalVariables.total_levels / 2)
+
+	var reordered_keys: Array = []
+	for row in range(rows):
+		for col in range(grid_container.columns):
+			var idx := col * rows + row
+			if idx < keys.size():
+				reordered_keys.append(keys[idx])
 
 	var levels_completed = 0
 	var total_loops = 0
 	var total_time = 0.0
 
-	for key in keys:
+	for key in reordered_keys:
 		var saved = GlobalVariables.savedata.get(key, [])
-		var unlocked = saved[0] == true
+		var unlocked = saved.size() > 0 and saved[0] == true
 		var label_text := "Level %s" % key
 
 		if unlocked:
@@ -135,36 +147,29 @@ func show_levels() -> void:
 		else:
 			label_text += " — Locked"
 
-		var icon_used
+		var btn = Button.new()
+		btn.text = label_text
+		btn.icon = null if unlocked else lock_icon
+		btn.disabled = not unlocked
+		btn.expand_icon = false
+		btn.add_theme_constant_override("icon_max_width", 30)
+		btn.custom_minimum_size = Vector2(480, 60)
 		
-		if unlocked:
-			icon_used = null
-		else:
-			icon_used = lock_icon
-		
-		var idx = item_list.add_item(label_text, icon_used)
-		item_list.set_item_disabled(idx, not unlocked)
-		item_list.set_item_metadata(idx, key)
-	
-	#if not item_list.is_connected("item_selected", _on_item_list_mouse_entered):
-	#	item_list.item_clicked.connect(_on_item_list_mouse_entered)
-	
-	if not item_list.is_connected("item_selected", _on_level_selected):
-		item_list.item_selected.connect(_on_level_selected)
-		
-	
+
+		btn.pressed.connect(func():
+			_on_level_selected(key)
+		)
+
+		grid_container.add_child(btn)
+
+	# Stats
 	levels_completed_label.text = "Levels Completed: %d/%d" % [levels_completed, GlobalVariables.total_levels]
 	loops_thrown_label.text = "Loops Thrown: %d" % total_loops
 	var time_str = "%02d:%02d" % get_time_m_s(total_time)
 	time_taken_label.text = "Time Taken: %s" % time_str
-	
 
-func _on_item_list_mouse_entered() -> void:
-	print("en")
-	audio_stream_player_2d.play()
-	
-func _on_level_selected(selected_idx: int) -> void:
-	var level_key = item_list.get_item_metadata(selected_idx)
+
+func _on_level_selected(level_key: int) -> void:
 	GlobalVariables.current_level = level_loader.get_level(level_key)
 	GlobalVariables.current_level_num = level_key
 	
@@ -176,7 +181,7 @@ func _on_play_pressed() -> void:
 	#GlobalSignals.new_game.emit()
 
 func _on_continue_pressed() -> void:
-	show_gui()
+	GlobalSignals.pause_button_pressed.emit()
 
 func _on_main_menu_pressed() -> void:
 	show_menu()
@@ -246,3 +251,7 @@ func _on_replay_level_pressed() -> void:
 	GlobalSignals.level_opened.emit()
 	
 	label_current_level.text = "Level: " + str(GlobalVariables.current_level_num)
+
+
+func _on_pause_button_pressed() -> void:
+	GlobalSignals.pause_button_pressed.emit()

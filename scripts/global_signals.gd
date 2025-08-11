@@ -8,6 +8,7 @@ signal ring_thrown(ring: Ring)
 
 # UI
 signal pause(state: bool)
+signal pause_button_pressed
 signal level_opened
 signal level_closed
 signal level_won

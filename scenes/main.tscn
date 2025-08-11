@@ -56,6 +56,12 @@ light_indirect_energy = 0.788
 shadow_enabled = true
 sky_mode = 1
 
+[node name="WarmUpConfettiParticles" parent="Game" instance=ExtResource("6_a8y0u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+delay = 0.0
+play_on_level_won = false
+
 [node name="ConfettiParticles1" parent="Game" instance=ExtResource("6_a8y0u")]
 transform = Transform3D(0.928733, 0.369515, -0.0302448, -0.353688, 0.858574, -0.371155, -0.11118, 0.355401, 0.928078, -2.91591, 0.941069, -5.69418)
 delay = 0.2
@@ -86,5 +92,7 @@ parameters/looping = true
 stream = ExtResource("9_85g3d")
 bus = &"SFX"
 script = ExtResource("11_ya4ey")
+
+[connection signal="finished" from="Game/WarmUpConfettiParticles" to="Game/WarmUpConfettiParticles" method="queue_free"]
 
 [editable path="Game/Player"]

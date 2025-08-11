@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://db0yuxxpjun34"]
+[gd_scene load_steps=21 format=3 uid="uid://db0yuxxpjun34"]
 
 [ext_resource type="Script" uid="uid://btatrl7qc3msq" path="res://scenes/ui/ui_manager.gd" id="1_f5cxw"]
 [ext_resource type="PackedScene" uid="uid://cb5spn5kjos4c" path="res://scenes/ui/menu_button.tscn" id="1_u7n8c"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://caqehsl6sgkbo" path="res://assets/github-mark-white.png" id="7_4kltc"]
 [ext_resource type="Script" uid="uid://ogy5f52rf0fh" path="res://scripts/open_link.gd" id="8_hl07w"]
 [ext_resource type="Texture2D" uid="uid://dhv0g4wlinonv" path="res://assets/itchio-textless-white.svg" id="9_hl07w"]
+[ext_resource type="AudioStream" uid="uid://dgp785w7xe0sq" path="res://assets/sfx/mouseclick1.ogg" id="9_uegxj"]
 [ext_resource type="Texture2D" uid="uid://dty71o6wfabtn" path="res://assets/icons/pause-white.svg" id="11_swkix"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfayw"]
@@ -627,9 +628,27 @@ label_settings = ExtResource("5_jcn1r")
 
 [node name="GridContainer" type="GridContainer" parent="LevelSelector/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 50
-theme_override_constants/v_separation = 15
+theme_override_constants/h_separation = 46
+theme_override_constants/v_separation = 30
 columns = 2
+
+[node name="ItemList" type="ItemList" parent="LevelSelector/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_pfayw")
+theme_override_colors/guide_color = Color(0, 0, 0, 0.294118)
+theme_override_constants/v_separation = 20
+theme_override_constants/h_separation = 40
+theme_override_font_sizes/font_size = 36
+allow_search = false
+auto_width = true
+auto_height = true
+wraparound_items = false
+max_columns = 2
+same_column_width = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="LevelSelector/MarginContainer/VBoxContainer/ItemList"]
+stream = ExtResource("9_uegxj")
 
 [node name="Back" parent="LevelSelector/MarginContainer/VBoxContainer" instance=ExtResource("1_u7n8c")]
 layout_mode = 2
